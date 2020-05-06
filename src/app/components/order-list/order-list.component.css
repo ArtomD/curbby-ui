@@ -1,0 +1,15 @@
+mat-panel-title{
+    max-width:200px;
+}
+
+mat-checkbox{
+    margin-right: 10px;    
+}
+
+button{
+    margin: 10px;
+}
+
+.buttons{
+    margin-bottom: 20px;
+}
