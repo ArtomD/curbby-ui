@@ -21,7 +21,7 @@ export class SettingsComponent implements OnInit {
 
   subscribers :Subscriber[] = [];
   
-  displayedColumnsSubs: string[] = ['name', 'status', 'phone', 'edit'];
+  displayedColumnsSubs: string[] = ['name', 'status', 'phone', 'edit', 'delete'];
   dataSourceSubs;
 
   constructor(public server: BackendServerService, public dialog: MatDialog) { 
@@ -29,9 +29,10 @@ export class SettingsComponent implements OnInit {
     this.server.template_dataChange.subscribe(value => {      
       this.synchTemplateObject();
     })
+    this.synchSubscriberObject();
+    console.log(this.subscribers);
     this.server.subscriber_dataChange.subscribe(value => {      
-      this.subscribers = this.server.subscriber_data;
-      this.dataSourceSubs =  this.subscribers;
+      this.synchSubscriberObject();
     })
 
   }
@@ -42,6 +43,11 @@ export class SettingsComponent implements OnInit {
 
   refresh(){
     this.server.getTemplates();
+  }
+
+  synchSubscriberObject(){
+    this.subscribers = this.server.subscriber_data;
+    this.dataSourceSubs =  this.subscribers;
   }
 
   synchTemplateObject(){
@@ -79,10 +85,20 @@ export class SettingsComponent implements OnInit {
 
   openModal(element: Subscriber){
     const dialogRef = this.dialog.open(EditSubscriberComponent, {
-      width: '250px',
+      width: '450px',
+      height: '280px',
       data:element,
     });
     
+  }
+
+  delete(element: Subscriber){
+
+  }
+
+  update(element: Subscriber){
+    console.log("HERE");
+    this.server.updateSubscribers(element);
   }
 
 }

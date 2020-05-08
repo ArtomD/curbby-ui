@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import {Subscriber} from '../../../models/subscriber'
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { BackendServerService } from 'src/app/services/backend-server.service';
 
 @Component({
   selector: 'app-edit-subscriber',
@@ -12,21 +13,29 @@ export class EditSubscriberComponent implements OnInit {
 
   selected: Subscriber;
 
+  temp: Subscriber = <Subscriber>{};
+
   constructor(
     public dialogRef: MatDialogRef<EditSubscriberComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Subscriber) {
+    @Inject(MAT_DIALOG_DATA) public data: Subscriber,
+    public server: BackendServerService) {
       this.selected = data;
+      this.temp.name = this.selected.name;
+      this.temp.phone = this.selected.phone;
       console.log(data);
     }
 
   ngOnInit(): void {
   }
 
-  delete(){
-
-  }
+  cancel(){
+    this.dialogRef.close();
+  }  
 
   save(){
-
+    this.selected.name = this.temp.name;
+    this.selected.phone = this.temp.phone;
+    this.server.updateSubscribers(this.selected);
+    this.dialogRef.close();
   }
 }

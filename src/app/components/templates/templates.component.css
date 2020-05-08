@@ -16,3 +16,10 @@ textarea{
     font-size: large;
     margin:8px;
 }
+
+.opened{
+    background: darkgray;
+}
+
+.closed{
+}

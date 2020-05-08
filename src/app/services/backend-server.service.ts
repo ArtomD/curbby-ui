@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {SERVER_URL, GET_ORDER_PATH, GET_TEMPLATE_PATH, UPDATE_TEMPLATE_PATH, GET_SUBSCRIBERS_PATH} from '../models/settings'
+import {SERVER_URL, GET_ORDER_PATH, GET_TEMPLATE_PATH, UPDATE_TEMPLATE_PATH, GET_SUBSCRIBERS_PATH, UPDATE_SUBSCRIBERS_PATH, CREATE_SUBSCRIBERS_PATH} from '../models/settings'
 import { timer, Subject } from 'rxjs';
 import {mock_order} from '../models/mock_models/order'
 import {mock_template} from '../models/mock_models/template'
 import {mock_subscriber} from '../models/mock_models/subscriber'
+import { Subscriber } from '../models/subscriber';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ import {mock_subscriber} from '../models/mock_models/subscriber'
 export class BackendServerService {
 
   
-  public live : boolean = false;
+  public live : boolean = true;
   public useShop : boolean = false;
 
   public order_data: any = [];
@@ -99,7 +100,7 @@ export class BackendServerService {
           observe: 'response',
           withCredentials: false
         }).subscribe((result) => {
-          this.subscriber_data = result.body["templates"];
+          this.subscriber_data = result.body["subscriber"];
           this.subscriber_dataChange.next(this.subscriber_data);
           resolve();
         }, error => {        
@@ -109,6 +110,38 @@ export class BackendServerService {
       this.subscriber_data = mock_subscriber.subscriber;
       this.subscriber_dataChange.next(this.subscriber_data);
       return mock_subscriber;
+    }
+  }
+
+  updateSubscribers(subscriber: Subscriber){
+    if(this.live){
+      console.log(subscriber);
+      return new Promise((resolve) => {
+        this.http.post(SERVER_URL + UPDATE_SUBSCRIBERS_PATH, {shop:this.shop, subscriber_data:subscriber,signature:this.signature}, {
+          observe: 'response',
+          withCredentials: false
+        }).subscribe((result) => {
+          console.log(result);
+          resolve();
+        }, error => {        
+        })
+      });
+    }else{
+    }
+  }
+
+  createSubscribers(subscriber: Subscriber){
+    if(this.live){
+      return new Promise((resolve) => {      
+        this.http.post(SERVER_URL + CREATE_SUBSCRIBERS_PATH, {shop:this.shop, subscriber_data:subscriber,signature:this.signature}, {
+          observe: 'response',
+          withCredentials: false
+        }).subscribe((result) => {
+          resolve();
+        }, error => {        
+        })
+      });
+    }else{
     }
   }
 

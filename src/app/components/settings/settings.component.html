@@ -34,8 +34,8 @@
     
           <textarea [(ngModel)]="orderConfirm.tempBody"></textarea>
     
+          <button [ngClass]="orderConfirm.tempBody === orderConfirm.body? 'opened' : 'closed'" class="button" mat-flat-button color="warn" (click)="cancelConfirm()">Revert</button>
           <button class="button" mat-flat-button color="primary" (click)="saveConfirm()">Save</button>
-          <button class="button" mat-flat-button color="primary" (click)="cancelConfirm()">Cancel</button>
         </mat-expansion-panel>
     </mat-accordion>
 </div>
@@ -52,8 +52,9 @@
     
           <textarea [(ngModel)]="orderRdy.tempBody"></textarea>
     
+          <button [ngClass]="orderRdy.tempBody === orderRdy.body? 'opened' : 'closed'" class="button" mat-flat-button color="warn" (click)="cancelRdy()">Revert</button>
           <button class="button" mat-flat-button color="primary" (click)="saveRdy()">Save</button>
-          <button class="button" mat-flat-button color="primary" (click)="cancelRdy()">Cancel</button>
+
         </mat-expansion-panel>
     </mat-accordion>
 
@@ -77,9 +78,9 @@
       </ng-container>
   
       <ng-container matColumnDef="status">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> <B>Allow Response</B> </th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> <B>Active</B> </th>
           <td mat-cell *matCellDef="let element"> 
-            <mat-slide-toggle [(ngModel)]="element.allowResponse"></mat-slide-toggle>
+            <mat-slide-toggle [(ngModel)]="element.active" (click)="update(element)"></mat-slide-toggle>
           </td>          
       </ng-container>
   
@@ -94,6 +95,13 @@
           <button mat-flat-button color="primary" (click)="openModal(element)">Edit</button>
         </td>
     </ng-container>
+
+    <ng-container matColumnDef="delete">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> </th>
+      <td mat-cell *matCellDef="let element"> 
+        <button mat-flat-button color="warn" (click)="delete(element)">Delete</button>
+      </td>
+  </ng-container>
   
       <tr mat-header-row *matHeaderRowDef="displayedColumnsSubs"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumnsSubs;">

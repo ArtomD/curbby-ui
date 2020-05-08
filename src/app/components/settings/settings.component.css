@@ -35,3 +35,10 @@ textarea{
 mat-slide-toggle{
     margin:10px;
 }
+
+.opened{
+    background: darkgray;
+}
+
+.closed{
+}
