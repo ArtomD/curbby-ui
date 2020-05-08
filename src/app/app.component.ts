@@ -24,6 +24,7 @@ export class AppComponent {
         this.server.getOrders();
         this.server.getTemplates();
         this.server.getSubscribers();
+        this.server.getShopDetails();
       });
     }else{
       this.server.shop = mock_shop;
@@ -31,6 +32,7 @@ export class AppComponent {
       this.server.getOrders();
       this.server.getTemplates();
       this.server.getSubscribers();
+      this.server.getShopDetails();
     }
   }
 

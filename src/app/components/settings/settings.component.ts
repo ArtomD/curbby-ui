@@ -1,10 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import {mock_stats} from '../../models/mock_models/stats'
 import { Template } from '../../models/template';
 import {Subscriber} from '../../models/subscriber'
 import { BackendServerService } from 'src/app/services/backend-server.service';
 import { EditSubscriberComponent } from './edit-subscriber/edit-subscriber.component';
 import { MatDialog } from '@angular/material/dialog';
+import { ConfirmPopupComponent } from '../confirm-popup/confirm-popup.component';
+import { ShopDetails } from 'src/app/models/shop-details';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-settings',
@@ -19,20 +22,26 @@ export class SettingsComponent implements OnInit {
   orderConfirm : Template = {id:0,shopId:0,created:new Date(), modified:new Date(), body:"",tempBody:"",name:"",type:""};
   orderRdy : Template = {id:0,shopId:0,created:new Date(), modified:new Date(), body:"",tempBody:"",name:"",type:""};
 
+  shop_details : ShopDetails;
+
   subscribers :Subscriber[] = [];
   
   displayedColumnsSubs: string[] = ['name', 'status', 'phone', 'edit', 'delete'];
-  dataSourceSubs;
+  dataSourceSubs = new MatTableDataSource<Subscriber>();
 
-  constructor(public server: BackendServerService, public dialog: MatDialog) { 
+  constructor(public server: BackendServerService, public dialog: MatDialog,private changeDetectorRefs: ChangeDetectorRef) { 
+    console.log(this.shop_details);
     this.synchTemplateObject();
     this.server.template_dataChange.subscribe(value => {      
       this.synchTemplateObject();
     })
     this.synchSubscriberObject();
-    console.log(this.subscribers);
     this.server.subscriber_dataChange.subscribe(value => {      
       this.synchSubscriberObject();
+    })
+    this.synchShopDetailsObject();
+    this.server.shop_details_dataChange.subscribe(value => {      
+      this.synchShopDetailsObject();
     })
 
   }
@@ -45,9 +54,13 @@ export class SettingsComponent implements OnInit {
     this.server.getTemplates();
   }
 
+  synchShopDetailsObject(){
+    this.shop_details = this.server.shop_details_data;
+  }
+
   synchSubscriberObject(){
     this.subscribers = this.server.subscriber_data;
-    this.dataSourceSubs =  this.subscribers;
+    this.dataSourceSubs.data =  this.subscribers;
   }
 
   synchTemplateObject(){
@@ -92,12 +105,48 @@ export class SettingsComponent implements OnInit {
     
   }
 
-  delete(element: Subscriber){
-
+  create(){
+    const dialogRef = this.dialog.open(EditSubscriberComponent, {
+      width: '450px',
+      height: '280px',
+      data:<Subscriber>{},
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.dataSourceSubs.data = this.subscribers;
+    });   
   }
 
-  update(element: Subscriber){
-    console.log("HERE");
+  delete(element: Subscriber){
+
+    const dialogRef = this.dialog.open(ConfirmPopupComponent, {
+      width: '400px',
+      height: '160px',
+      data:"Delete subscriber " + element.name + "?",
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result){
+        this.server.deleteSubscriber(element);
+        this.subscribers.splice(this.subscribers.findIndex(x=>x.id === element.id),1);
+        this.dataSourceSubs.data = this.subscribers;
+        this.server.subscriber_data = this.subscribers;
+        this.server.subscriber_dataChange.next(this.server.subscriber_data);
+        this.changeDetectorRefs.detectChanges();
+      }
+    });    
+  }
+
+  sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  async updateShopDetails(){
+    await this.sleep(200);
+    this.server.updateShopDetails(this.shop_details);
+  }
+
+  async updateSubscriber(element: Subscriber){
+    await this.sleep(200);
     this.server.updateSubscribers(element);
   }
 

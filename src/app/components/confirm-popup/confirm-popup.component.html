@@ -1,0 +1,5 @@
+<div id="text" *ngIf="popupText">
+{{popupText}}
+</div>
+<button id="cancelButton" mat-flat-button color="warn" [mat-dialog-close]="false">Cancel</button>
+<button id="confirmButton" mat-flat-button color="primary" [mat-dialog-close]="true">Confirm</button>

@@ -6,5 +6,5 @@ export interface Subscriber {
   phone: number;
   name: string;
   allowResponse: boolean;
-  active: boolean;  
+  active: boolean;
   }

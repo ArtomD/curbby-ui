@@ -1,11 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {SERVER_URL, GET_ORDER_PATH, GET_TEMPLATE_PATH, UPDATE_TEMPLATE_PATH, GET_SUBSCRIBERS_PATH, UPDATE_SUBSCRIBERS_PATH, CREATE_SUBSCRIBERS_PATH} from '../models/settings'
+import {SERVER_URL, GET_ORDER_PATH, GET_TEMPLATE_PATH, UPDATE_TEMPLATE_PATH, 
+        GET_SUBSCRIBERS_PATH, UPDATE_SUBSCRIBERS_PATH, CREATE_SUBSCRIBERS_PATH, DELETE_SUBSCRIBERS_PATH,
+        GET_SHOP_DETAILS_PATH, UPDATE_SHOP_DETAILS_PATH, GET_CONVERSATION_PATH,
+        SEND_SMS_PATH, SEND_BATCH_SMS_PATH} from '../models/settings'
 import { timer, Subject } from 'rxjs';
 import {mock_order} from '../models/mock_models/order'
 import {mock_template} from '../models/mock_models/template'
 import {mock_subscriber} from '../models/mock_models/subscriber'
+import {mock_shop_details} from '../models/mock_models/shop-details'
 import { Subscriber } from '../models/subscriber';
+import { ShopDetails } from '../models/shop-details';
 
 @Injectable({
   providedIn: 'root'
@@ -17,14 +22,16 @@ export class BackendServerService {
   public useShop : boolean = false;
 
   public order_data: any = [];
-  order_dataChange: Subject<any> = new Subject<any>();
+  public order_dataChange: Subject<any> = new Subject<any>();
 
   public template_data: any = [];
-  template_dataChange: Subject<any> = new Subject<any>();
+  public template_dataChange: Subject<any> = new Subject<any>();
 
   public subscriber_data: any = [];
-  subscriber_dataChange: Subject<any> = new Subject<any>();
+  public subscriber_dataChange: Subject<any> = new Subject<any>();
 
+  public shop_details_data: any = {};
+  public shop_details_dataChange: Subject<any> = new Subject<any>();
 
   public signature : any;
   public shop : any;
@@ -115,13 +122,11 @@ export class BackendServerService {
 
   updateSubscribers(subscriber: Subscriber){
     if(this.live){
-      console.log(subscriber);
       return new Promise((resolve) => {
         this.http.post(SERVER_URL + UPDATE_SUBSCRIBERS_PATH, {shop:this.shop, subscriber_data:subscriber,signature:this.signature}, {
           observe: 'response',
           withCredentials: false
         }).subscribe((result) => {
-          console.log(result);
           resolve();
         }, error => {        
         })
@@ -130,7 +135,7 @@ export class BackendServerService {
     }
   }
 
-  createSubscribers(subscriber: Subscriber){
+  createSubscriber(subscriber: Subscriber){
     if(this.live){
       return new Promise((resolve) => {      
         this.http.post(SERVER_URL + CREATE_SUBSCRIBERS_PATH, {shop:this.shop, subscriber_data:subscriber,signature:this.signature}, {
@@ -145,6 +150,60 @@ export class BackendServerService {
     }
   }
 
+  deleteSubscriber(subscriber: Subscriber){
+    if(this.live){
+      return new Promise((resolve) => {      
+        this.http.post(SERVER_URL + DELETE_SUBSCRIBERS_PATH, {shop:this.shop, subscriber_data:subscriber,signature:this.signature}, {
+          observe: 'response',
+          withCredentials: false
+        }).subscribe((result) => {
+          resolve();
+        }, error => {        
+        })
+      });
+    }else{
+    }
+  }
+
+  getShopDetails(){
+    if(this.live){
+      return new Promise((resolve) => {      
+        this.http.post(SERVER_URL + GET_SHOP_DETAILS_PATH, {shop:this.shop, signature:this.signature}, {
+          observe: 'response',
+          withCredentials: false
+        }).subscribe((result) => {
+          this.shop_details_data = result.body["shop"];
+          this.shop_details_dataChange.next(this.shop_details_data);
+          resolve();
+        }, error => {        
+        })
+      });
+    }else{
+      this.shop_details_data = mock_shop_details.shop;
+      this.shop_details_dataChange.next(this.shop_details_data);
+      return mock_shop_details;
+    }
+  }
+
+  updateShopDetails(shop_details: ShopDetails){
+    if(this.live){
+      return new Promise((resolve) => {      
+        this.http.post(SERVER_URL + UPDATE_SHOP_DETAILS_PATH, {shop:this.shop, shop_data:shop_details, signature:this.signature}, {
+          observe: 'response',
+          withCredentials: false
+        }).subscribe((result) => {
+          this.shop_details_data = result.body["shop"];
+          this.shop_details_dataChange.next(this.shop_details_data);
+          resolve();
+        }, error => {        
+        })
+      });
+    }else{
+      this.shop_details_data = mock_shop_details.shop;
+      this.shop_details_dataChange.next(this.shop_details_data);
+      return mock_shop_details;
+    }
+  }
 
 
 }

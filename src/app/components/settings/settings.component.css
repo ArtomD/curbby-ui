@@ -16,21 +16,29 @@ mat-panel-title{
 }
 
 textarea{
-    width:100%;
+    width:90%;
     height:50px;
     font-size: large;
-    margin:8px;
+    margin:10px 5% 10px 5%;
 }
 
-.button{
-    display: inline;
-    width: -webkit-fill-available;
-    max-width: 300px;
-    margin:12px 70px 20px 70px;
+.buttonCancel{
+    float: left;
+    width: 30%;
+    margin:12px 20px 20px 10%;
+}
+.buttonConfirm{
+    float: right;
+    width: 30%;
+    margin:12px 10% 20px 20px;
+}
+.buttonArea{
+
 }
 
 .input-div{
-    margin:25px 10px 25px 10px
+    margin:25px 10px 25px 10px;
+    clear: both;
 }
 mat-slide-toggle{
     margin:10px;
@@ -41,4 +49,13 @@ mat-slide-toggle{
 }
 
 .closed{
+}
+
+#createButton{
+    float:right;
+    margin-top: 5px;
+}
+#divider{
+    margin:10px;
+    clear:both;
 }

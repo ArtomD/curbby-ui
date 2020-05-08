@@ -21,49 +21,38 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
 
-  <div class="input-div">
-    <mat-slide-toggle>Send Order Confirmation</mat-slide-toggle>
-
-    <mat-accordion class="example-headers-align" *ngIf="orderConfirm">
-        <mat-expansion-panel >
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              {{orderConfirm.name}}
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-    
-          <textarea [(ngModel)]="orderConfirm.tempBody"></textarea>
-    
-          <button [ngClass]="orderConfirm.tempBody === orderConfirm.body? 'opened' : 'closed'" class="button" mat-flat-button color="warn" (click)="cancelConfirm()">Revert</button>
-          <button class="button" mat-flat-button color="primary" (click)="saveConfirm()">Save</button>
-        </mat-expansion-panel>
-    </mat-accordion>
+<div class="input-div">
+  <mat-slide-toggle [(ngModel)]="shop_details.autoConfirmOrders" (click)="updateShopDetails()" *ngIf="shop_details">Send Order Confirmation</mat-slide-toggle>
+  <div [hidden]="!shop_details.autoConfirmOrders" *ngIf="orderConfirm">
+    <mat-panel-title>
+      {{orderConfirm.name}}
+    </mat-panel-title>    
+    <textarea [(ngModel)]="orderConfirm.tempBody"></textarea>
+    <div id="buttonArea">
+      <button [ngClass]="orderConfirm.tempBody === orderConfirm.body? 'opened' : 'closed'" class="buttonCancel" mat-flat-button color="warn" (click)="cancelConfirm()">Revert</button>
+      <button class="buttonConfirm" mat-flat-button color="primary" (click)="saveConfirm()">Save</button>
+    </div>
+  </div>
 </div>
 <div class="input-div">
-    <mat-divider></mat-divider>
-    <mat-slide-toggle>Send Order Ready for Pickup</mat-slide-toggle>
-    <mat-accordion class="example-headers-align" *ngIf="orderRdy">
-        <mat-expansion-panel >
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              {{orderRdy.name}}
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-    
-          <textarea [(ngModel)]="orderRdy.tempBody"></textarea>
-    
-          <button [ngClass]="orderRdy.tempBody === orderRdy.body? 'opened' : 'closed'" class="button" mat-flat-button color="warn" (click)="cancelRdy()">Revert</button>
-          <button class="button" mat-flat-button color="primary" (click)="saveRdy()">Save</button>
-
-        </mat-expansion-panel>
-    </mat-accordion>
-
-    <mat-form-field>
-        <input matInput>
-    </mat-form-field>
+  <mat-slide-toggle [(ngModel)]="shop_details.autoReadyForPickup" (click)="updateShopDetails()" *ngIf="shop_details">Send Order Ready for Pickup</mat-slide-toggle>
+  <div [hidden]="!shop_details.autoReadyForPickup" *ngIf="orderRdy">
+    <mat-panel-title>
+      {{orderRdy.name}}
+    </mat-panel-title>
+    <textarea [(ngModel)]="orderRdy.tempBody"></textarea>
+    <div>
+      <button [ngClass]="orderRdy.tempBody === orderRdy.body? 'opened' : 'closed'" class="buttonCancel" mat-flat-button color="warn" (click)="cancelRdy()">Revert</button>
+      <button class="buttonConfirm" mat-flat-button color="primary" (click)="saveRdy()">Save</button>
+    </div>
+  </div>
+  <div id="divider"></div>
 </div>
+<div id="divider"></div>
 <div class="input-div">
-    <mat-slide-toggle>Forward Customer Messages</mat-slide-toggle>
+    <mat-slide-toggle [(ngModel)]="shop_details.forwardCustomerMessages" (click)="updateShopDetails()" *ngIf="shop_details">Forward Customer Messages</mat-slide-toggle>
+
+    <button id="createButton" mat-flat-button color="primary" (click)="create()">New Subscriber</button>
     
     <table mat-table [dataSource]="dataSourceSubs" matSort *ngIf="server.subscriber_data?.length > 0"
       class="mat-elevation-z8 example-container">
@@ -80,7 +69,7 @@
       <ng-container matColumnDef="status">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> <B>Active</B> </th>
           <td mat-cell *matCellDef="let element"> 
-            <mat-slide-toggle [(ngModel)]="element.active" (click)="update(element)"></mat-slide-toggle>
+            <mat-slide-toggle [(ngModel)]="element.active" (click)="updateSubscriber(element)"></mat-slide-toggle>
           </td>          
       </ng-container>
   

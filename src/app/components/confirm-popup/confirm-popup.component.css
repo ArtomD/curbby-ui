@@ -1,0 +1,17 @@
+#text{
+    font-size: large;
+    margin: 15px 10px 20px 10px;
+    text-align: center;
+}
+
+button{
+    margin: 10px 20px 10px 20px;
+}
+
+#cancelButton{
+    float:left;
+}
+
+#confirmButton{
+    float:right;
+}

@@ -25,6 +25,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TemplatesComponent } from './components/templates/templates.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { EditSubscriberComponent } from './components/settings/edit-subscriber/edit-subscriber.component';
+import { ConfirmPopupComponent } from './components/confirm-popup/confirm-popup.component';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { EditSubscriberComponent } from './components/settings/edit-subscriber/e
     OrderListComponent,
     TemplatesComponent,
     SettingsComponent,
-    EditSubscriberComponent
+    EditSubscriberComponent,
+    ConfirmPopupComponent
   ],
   imports: [
     BrowserModule,

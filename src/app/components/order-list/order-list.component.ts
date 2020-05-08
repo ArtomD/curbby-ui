@@ -47,7 +47,6 @@ export class OrderListComponent implements OnInit {
     this.server.order_dataChange.subscribe(value => {
       this.update();
       this.filter();
-      console.log(this.server.order_data);
     })
     this.synchTemplateObject();
     this.server.template_dataChange.subscribe(value => {      
@@ -57,7 +56,6 @@ export class OrderListComponent implements OnInit {
 
   toggleMessageDiv(){
     this.openMassMessage = !this.openMassMessage;
-    console.log(this.openMassMessage);
   }
 
   ngOnInit() {

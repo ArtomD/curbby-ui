@@ -12,7 +12,6 @@ export class EditSubscriberComponent implements OnInit {
 
 
   selected: Subscriber;
-
   temp: Subscriber = <Subscriber>{};
 
   constructor(
@@ -33,9 +32,16 @@ export class EditSubscriberComponent implements OnInit {
   }  
 
   save(){
-    this.selected.name = this.temp.name;
-    this.selected.phone = this.temp.phone;
-    this.server.updateSubscribers(this.selected);
+    if(this.temp.id){
+      this.selected.name = this.temp.name;
+      this.selected.phone = this.temp.phone;
+      this.server.updateSubscribers(this.selected);
+      
+    }else{
+      this.server.createSubscriber(this.temp);
+      this.server.subscriber_data.push(this.temp);
+      this.server.subscriber_dataChange.next(this.server.subscriber_data);
+    }
     this.dialogRef.close();
   }
 }
