@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';     
 import { BackendServerService } from './services/backend-server.service';
+import {mock_signature} from './models/mock_models/signature'
+import {mock_shop} from './models/mock_models/shop'
 
 @Component({
   selector: 'app-root',
@@ -15,12 +17,21 @@ export class AppComponent {
 
   ngOnInit() {
 
-    this.route.queryParams.subscribe(params => {
-      //this.server.shop = params["shop"];
-      //this.server.signature = params;
+    if(this.server.useShop){
+      this.route.queryParams.subscribe(params => {
+        this.server.shop = params["shop"];
+        this.server.signature = params;
+        this.server.getOrders();
+        this.server.getTemplates();
+        this.server.getSubscribers();
+      });
+    }else{
+      this.server.shop = mock_shop;
+      this.server.signature = mock_signature;
       this.server.getOrders();
-    });
-
+      this.server.getTemplates();
+      this.server.getSubscribers();
+    }
   }
 
 

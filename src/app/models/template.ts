@@ -1,5 +1,10 @@
 export interface Template {
-    type: string;
-    shopid: number;
-    content: string;
+  id: number;
+  shopId:number;
+  created:Date;
+  modified:Date;
+  body:string;
+  name:string;
+  type:string;
+  tempBody:string;
   }

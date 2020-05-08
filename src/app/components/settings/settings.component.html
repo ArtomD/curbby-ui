@@ -1,0 +1,105 @@
+
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+    <ng-container matColumnDef="type">
+      <th mat-header-cell *matHeaderCellDef> </th>
+      <td mat-cell *matCellDef="let element"> {{element.type}} </td>
+    </ng-container>
+ 
+    <ng-container matColumnDef="current">
+      <th mat-header-cell *matHeaderCellDef> This Month </th>
+      <td mat-cell *matCellDef="let element"> {{element.current}} </td>
+    </ng-container>
+ 
+    <ng-container matColumnDef="last">
+      <th mat-header-cell *matHeaderCellDef> Last Month </th>
+      <td mat-cell *matCellDef="let element"> {{element.last}} </td>
+    </ng-container> 
+    
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <div class="input-div">
+    <mat-slide-toggle>Send Order Confirmation</mat-slide-toggle>
+
+    <mat-accordion class="example-headers-align" *ngIf="orderConfirm">
+        <mat-expansion-panel >
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              {{orderConfirm.name}}
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+    
+          <textarea [(ngModel)]="orderConfirm.tempBody"></textarea>
+    
+          <button class="button" mat-flat-button color="primary" (click)="saveConfirm()">Save</button>
+          <button class="button" mat-flat-button color="primary" (click)="cancelConfirm()">Cancel</button>
+        </mat-expansion-panel>
+    </mat-accordion>
+</div>
+<div class="input-div">
+    <mat-divider></mat-divider>
+    <mat-slide-toggle>Send Order Ready for Pickup</mat-slide-toggle>
+    <mat-accordion class="example-headers-align" *ngIf="orderRdy">
+        <mat-expansion-panel >
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              {{orderRdy.name}}
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+    
+          <textarea [(ngModel)]="orderRdy.tempBody"></textarea>
+    
+          <button class="button" mat-flat-button color="primary" (click)="saveRdy()">Save</button>
+          <button class="button" mat-flat-button color="primary" (click)="cancelRdy()">Cancel</button>
+        </mat-expansion-panel>
+    </mat-accordion>
+
+    <mat-form-field>
+        <input matInput>
+    </mat-form-field>
+</div>
+<div class="input-div">
+    <mat-slide-toggle>Forward Customer Messages</mat-slide-toggle>
+    
+    <table mat-table [dataSource]="dataSourceSubs" matSort *ngIf="server.subscriber_data?.length > 0"
+      class="mat-elevation-z8 example-container">
+  
+      <!--- Note that these columns can be defined in any order.
+            The actual rendered columns are set as a property on the row definition" -->
+  
+      <!-- Position Column -->
+      <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> <B>Name</B> </th>
+          <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> <B>Allow Response</B> </th>
+          <td mat-cell *matCellDef="let element"> 
+            <mat-slide-toggle [(ngModel)]="element.allowResponse"></mat-slide-toggle>
+          </td>          
+      </ng-container>
+  
+      <ng-container matColumnDef="phone">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> <B>Phone</B> </th>
+          <td mat-cell *matCellDef="let element"> {{element.phone}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="edit">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> </th>
+        <td mat-cell *matCellDef="let element"> 
+          <button mat-flat-button color="primary" (click)="openModal(element)">Edit</button>
+        </td>
+    </ng-container>
+  
+      <tr mat-header-row *matHeaderRowDef="displayedColumnsSubs"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumnsSubs;">
+      </tr>
+  </table>
+  
+  <mat-paginator [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
+
+</div>

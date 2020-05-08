@@ -10,6 +10,26 @@ button{
     margin: 10px;
 }
 
-.buttons{
+.opened{
+    background: darkgray;
+}
+
+.closed{
+}
+
+#buttons{
     margin-bottom: 20px;
+}
+
+textarea{
+    width:90%;
+    height:50px;
+    font-size: large;
+    margin:8px;
+}
+
+.tab_buton{
+    display:inline-block;
+    margin: 10px;
+    width: 250px;
 }

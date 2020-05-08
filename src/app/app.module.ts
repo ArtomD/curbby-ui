@@ -9,6 +9,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
 import { RouterModule } from '@angular/router';
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatDialogModule} from '@angular/material/dialog';
 
 import {MatTableModule} from '@angular/material/table';
 import {MatSortModule} from '@angular/material/sort';
@@ -17,12 +22,18 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import { AppComponent } from './app.component';
 import { OrderListComponent } from './components/order-list/order-list.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { TemplatesComponent } from './components/templates/templates.component';
+import { SettingsComponent } from './components/settings/settings.component';
+import { EditSubscriberComponent } from './components/settings/edit-subscriber/edit-subscriber.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    OrderListComponent
+    OrderListComponent,
+    TemplatesComponent,
+    SettingsComponent,
+    EditSubscriberComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +49,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     RouterModule.forRoot([]),
     MatTableModule,
     MatPaginatorModule,
-    MatSortModule,    
+    MatSortModule,
+    MatTabsModule,
+    MatSlideToggleModule,
+    BrowserAnimationsModule,
+    MatDividerModule,
+    MatButtonToggleModule,
+    MatDialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

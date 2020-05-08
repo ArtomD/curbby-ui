@@ -1,0 +1,12 @@
+<form class="example-form" *ngIf="selected">
+    <mat-form-field class="example-full-width">
+        <mat-label>Name</mat-label>
+        <input matInput [(ngModel)]="selected.name" name="name"> 
+    </mat-form-field>  
+    <mat-form-field class="example-full-width">
+        <mat-label>Phone</mat-label>
+        <input matInput [(ngModel)]="selected.phone" name="phone">
+    </mat-form-field>  
+</form>
+<button mat-flat-button color="warn" (click)="delete()">Delete</button>
+<button mat-flat-button color="primary" (click)="save()">Save</button>

@@ -6,6 +6,7 @@ import { Order } from '../../models/order';
 import {FormControl, Validators} from '@angular/forms';
 import {BackendServerService} from '../../services/backend-server.service'
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Template } from 'src/app/models/template';
 
 @Component({
   selector: 'app-order-list',
@@ -15,12 +16,17 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 export class OrderListComponent implements OnInit {
 
   panelOpenState = false;
-
+  
   displayedColumns: string[] = ['shopifyOrderNumber', 'status', 'phone'];
   dataSource;
   loaded = 0;
   labelFilterString = "";
   filterForm: FormGroup;
+
+  templates :Template[] = [];
+
+  openMassMessage: boolean = false;
+
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -38,11 +44,20 @@ export class OrderListComponent implements OnInit {
   ]);
 
   constructor(public server: BackendServerService, private fb: FormBuilder) { 
-    this.server.dataChange.subscribe(value => {
+    this.server.order_dataChange.subscribe(value => {
       this.update();
       this.filter();
-      console.log(this.server.data.orders);
+      console.log(this.server.order_data);
     })
+    this.synchTemplateObject();
+    this.server.template_dataChange.subscribe(value => {      
+      this.synchTemplateObject();
+    })
+  }
+
+  toggleMessageDiv(){
+    this.openMassMessage = !this.openMassMessage;
+    console.log(this.openMassMessage);
   }
 
   ngOnInit() {
@@ -51,8 +66,21 @@ export class OrderListComponent implements OnInit {
     });
   }
 
+  synchTemplateObject(){
+    this.templates = this.server.template_data;
+    if(this.templates && this.templates.length>0){
+      this.setTemporaryFields()
+    }
+  }
+
+  setTemporaryFields(){
+    this.templates.forEach(element => {
+      element.tempBody = element.body;
+    });
+  }
+
   update() {
-    this.dataSource = new MatTableDataSource(this.server.data.orders);
+    this.dataSource = new MatTableDataSource(this.server.order_data);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     this.loaded = 1;    
@@ -74,5 +102,21 @@ export class OrderListComponent implements OnInit {
   refresh() {
     this.server.getOrders();
   }
+
+
+/////////////////////////////////////////
+
+  save(template: Template){
+    template.body = template.tempBody;
+    this.server.saveTemplate(template.id,template.body);
+  }
+
+  cancel(template: Template){
+    template.tempBody = template.body; 
+  }
+
+
+///////////////////////////////////////
+
 
 }
