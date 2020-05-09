@@ -17,7 +17,7 @@ import { MatTableDataSource } from '@angular/material/table';
 export class SettingsComponent implements OnInit {
 
   displayedColumns: string[] = ['type', 'current', 'last'];
-  dataSource = mock_stats;
+  dataSource = []// mock_stats;
   templates :Template[] = [];
   orderConfirm : Template = {id:0,shopId:0,created:new Date(), modified:new Date(), body:"",tempBody:"",name:"",type:""};
   orderRdy : Template = {id:0,shopId:0,created:new Date(), modified:new Date(), body:"",tempBody:"",name:"",type:""};
@@ -30,7 +30,6 @@ export class SettingsComponent implements OnInit {
   dataSourceSubs = new MatTableDataSource<Subscriber>();
 
   constructor(public server: BackendServerService, public dialog: MatDialog,private changeDetectorRefs: ChangeDetectorRef) { 
-    console.log(this.shop_details);
     this.synchTemplateObject();
     this.server.template_dataChange.subscribe(value => {      
       this.synchTemplateObject();
@@ -62,7 +61,6 @@ export class SettingsComponent implements OnInit {
 
   synchSubscriberObject(){
     this.subscribers = this.server.subscriber_data;
-    console.log(this.subscribers);
     this.dataSourceSubs.data =  this.subscribers;
   }
 

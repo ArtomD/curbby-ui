@@ -1,11 +1,13 @@
-import { Text } from './text';
+import { Message } from './message';
 
 export interface Conversation {
     id: number;
+    shopId: number;
     created: Date;
     modified: Date;
-    lastRead: Date;
     phone: string;
-    shopid: number;
-    trail: string;
+    lastInbound: Date;
+    lastOutbound: Date;
+    lastRead: Date;
+    messages: Message[];
   }

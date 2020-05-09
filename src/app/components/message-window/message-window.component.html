@@ -1,1 +1,10 @@
-<p>message-window works!</p>
+<div id="conversation" *ngIf="conversation">
+    <mat-card *ngFor="let message of conversation.messages;let index = index;">
+        {{message.payload}}
+    </mat-card>
+
+</div>
+<div id="replyArea">
+    <textarea id="reply" [(ngModel)]="text"></textarea>
+    <button id="sendButton" mat-flat-button color="primary" (click)="send()">Send</button>
+</div>

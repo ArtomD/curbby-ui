@@ -1,0 +1,27 @@
+#conversation{
+    margin:5px 10px 22% 10px;
+}
+
+#replyArea{
+    height: 15%;
+    width: 80%;
+    position: absolute;
+    bottom: 15%;
+    left: 10%;
+    background: white;
+}
+
+#reply{
+    float:left;
+    width:68%;
+    margin-left:5%;
+    resize: vertical;
+}
+
+
+
+#sendButton{
+    float:right;
+    width:16%;
+    margin-right:5%;
+}
