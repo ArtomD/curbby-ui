@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import {Subscriber} from '../../../models/subscriber'
+import { Subscriber } from '../../../models/subscriber'
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { BackendServerService } from 'src/app/services/backend-server.service';
 
@@ -10,7 +10,7 @@ import { BackendServerService } from 'src/app/services/backend-server.service';
 })
 export class EditSubscriberComponent implements OnInit {
 
-
+  newRecord = true;
   selected: Subscriber;
   temp: Subscriber = <Subscriber>{};
 
@@ -18,26 +18,28 @@ export class EditSubscriberComponent implements OnInit {
     public dialogRef: MatDialogRef<EditSubscriberComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Subscriber,
     public server: BackendServerService) {
-      this.selected = data;
-      this.temp.name = this.selected.name;
-      this.temp.phone = this.selected.phone;
-      console.log(data);
-    }
-
-  ngOnInit(): void {
+    this.selected = data;
+    this.temp.name = this.selected.name;
+    this.temp.phone = this.selected.phone;
+    console.log(data);
   }
 
-  cancel(){
-    this.dialogRef.close();
-  }  
+  ngOnInit(): void {
+    this.newRecord = this.data.hasOwnProperty('name')
 
-  save(){
-    if(this.temp.id){
+  }
+
+  cancel() {
+    this.dialogRef.close();
+  }
+
+  save() {
+    if (this.temp.id) {
       this.selected.name = this.temp.name;
       this.selected.phone = this.temp.phone;
       this.server.updateSubscribers(this.selected);
-      
-    }else{
+
+    } else {
       this.server.createSubscriber(this.temp);
       this.server.subscriber_data.push(this.temp);
       this.server.subscriber_dataChange.next(this.server.subscriber_data);

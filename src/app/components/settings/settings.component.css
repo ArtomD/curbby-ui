@@ -23,14 +23,22 @@ textarea{
 }
 
 .buttonCancel{
-    float: left;
-    width: 30%;
-    margin:12px 20px 20px 10%;
+    float: right;
+    
+    margin:12px 20px 20px 20px;
 }
 .buttonConfirm{
     float: right;
-    width: 30%;
-    margin:12px 10% 20px 20px;
+    
+    margin: 12px 20px 20px 20px;
+}
+
+.createButton{
+    margin: 12px 20px 20px 20px;
+}
+
+.configToggle{
+    margin-left: 40px;
 }
 .buttonArea{
 
@@ -66,6 +74,5 @@ mat-slide-toggle{
 }
 
 #statsTable{
-    width:78%;
-    margin: 10px 5% 10px 1%;
+    margin: 30px 40px 25px 40px;
 }
