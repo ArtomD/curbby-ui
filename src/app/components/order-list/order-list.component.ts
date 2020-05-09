@@ -85,14 +85,26 @@ export class OrderListComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     this.loaded = 1;
+    this.dataSource.filterPredicate = (data, filter) => {
+      var textToSearch = "";
+      for (var key in data) {
+        if (data[key] != null)
+          textToSearch = textToSearch + data[key];
+      }
+      textToSearch = textToSearch + this.statuses.filter(x=>x.id===data.status)[0]["name"];
+      return textToSearch.toLowerCase().indexOf(filter) !== -1;
+    };
   }
 
   applyFilter(event: Event) {
+    console.log("applyFilter")
     const filterValue = (event.target as HTMLInputElement).value;
     this.labelFilterString = filterValue.trim().toLowerCase();
+    this.filter();
   }
 
   filter() {
+    console.log( this.labelFilterString );
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
