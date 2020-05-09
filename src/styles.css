@@ -155,3 +155,35 @@ textarea{
     font-size: large;
     margin:8px;
 }
+
+body {
+    font-size: large;
+    font-family:Roboto, "Helvetica Neue", sans-serif;font-size:16px
+}
+
+.model-header{
+    text-align: center;
+    font-weight: 500;
+}
+
+.example-form {
+    height: 200px;   
+    width: 400px;
+   }
+
+   .section-header2{
+       padding-top:10px;
+    padding-left: 50px;
+    font-weight: 500;
+   }
+
+   .section-header{    
+ padding-left: 50px;
+ font-weight: 500;
+}
+
+.refreshPage{
+    float:right;
+    margin-bottom:20px !important;
+    
+}

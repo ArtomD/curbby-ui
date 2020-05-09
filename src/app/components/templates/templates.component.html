@@ -1,16 +1,17 @@
 <button class="button" mat-flat-button color="primary" (click)="refresh()">Refresh</button>
-  <mat-accordion class="example-headers-align" *ngFor="let template of templates;let index = index;">
-    <mat-expansion-panel >
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          {{template.name}}
-        </mat-panel-title>
-      </mat-expansion-panel-header>
+<mat-accordion class="example-headers-align" *ngFor="let template of templates;let index = index;">
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{template.name}}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
 
-      <textarea [(ngModel)]="templates[index].tempBody"></textarea>
+    <textarea [(ngModel)]="templates[index].tempBody"></textarea>
 
-      <button [ngClass]="templates[index].tempBody === templates[index].body? 'opened' : 'closed'" class="button" mat-flat-button color="warn" (click)="cancel(template)">Revert</button>
-      <button class="button" mat-flat-button color="primary" (click)="save(template)">Save</button>
+    <button [ngClass]="templates[index].tempBody === templates[index].body? 'opened' : 'closed'" class="button"
+      mat-flat-button color="warn" (click)="cancel(template)">Revert</button>
+    <button class="button" mat-flat-button color="primary" (click)="save(template)">Save</button>
 
-    </mat-expansion-panel>
-  </mat-accordion>
+  </mat-expansion-panel>
+</mat-accordion>
