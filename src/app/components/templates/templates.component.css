@@ -1,8 +1,6 @@
 .button{
-    display: inline;
-    width: -webkit-fill-available;
-    max-width: 300px;
-    margin:12px 70px 20px 70px;
+    margin: 12px 20px 20px 20px;
+    float:right;
 }
 
 mat-panel-title{
@@ -22,4 +20,8 @@ textarea{
 }
 
 .closed{
+}
+
+.example-headers-align{
+    margin: 10px;
 }

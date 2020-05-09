@@ -184,6 +184,17 @@ body {
 
 .refreshPage{
     float:right;
-    margin-bottom:20px !important;
-    
+    margin-bottom:20px !important;    
+}
+
+.input-div{
+    margin:25px 10px 25px 10px;
+    clear: both;
+}
+
+.text-field{
+    font-size: large;
+    font-family:Roboto, "Helvetica Neue", sans-serif;
+    font-size:16px !important;
+    padding:10px;
 }
