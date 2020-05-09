@@ -10,7 +10,7 @@ import { Template } from 'src/app/models/template';
 import {STATUS} from '../../models/status'
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmPopupComponent } from '../confirm-popup/confirm-popup.component';
-import { element } from 'protractor';
+import { MessageWindowComponent } from '../message-window/message-window.component';
 
 @Component({
   selector: 'app-order-list',
@@ -45,7 +45,6 @@ export class OrderListComponent implements OnInit {
   constructor(public server: BackendServerService, public dialog: MatDialog, private fb: FormBuilder) { 
 
     this.server.order_dataChange.subscribe(value => {
-      console.log("ORDERS CHANGED");
       this.update();
       this.filter();
     })
@@ -79,8 +78,6 @@ export class OrderListComponent implements OnInit {
   }
 
   update() {
-    console.log("UPDATING TABLE");
-    console.log(this.server.order_data);
     this.dataSource = new MatTableDataSource(this.server.order_data);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
@@ -97,14 +94,12 @@ export class OrderListComponent implements OnInit {
   }
 
   applyFilter(event: Event) {
-    console.log("applyFilter")
     const filterValue = (event.target as HTMLInputElement).value;
     this.labelFilterString = filterValue.trim().toLowerCase();
     this.filter();
   }
 
   filter() {
-    console.log( this.labelFilterString );
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
@@ -151,6 +146,15 @@ export class OrderListComponent implements OnInit {
         }
       });    
     }
+  }
+
+  openConversation(order: Order){
+    const dialogRef = this.dialog.open(MessageWindowComponent, {
+        width: '80%',
+        height: '70%',
+        data:order,
+      });
+      
   }
 
 

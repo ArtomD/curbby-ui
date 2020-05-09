@@ -10,9 +10,12 @@ import {mock_order} from '../models/mock_models/order'
 import {mock_template} from '../models/mock_models/template'
 import {mock_subscriber} from '../models/mock_models/subscriber'
 import {mock_shop_details} from '../models/mock_models/shop-details'
+import {mock_conversation} from '../models/mock_models/conversation'
 import { Subscriber } from '../models/subscriber';
 import { ShopDetails } from '../models/shop-details';
 import { Order } from '../models/order';
+import { Conversation } from '../models/conversation';
+import { SMS } from '../models/sms';
 
 @Injectable({
   providedIn: 'root'
@@ -34,6 +37,9 @@ export class BackendServerService {
 
   public shop_details_data: any = {};
   public shop_details_dataChange: Subject<any> = new Subject<any>();
+
+  public conversations_data: any = {};
+  public conversations_dataChange: Subject<any> = new Subject<any>();
 
   public signature : any;
   public shop : any;
@@ -236,6 +242,61 @@ export class BackendServerService {
       this.shop_details_data = mock_shop_details.shop;
       this.shop_details_dataChange.next(this.shop_details_data);
       return mock_shop_details;
+    }
+  }
+
+  getConversation(phone:number){
+    if(this.live){
+      return new Promise((resolve) => {      
+        this.http.post(SERVER_URL + GET_CONVERSATION_PATH, {shop:this.shop, conversation_data:{phone:phone}, signature:this.signature}, {
+          observe: 'response',
+          withCredentials: false
+        }).subscribe((result) => {
+          console.log(result.body);
+          this.conversations_data = result.body["result"];
+          this.conversations_dataChange.next(this.conversations_data);
+          resolve();
+        }, error => {        
+        })
+      });
+    }else{
+      this.conversations_data = mock_conversation.result;
+      this.conversations_dataChange.next(this.conversations_data);
+      return mock_conversation;
+    }
+  }
+
+  sendSMS(sms: SMS){
+    console.log(sms);
+    if(this.live){
+      return new Promise((resolve) => {      
+        this.http.post(SERVER_URL + SEND_SMS_PATH, {shop:this.shop, sms:sms, signature:this.signature}, {
+          observe: 'response',
+          withCredentials: false
+        }).subscribe((result) => {
+          resolve();
+        }, error => {        
+        })
+      });
+    }else{
+      
+    }
+  }
+
+  sendBatchSMS(sms: SMS[]){
+
+    if(this.live){
+      return new Promise((resolve) => {      
+        this.http.post(SERVER_URL + SEND_BATCH_SMS_PATH, {shop:this.shop, sms:sms, signature:this.signature}, {
+          observe: 'response',
+          withCredentials: false
+        }).subscribe((result) => {
+          resolve();
+          return result;
+        }, error => {        
+        })
+      });
+    }else{
     }
   }
 }

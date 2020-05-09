@@ -1,0 +1,144 @@
+#conversation{
+    margin:5px 10px 22% 10px;
+}
+
+#closeButton{
+    float:right;
+    width:50px;
+    height:50px;
+}
+
+#header{
+    height: 50px;
+    width: 80%;
+    position: absolute;
+    top: 15%;
+    left: 10%;
+    background: white;
+    z-index: 1;
+    text-align: center;
+}
+
+#buffer{
+    height: 50px;
+}
+
+#replyArea{
+    height: 15%;
+    width: 80%;
+    position: absolute;
+    bottom: 15%;
+    left: 10%;
+    background: white;
+}
+
+#reply{
+    float:left;
+    width:68%;
+    margin-left:5%;
+    resize: vertical;
+}
+
+
+
+#sendButton{
+    float:right;
+    width:16%;
+    margin-right:5%;
+}
+
+.customer{
+    background: #99d2f3;
+    position: relative;
+    border-radius: .4em;
+    margin-bottom: 20px;
+    min-height: 70px;
+    width: 80%;
+    float:left;
+}
+.customer:after {
+	content: '';
+	position: absolute;
+	left: 0;
+	top: 50%;
+	width: 0;
+	height: 0;
+	border: 20px solid transparent;
+	border-right-color: #99d2f3;
+	border-left: 0;
+	margin-top: -20px;
+	margin-left: -20px;
+}
+
+.system{
+    background: #f9ad88;
+    position: relative;
+    border-radius: .4em;
+    margin-bottom: 20px;
+    min-height: 70px;
+    width: 80%;
+    float:right;
+}
+.system:after {
+    content: '';
+	position: absolute;
+	right: 0;
+	top: 50%;
+	width: 0;
+	height: 0;
+	border: 20px solid transparent;
+	border-left-color: #f9ad88;
+	border-right: 0;
+	margin-top: -20px;
+	margin-right: -20px;
+}
+
+.employee{
+    background: #b1adef;
+    position: relative;
+    border-radius: .4em;
+    margin-bottom: 20px;
+    min-height: 70px;
+    width: 80%;
+    float:right;
+}
+.employee:after {
+    content: '';
+	position: absolute;
+	right: 0;
+	top: 50%;
+	width: 0;
+	height: 0;
+	border: 20px solid transparent;
+	border-left-color: #b1adef;
+	border-right: 0;
+	margin-top: -20px;
+	margin-right: -20px;
+}
+
+.employee-pending{
+    background: #ffa69d;
+    position: relative;
+    border-radius: .4em;
+    margin-bottom: 20px;
+    min-height: 70px;
+    width: 80%;
+    float:right;
+}
+.employee-pending:after {
+    content: '';
+	position: absolute;
+	right: 0;
+	top: 50%;
+	width: 0;
+	height: 0;
+	border: 20px solid transparent;
+	border-left-color: #ffa69d;
+	border-right: 0;
+	margin-top: -20px;
+	margin-right: -20px;
+}
+
+.forward{
+    visibility: collapse;
+}

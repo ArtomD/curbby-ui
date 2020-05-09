@@ -17,10 +17,10 @@ import { MatTableDataSource } from '@angular/material/table';
 export class SettingsComponent implements OnInit {
 
   displayedColumns: string[] = ['type', 'current', 'last'];
-  dataSource = mock_stats;
-  templates: Template[] = [];
-  orderConfirm: Template = { id: 0, shopId: 0, created: new Date(), modified: new Date(), body: "", tempBody: "", name: "", type: "" };
-  orderRdy: Template = { id: 0, shopId: 0, created: new Date(), modified: new Date(), body: "", tempBody: "", name: "", type: "" };
+  dataSource = []// mock_stats;
+  templates :Template[] = [];
+  orderConfirm : Template = {id:0,shopId:0,created:new Date(), modified:new Date(), body:"",tempBody:"",name:"",type:""};
+  orderRdy : Template = {id:0,shopId:0,created:new Date(), modified:new Date(), body:"",tempBody:"",name:"",type:""};
 
   shop_details: ShopDetails;
 
@@ -29,8 +29,9 @@ export class SettingsComponent implements OnInit {
   displayedColumnsSubs: string[] = ['name', 'status', 'phone', 'edit', 'delete'];
   dataSourceSubs = new MatTableDataSource<Subscriber>();
 
-  constructor(public server: BackendServerService, public dialog: MatDialog, private changeDetectorRefs: ChangeDetectorRef) {
-    console.log(this.shop_details);
+
+  constructor(public server: BackendServerService, public dialog: MatDialog,private changeDetectorRefs: ChangeDetectorRef) { 
+
     this.synchTemplateObject();
     this.server.template_dataChange.subscribe(value => {
       this.synchTemplateObject();
@@ -62,8 +63,9 @@ export class SettingsComponent implements OnInit {
 
   synchSubscriberObject() {
     this.subscribers = this.server.subscriber_data;
-    console.log(this.subscribers);
+    this.dataSourceSubs.data =  this.subscribers;
     this.dataSourceSubs.data = this.subscribers;
+
   }
 
   synchTemplateObject() {

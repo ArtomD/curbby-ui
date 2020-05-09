@@ -1,3 +1,6 @@
+import { Customer } from './customer';
+import { Conversation } from './conversation';
+
 export interface Order {
     id: number;
     orderNumber: number;
@@ -8,4 +11,6 @@ export interface Order {
     status: number;
     selected: boolean;
     save: boolean;
+    customer: Customer;
+    conversation: Conversation;
   }
