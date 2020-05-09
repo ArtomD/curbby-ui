@@ -7,6 +7,10 @@ import {FormControl, Validators} from '@angular/forms';
 import {BackendServerService} from '../../services/backend-server.service'
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Template } from 'src/app/models/template';
+import {STATUS} from '../../models/status'
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmPopupComponent } from '../confirm-popup/confirm-popup.component';
+import { element } from 'protractor';
 
 @Component({
   selector: 'app-order-list',
@@ -17,7 +21,7 @@ export class OrderListComponent implements OnInit {
 
   panelOpenState = false;
   
-  displayedColumns: string[] = ['shopifyOrderNumber', 'status', 'phone'];
+  displayedColumns: string[] = ['selected','shopifyOrderNumber', 'status', 'phone', 'messages'];
   dataSource;
   loaded = 0;
   labelFilterString = "";
@@ -27,15 +31,10 @@ export class OrderListComponent implements OnInit {
 
   openMassMessage: boolean = false;
 
+  statuses = STATUS;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
-
-
-
-  active : boolean;
-  rfp : boolean;
-  complete : boolean;
 
 
   emailFormControl = new FormControl('', [
@@ -43,7 +42,8 @@ export class OrderListComponent implements OnInit {
     Validators.email,
   ]);
 
-  constructor(public server: BackendServerService, private fb: FormBuilder) { 
+  constructor(public server: BackendServerService, public dialog: MatDialog, private fb: FormBuilder) { 
+
     this.server.order_dataChange.subscribe(value => {
       this.update();
       this.filter();
@@ -81,8 +81,7 @@ export class OrderListComponent implements OnInit {
     this.dataSource = new MatTableDataSource(this.server.order_data);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-    this.loaded = 1;    
-
+    this.loaded = 1;
   }
 
   applyFilter(event: Event) {
@@ -99,6 +98,43 @@ export class OrderListComponent implements OnInit {
 
   refresh() {
     this.server.getOrders();
+  }
+
+  onChange(order: Order){
+    if(/* valid phone*/true){
+      this.server.updateOrders(order);
+    }
+  }
+
+  changeStatus(status: number){
+
+    let amount: number = 0;
+    this.dataSource.data.forEach(element => {
+      if(element.selected){
+        amount++;
+      }
+    });
+   
+    if(amount>0){
+      const dialogRef = this.dialog.open(ConfirmPopupComponent, {
+        width: '400px',
+        height: '160px',
+        data:"You are changing " + amount + " orders to " + STATUS[status].name+".",
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        if(result){
+          let orders :Order[] = [];
+          this.dataSource.data.forEach(element => {
+            if(element.selected){
+              element["status"] = status;
+              orders.push(element); 
+            }
+          });
+          this.server.updateBatchOrders(orders);
+        }
+      });    
+    }
   }
 
 

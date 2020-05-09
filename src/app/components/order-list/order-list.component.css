@@ -33,3 +33,11 @@ textarea{
     margin: 10px;
     width: 250px;
 }
+
+.phoneInput{
+    width: 100px;
+}
+
+.phoneColumn{
+    margin-right:20px;
+}

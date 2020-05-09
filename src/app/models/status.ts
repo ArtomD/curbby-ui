@@ -1,0 +1,1 @@
+export const STATUS = [{id:0, name:"Placed"},{id:1, name:"Ready for pickup"}, {id:2, name:"Complete"}, {id:3, name:"Cancelled"}];

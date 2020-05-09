@@ -5,6 +5,7 @@ export interface Order {
     phone: number;
     email: string;
     date: Date;
-    status: string;
+    status: number;
     selected: boolean;
+    save: boolean;
   }

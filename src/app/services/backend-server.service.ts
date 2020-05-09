@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {SERVER_URL, GET_ORDER_PATH, GET_TEMPLATE_PATH, UPDATE_TEMPLATE_PATH, 
+import {SERVER_URL, GET_ORDER_PATH, UPDATE_ORDER_PATH, UPDATE_BATCH_ORDER_PATH,
+        GET_TEMPLATE_PATH, UPDATE_TEMPLATE_PATH,
         GET_SUBSCRIBERS_PATH, UPDATE_SUBSCRIBERS_PATH, CREATE_SUBSCRIBERS_PATH, DELETE_SUBSCRIBERS_PATH,
-        GET_SHOP_DETAILS_PATH, UPDATE_SHOP_DETAILS_PATH, GET_CONVERSATION_PATH,
-        SEND_SMS_PATH, SEND_BATCH_SMS_PATH} from '../models/settings'
+        GET_SHOP_DETAILS_PATH, UPDATE_SHOP_DETAILS_PATH,
+        GET_CONVERSATION_PATH, SEND_SMS_PATH, SEND_BATCH_SMS_PATH} from '../models/settings'
 import { timer, Subject } from 'rxjs';
 import {mock_order} from '../models/mock_models/order'
 import {mock_template} from '../models/mock_models/template'
@@ -11,6 +12,7 @@ import {mock_subscriber} from '../models/mock_models/subscriber'
 import {mock_shop_details} from '../models/mock_models/shop-details'
 import { Subscriber } from '../models/subscriber';
 import { ShopDetails } from '../models/shop-details';
+import { Order } from '../models/order';
 
 @Injectable({
   providedIn: 'root'
@@ -56,6 +58,38 @@ export class BackendServerService {
     }else{
       this.order_data = mock_order.orders;
       this.order_dataChange.next(this.order_data);
+      return mock_order;
+    }
+  }
+
+  updateOrders(order: Order){    
+    if(this.live){
+      return new Promise((resolve) => {      
+        this.http.post(SERVER_URL + UPDATE_ORDER_PATH, {shop:this.shop, order_data:order,signature:this.signature}, {
+          observe: 'response',
+          withCredentials: false
+        }).subscribe((result) => {
+          resolve();
+        }, error => {        
+        })
+      });
+    }else{
+      return mock_order;
+    }
+  }
+
+  updateBatchOrders(orders: Order[]){    
+    if(this.live){
+      return new Promise((resolve) => {      
+        this.http.post(SERVER_URL + UPDATE_BATCH_ORDER_PATH, {shop:this.shop, order_data:orders,signature:this.signature}, {
+          observe: 'response',
+          withCredentials: false
+        }).subscribe((result) => {
+          resolve();
+        }, error => {        
+        })
+      });
+    }else{
       return mock_order;
     }
   }
@@ -204,6 +238,4 @@ export class BackendServerService {
       return mock_shop_details;
     }
   }
-
-
 }
