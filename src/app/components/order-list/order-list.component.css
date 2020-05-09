@@ -41,3 +41,15 @@ textarea{
 .phoneColumn{
     margin-right:20px;
 }
+
+#filter{
+    display: inline-flex;
+    width:80%;
+    margin: 10px 5% 10px 1%;
+}
+
+#refreshButton{
+    display: inline-flex;
+    width:10%;
+    margin: 10px 1% 10px 3%;
+}

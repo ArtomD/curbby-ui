@@ -52,6 +52,8 @@ export class SettingsComponent implements OnInit {
 
   refresh(){
     this.server.getTemplates();
+    this.server.getSubscribers();
+    this.server.getShopDetails();
   }
 
   synchShopDetailsObject(){
@@ -60,6 +62,7 @@ export class SettingsComponent implements OnInit {
 
   synchSubscriberObject(){
     this.subscribers = this.server.subscriber_data;
+    console.log(this.subscribers);
     this.dataSourceSubs.data =  this.subscribers;
   }
 
@@ -131,7 +134,7 @@ export class SettingsComponent implements OnInit {
         this.dataSourceSubs.data = this.subscribers;
         this.server.subscriber_data = this.subscribers;
         this.server.subscriber_dataChange.next(this.server.subscriber_data);
-        this.changeDetectorRefs.detectChanges();
+        //this.changeDetectorRefs.detectChanges();
       }
     });    
   }

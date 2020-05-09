@@ -45,6 +45,7 @@ export class OrderListComponent implements OnInit {
   constructor(public server: BackendServerService, public dialog: MatDialog, private fb: FormBuilder) { 
 
     this.server.order_dataChange.subscribe(value => {
+      console.log("ORDERS CHANGED");
       this.update();
       this.filter();
     })
@@ -78,6 +79,8 @@ export class OrderListComponent implements OnInit {
   }
 
   update() {
+    console.log("UPDATING TABLE");
+    console.log(this.server.order_data);
     this.dataSource = new MatTableDataSource(this.server.order_data);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
@@ -98,6 +101,7 @@ export class OrderListComponent implements OnInit {
 
   refresh() {
     this.server.getOrders();
+    this.server.getTemplates();
   }
 
   onChange(order: Order){

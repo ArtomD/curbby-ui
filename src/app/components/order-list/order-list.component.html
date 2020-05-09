@@ -16,9 +16,10 @@
 
   </div>
 
-
+<div>
+<button id="refreshButton" mat-flat-button color="primary" (click)="refresh()">Refresh</button>
 <mat-accordion >
-    <mat-expansion-panel  (opened)="panelOpenState = true" (closed)="panelOpenState = false" #mep="matExpansionPanel">
+    <mat-expansion-panel id="filter"  (opened)="panelOpenState = true" (closed)="panelOpenState = false" #mep="matExpansionPanel">
         <mat-expansion-panel-header>
             <mat-panel-title>
                 <b>Filter options</b>
@@ -38,6 +39,7 @@
         </mat-dialog-content>
     </mat-expansion-panel>
 </mat-accordion>
+</div>
 
 <table mat-table [dataSource]="dataSource" matSort *ngIf="server.order_data?.length > 0"
     class="mat-elevation-z8 example-container">
