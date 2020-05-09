@@ -15,6 +15,7 @@ import { Subscriber } from '../models/subscriber';
 import { ShopDetails } from '../models/shop-details';
 import { Order } from '../models/order';
 import { Conversation } from '../models/conversation';
+import { SMS } from '../models/sms';
 
 @Injectable({
   providedIn: 'root'
@@ -262,6 +263,40 @@ export class BackendServerService {
       this.conversations_data = mock_conversation.result;
       this.conversations_dataChange.next(this.conversations_data);
       return mock_conversation;
+    }
+  }
+
+  sendSMS(sms: SMS){
+    console.log(sms);
+    if(this.live){
+      return new Promise((resolve) => {      
+        this.http.post(SERVER_URL + SEND_SMS_PATH, {shop:this.shop, sms:sms, signature:this.signature}, {
+          observe: 'response',
+          withCredentials: false
+        }).subscribe((result) => {
+          resolve();
+        }, error => {        
+        })
+      });
+    }else{
+      
+    }
+  }
+
+  sendBatchSMS(sms: SMS[]){
+
+    if(this.live){
+      return new Promise((resolve) => {      
+        this.http.post(SERVER_URL + SEND_BATCH_SMS_PATH, {shop:this.shop, sms:sms, signature:this.signature}, {
+          observe: 'response',
+          withCredentials: false
+        }).subscribe((result) => {
+          resolve();
+          return result;
+        }, error => {        
+        })
+      });
+    }else{
     }
   }
 }
