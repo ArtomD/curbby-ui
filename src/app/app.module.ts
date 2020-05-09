@@ -28,6 +28,7 @@ import { TemplatesComponent } from './components/templates/templates.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { EditSubscriberComponent } from './components/settings/edit-subscriber/edit-subscriber.component';
 import { ConfirmPopupComponent } from './components/confirm-popup/confirm-popup.component';
+import { MessageWindowComponent } from './components/message-window/message-window.component';
 
 
 @NgModule({
@@ -37,7 +38,8 @@ import { ConfirmPopupComponent } from './components/confirm-popup/confirm-popup.
     TemplatesComponent,
     SettingsComponent,
     EditSubscriberComponent,
-    ConfirmPopupComponent
+    ConfirmPopupComponent,
+    MessageWindowComponent
   ],
   imports: [
     BrowserModule,

@@ -62,11 +62,10 @@ mat-slide-toggle{
 
 #refreshButton{
     width:10%;
-    margin: 10px 1% 10px 5%;
+    margin: 20px 1% 20px 5%;
 }
 
 #statsTable{
     width:78%;
     margin: 10px 5% 10px 1%;
-    display: inline-table;
 }
