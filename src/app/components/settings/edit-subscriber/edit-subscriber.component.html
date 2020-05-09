@@ -1,6 +1,9 @@
 <form class="example-form" *ngIf="temp">
     <div class="model-header">
-        <h4>
+        <h4 *ngIf="newRecord">
+            Edit subscriber
+        </h4>
+        <h4 *ngIf="!newRecord">
             New subscriber creation
         </h4>
     </div>

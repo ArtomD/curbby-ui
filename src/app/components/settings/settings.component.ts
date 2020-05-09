@@ -101,9 +101,7 @@ export class SettingsComponent implements OnInit {
 
   openModal(element: Subscriber) {
     const dialogRef = this.dialog.open(EditSubscriberComponent, {
-      width: '450px',
-      height: '280px',
-      data: element,
+      data: element
     });
 
   }
@@ -120,8 +118,6 @@ export class SettingsComponent implements OnInit {
   delete(element: Subscriber) {
 
     const dialogRef = this.dialog.open(ConfirmPopupComponent, {
-      width: '400px',
-      height: '160px',
       data: "Delete subscriber " + element.name + "?",
     });
 
