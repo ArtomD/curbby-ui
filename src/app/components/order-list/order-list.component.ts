@@ -38,8 +38,8 @@ export class OrderListComponent implements OnInit {
 
   openMassMessage: boolean = false;
   currentConversationOrder: Order;
-  conversationOpen : boolean = false;
-  autoUpdate : boolean = false;
+  conversationOpen: boolean = false;
+  autoUpdate: boolean = false;
 
   statuses = STATUS;
 
@@ -56,7 +56,7 @@ export class OrderListComponent implements OnInit {
     this.messageTemplateSelected = 0;
     this.server.order_dataChange.subscribe(value => {
       this.update();
-      this.filter();      
+      this.filter();
     })
     this.synchTemplateObject();
     this.server.template_dataChange.subscribe(value => {
@@ -113,7 +113,7 @@ export class OrderListComponent implements OnInit {
         element.selected = true;
       }
     });
-    
+
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     this.loaded = 1;
@@ -152,9 +152,9 @@ export class OrderListComponent implements OnInit {
 
   filter() {
     if (this.dataSource.paginator) {
-      if(this.autoUpdate){
+      if (this.autoUpdate) {
         this.autoUpdate = false;
-      }else{
+      } else {
         this.dataSource.paginator.firstPage();
       }
     }
@@ -207,7 +207,7 @@ export class OrderListComponent implements OnInit {
           });
         }
       });
-    }else{
+    } else {
       this.openSnackBar("No orders selected.");
       this.sleep(2000).then(() => this._snackBar.dismiss());
     }
@@ -246,7 +246,7 @@ export class OrderListComponent implements OnInit {
           });
         }
       });
-    }else{
+    } else {
       this.openSnackBar("No orders selected.");
       this.sleep(2000).then(() => this._snackBar.dismiss());
     }
@@ -269,8 +269,8 @@ export class OrderListComponent implements OnInit {
     this.currentConversationOrder = order;
     this.conversationOpen = true;
     const dialogRef = this.dialog.open(MessageWindowComponent, {
-      width: '80%',
-      height: '70%',
+      width: '300px;',
+      height: '300px',
       data: order,
     });
     dialogRef.afterClosed().subscribe(result => {

@@ -7,25 +7,7 @@
     <mat-toolbar>
         <span> Order Communications</span>
     </mat-toolbar>
-    <div id="buttons">
-        <button [ngClass]="openMassMessage ? 'opened' : 'closed'" mat-flat-button color="primary"
-            (click)="toggleMessageDiv()">Mass Message</button>
-        <button mat-flat-button color="primary" (click)="changeStatus(2)">Flag Completed</button>
-        <button mat-flat-button color="primary" (click)="changeStatus(1)">Flag RFP</button>
-        <button mat-flat-button color="primary" (click)="changeStatus(3)">Flag Cancelled</button>
-        <mat-card id="messages" [hidden]="!openMassMessage">
-            <mat-tab-group animationDuration="0ms" class="example-headers-align"
-                [(selectedIndex)]="messageTemplateSelected">
-                <mat-tab label="{{template.name}}" *ngFor="let template of templates;let index = index;">
-                    <textarea [(ngModel)]="templates[index].tempBody"></textarea>
-                    <button class="tab_buton" mat-flat-button color="warn" (click)="toggleMessageDiv()">Cancel</button>
-                    <button class="tab_buton" mat-flat-button color="primary" (click)="cancel(template)">Revert</button>
-                    <button class="tab_buton" mat-flat-button color="primary" (click)="massMessage()">Send</button>
-                </mat-tab>
-            </mat-tab-group>
-        </mat-card>
 
-    </div>
 </div>
 <div>
     <mat-accordion>
@@ -51,13 +33,52 @@
             </mat-dialog-content>
         </mat-expansion-panel>
     </mat-accordion>
+
+
+
 </div>
 <div class="input-div">
-    <mat-panel-title class="unreadFilter">
-        <mat-slide-toggle [(ngModel)]="filterNewMessages" (click)="filterUnread()" class="configToggle">
-            Show only unread messages</mat-slide-toggle>
-    </mat-panel-title>
+    <div id="buttons">
+        <button [ngClass]="openMassMessage ? 'opened' : 'closed'" mat-flat-button color="primary"
+            (click)="toggleMessageDiv()" class="mass-button"> <span class="material-icons">
+                message
+            </span> &nbsp;&nbsp; Mass Message</button>
+        <button mat-flat-button color="primary" (click)="changeStatus(2)" class="mass-button">Flag Completed</button>
+        <button mat-flat-button color="primary" (click)="changeStatus(1)" class="mass-button">Flag Ready for
+            Pickup</button>
+        <button mat-flat-button color="primary" (click)="changeStatus(3)" class="mass-button">Flag Cancelled</button>
 
+        <mat-panel-title class="unreadFilter">
+            <mat-slide-toggle [(ngModel)]="filterNewMessages" (click)="filterUnread()" class="configToggle">
+                Show only unread messages</mat-slide-toggle>
+        </mat-panel-title>
+
+    </div>
+    <mat-card id="messages" [hidden]="!openMassMessage">
+        <mat-tab-group animationDuration="0ms" class="example-headers-align"
+            [(selectedIndex)]="messageTemplateSelected">
+            <mat-tab label="{{template.name}}" *ngFor="let template of templates;let index = index;">
+                <textarea [(ngModel)]="templates[index].tempBody"></textarea>
+                <div id="buttonArea">
+                    <button class="buttonCancel" mat-flat-button color="warn"
+                        (click)="toggleMessageDiv()">Cancel</button>
+                    <button class="buttonRevert" mat-flat-button color="primary"
+                        (click)="cancel(template)">Revert</button>
+                    <button class="buttonConfirm" mat-flat-button color="primary" (click)="massMessage()">
+                        <span class="material-icons">
+                            mail
+                        </span>&nbsp;&nbsp; Send</button>
+                </div>
+
+            </mat-tab>
+        </mat-tab-group>
+    </mat-card>
+    <div class="section-header">
+        <p>
+            Select records bellow to perform batch sends and status updates mass actions. Changes made in the table are
+            saved in real time.
+        </p>
+    </div>
 </div>
 
 <table mat-table [dataSource]="dataSource" *ngIf="server.order_data?.length > 0"
