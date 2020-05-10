@@ -6,41 +6,42 @@
 
 <div class="input-div" *ngIf="shop_stats.currentBillingPeriod">
   <mat-toolbar>
-    <span> Shop Statistics</span>
+    <span> Shop Statistics - {{shop_stats.month}}</span>
   </mat-toolbar>
-  Current month: {{shop_stats.month}}
-  <table >
+
+  <table class="statsTable mat-table cdk-table mat-sort mat-elevation-z8 example-container ng-star-inserted">
     <tr>
-      <th></th>
-      <th>This Month</th>
-      <th>Last Month</th>
+      <th class="mat-header-row cdk-header-row ng-star-inserted"></th>
+      <th
+        class="stat-row-one mat-sort-header  cdk-header-cell ng-tns-c179-43 cdk-column-name mat-column-name ng-star-inserted">
+        <b _ngcontent-bkn-c189="" class="ng-tns-c179-45">This Month</b></th>
+      <th
+        class="stat-row-one mat-sort-header  cdk-header-cell ng-tns-c179-43 cdk-column-name mat-column-name ng-star-inserted">
+        <b _ngcontent-bkn-c189="" class="ng-tns-c179-45">Last Month</b></th>
     </tr>
-    <tr>
-      <td>Outbound Customer Messages</td>
-      <td>{{shop_stats.current.outboundCustomerMessages}}</td>
-      <td>{{shop_stats.previous.outboundCustomerMessages}}</td>
+
+    <tr class="  mat-sort-header  cdk-header-cell ng-tns-c179-44 cdk-column-status mat-column-status ng-star-inserted">
+      <td class="stat-row-one">Outbound Customer Messages</td>
+      <td class="stat-row">{{shop_stats.current.outboundCustomerMessages}}</td>
+      <td class="stat-row">{{shop_stats.previous.outboundCustomerMessages}}</td>
     </tr>
-    <tr>
-      <td>Inbound Customer Messages</td>
-      <td>{{shop_stats.current.inboundCustomerMessages}}</td>
-      <td>{{shop_stats.previous.inboundCustomerMessages}}</td>
+    <tr class=" mat-sort-header  cdk-header-cell ng-tns-c179-44 cdk-column-status mat-column-status ng-star-inserted">
+      <td class="stat-row-one">Inbound Customer Messages</td>
+      <td class="stat-row">{{shop_stats.current.inboundCustomerMessages}}</td>
+      <td class="stat-row">{{shop_stats.previous.inboundCustomerMessages}}</td>
     </tr>
-    <tr>
-      <td>Inbound Customer Messages</td>
-      <td>{{shop_stats.current.inboundCustomerMessages}}</td>
-      <td>{{shop_stats.previous.inboundCustomerMessages}}</td>
+    <tr class="  mat-sort-header  cdk-header-cell ng-tns-c179-44 cdk-column-status mat-column-status ng-star-inserted">
+      <td class="stat-row-one">Forwarded Messages</td>
+      <td class="stat-row">{{shop_stats.current.forwardedMessages}}</td>
+      <td class="stat-row">{{shop_stats.previous.forwardedMessages}}</td>
     </tr>
-    <tr>
-      <td>Forwarded Messages</td>
-      <td>{{shop_stats.current.forwardedMessages}}</td>
-      <td>{{shop_stats.previous.forwardedMessages}}</td>
-    </tr>
-    <tr>
-      <td>Orders Managed</td>
-      <td>{{shop_stats.current.ordersManaged}}</td>
-      <td>{{shop_stats.previous.ordersManaged}}</td>
+    <tr class=" mat-sort-header  cdk-header-cell ng-tns-c179-44 cdk-column-status mat-column-status ng-star-inserted">
+      <td class="stat-row-one">Orders Managed</td>
+      <td class="stat-row">{{shop_stats.current.ordersManaged}}</td>
+      <td class="stat-row">{{shop_stats.previous.ordersManaged}}</td>
     </tr>
   </table>
+
 </div>
 <div id="divider"></div>
 
@@ -59,9 +60,10 @@
   <div [hidden]="!shop_details.autoConfirmOrders" *ngIf="orderConfirm">
     <textarea class="text-field" [(ngModel)]="orderConfirm.tempBody"></textarea>
     <div id="buttonArea">
-      <button [style.visibility]="orderConfirm.tempBody === orderConfirm.body ? 'hidden' : 'visible'" class="buttonConfirm" mat-flat-button color="primary" (click)="saveConfirm()">Save</button>
-      <button [style.visibility]="orderConfirm.tempBody === orderConfirm.body ? 'hidden' : 'visible'" class="buttonCancel"
-        mat-flat-button color="warn" (click)="cancelConfirm()">Revert</button>
+      <button [style.visibility]="orderConfirm.tempBody === orderConfirm.body ? 'hidden' : 'visible'"
+        class="buttonConfirm" mat-flat-button color="primary" (click)="saveConfirm()">Save</button>
+      <button [style.visibility]="orderConfirm.tempBody === orderConfirm.body ? 'hidden' : 'visible'"
+        class="buttonCancel" mat-flat-button color="warn" (click)="cancelConfirm()">Revert</button>
 
     </div>
   </div>
@@ -74,9 +76,10 @@
 
     <textarea class="text-field" [(ngModel)]="orderRdy.tempBody"></textarea>
     <div>
-      <button [style.visibility]="orderRdy.tempBody === orderRdy.body ? 'hidden' : 'visible'" class="buttonConfirm" mat-flat-button color="primary" (click)="saveRdy()">Save</button>
-      <button [style.visibility]="orderRdy.tempBody === orderRdy.body ? 'hidden' : 'visible'" class="buttonCancel" mat-flat-button
-        color="warn" (click)="cancelRdy()">Revert</button>
+      <button [style.visibility]="orderRdy.tempBody === orderRdy.body ? 'hidden' : 'visible'" class="buttonConfirm"
+        mat-flat-button color="primary" (click)="saveRdy()">Save</button>
+      <button [style.visibility]="orderRdy.tempBody === orderRdy.body ? 'hidden' : 'visible'" class="buttonCancel"
+        mat-flat-button color="warn" (click)="cancelRdy()">Revert</button>
 
     </div>
   </div>
@@ -109,31 +112,31 @@
 
     <!-- Position Column -->
     <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> <B>Name</B> </th>
+      <th *matHeaderCellDef mat-sort-header> <B>Name</B> </th>
       <td mat-cell *matCellDef="let element"> {{element.name}} </td>
     </ng-container>
 
     <ng-container matColumnDef="status">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> <B>Active</B> </th>
+      <th *matHeaderCellDef mat-sort-header> <B>Active</B> </th>
       <td mat-cell *matCellDef="let element">
         <mat-slide-toggle [(ngModel)]="element.active" (click)="updateSubscriber(element)"></mat-slide-toggle>
       </td>
     </ng-container>
 
     <ng-container matColumnDef="phone">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> <B>Phone</B> </th>
+      <th *matHeaderCellDef mat-sort-header> <B>Phone</B> </th>
       <td mat-cell *matCellDef="let element"> {{element.phone}} </td>
     </ng-container>
 
     <ng-container matColumnDef="edit">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> </th>
+      <th *matHeaderCellDef mat-sort-header> </th>
       <td mat-cell *matCellDef="let element">
         <button mat-flat-button color="primary" (click)="openModal(element)">Edit</button>
       </td>
     </ng-container>
 
     <ng-container matColumnDef="delete">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> </th>
+      <th *matHeaderCellDef mat-sort-header> </th>
       <td mat-cell *matCellDef="let element">
         <button mat-flat-button color="warn" (click)="delete(element)">Delete</button>
       </td>

@@ -5,13 +5,16 @@
 </div>
 <div class="input-div">
   <mat-toolbar>
-    <span> Message Templates   
-      <button class="button" mat-stroked-button (click)="expandAll()"><span class="material-icons">unfold_more</span></button>
-      <button class="button" mat-stroked-button (click)="collapseAll()"><span class="material-icons">unfold_less</span></button>
-    </span>
+    Message Templates
+
+
+    <span class="fill-space"></span>
+
+    <button class="" mat-icon-button (click)="expandAll()"><span class="material-icons">unfold_more</span></button>
+    <button class="" mat-icon-button (click)="collapseAll()"><span class="material-icons">unfold_less</span></button>
   </mat-toolbar>
   <mat-accordion [multi]="true" #accordion *ngFor="let template of templates;let index = index;">
-    <mat-expansion-panel [hidden]="template.name=='Other'" class="example-headers-align" >
+    <mat-expansion-panel [hidden]="template.name=='Other'" class="example-headers-align">
       <mat-expansion-panel-header>
         <mat-panel-title>
           {{template.name}}
@@ -19,9 +22,10 @@
       </mat-expansion-panel-header>
 
       <textarea class="text-field" [(ngModel)]="templates[index].tempBody"></textarea>
-      <button [style.visibility]="templates[index].tempBody === templates[index].body ? 'hidden' : 'visible'" class="button" mat-flat-button color="primary" (click)="save(template)">Save</button>
-      <button [style.visibility]="templates[index].tempBody === templates[index].body ? 'hidden' : 'visible'" class="button"
-        mat-flat-button color="warn" (click)="cancel(template)">Revert</button>
+      <button [style.visibility]="templates[index].tempBody === templates[index].body ? 'hidden' : 'visible'"
+        class="button" mat-flat-button color="primary" (click)="save(template)">Save</button>
+      <button [style.visibility]="templates[index].tempBody === templates[index].body ? 'hidden' : 'visible'"
+        class="button" mat-flat-button color="warn" (click)="cancel(template)">Revert</button>
 
 
     </mat-expansion-panel>

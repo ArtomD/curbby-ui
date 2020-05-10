@@ -25,3 +25,8 @@ textarea{
 .example-headers-align{
     margin: 10px;
 }
+
+.fill-space {
+
+    flex: 1 1 auto;
+  }
