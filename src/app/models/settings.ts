@@ -13,3 +13,4 @@ export const UPDATE_SHOP_DETAILS_PATH = "data/update/shop";
 export const GET_CONVERSATION_PATH = "data/get/conversation";
 export const SEND_SMS_PATH = "send/sms";
 export const SEND_BATCH_SMS_PATH = "send/batch/sms";
+export const GET_SHOP_STATS_PATH = "/data/stats/shop";

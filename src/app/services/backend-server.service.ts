@@ -4,13 +4,14 @@ import {SERVER_URL, GET_ORDER_PATH, UPDATE_ORDER_PATH, UPDATE_BATCH_ORDER_PATH,
         GET_TEMPLATE_PATH, UPDATE_TEMPLATE_PATH,
         GET_SUBSCRIBERS_PATH, UPDATE_SUBSCRIBERS_PATH, CREATE_SUBSCRIBERS_PATH, DELETE_SUBSCRIBERS_PATH,
         GET_SHOP_DETAILS_PATH, UPDATE_SHOP_DETAILS_PATH,
-        GET_CONVERSATION_PATH, SEND_SMS_PATH, SEND_BATCH_SMS_PATH} from '../models/settings'
+        GET_CONVERSATION_PATH, SEND_SMS_PATH, SEND_BATCH_SMS_PATH, GET_SHOP_STATS_PATH} from '../models/settings'
 import { timer, Subject } from 'rxjs';
 import {mock_order} from '../models/mock_models/order'
 import {mock_template} from '../models/mock_models/template'
 import {mock_subscriber} from '../models/mock_models/subscriber'
 import {mock_shop_details} from '../models/mock_models/shop-details'
 import {mock_conversation} from '../models/mock_models/conversation'
+import {mock_stats} from '../models/mock_models/stats'
 import { Subscriber } from '../models/subscriber';
 import { ShopDetails } from '../models/shop-details';
 import { Order } from '../models/order';
@@ -40,6 +41,10 @@ export class BackendServerService {
 
   public conversations_data: any = {};
   public conversations_dataChange: Subject<any> = new Subject<any>();
+
+  public stats_data: any = {};
+  public stats_dataChange: Subject<any> = new Subject<any>();
+
 
   public signature : any;
   public shop : any;
@@ -283,4 +288,27 @@ export class BackendServerService {
     }else{
     }
   }
+
+  getShopStats(){
+    if(this.live){
+      return new Promise((resolve) => {      
+        this.http.post(SERVER_URL + GET_SHOP_STATS_PATH, {shop:this.shop, signature:this.signature}, {
+          observe: 'response',
+          withCredentials: false
+        }).subscribe((result) => {
+          console.log(result.body);
+          this.stats_data = result.body["result"];
+          this.stats_dataChange.next(this.stats_data);
+          resolve();
+        }, error => {        
+        })
+      });
+    }else{
+      this.stats_data = mock_stats.result;
+      this.stats_dataChange.next(this.stats_data);
+      return mock_stats;
+    }
+  }
+
 }
+
