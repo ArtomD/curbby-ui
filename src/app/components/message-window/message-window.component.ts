@@ -50,20 +50,22 @@ export class MessageWindowComponent implements OnInit {
     } catch(err) { }
 }
 
-  send(){
+  async send(){
     let sms: SMS = {message:this.text, phone:this.order.phone.toString(),subject:""};
     let tempMsg : Message = { id: 0, payload: this.text, conversationId: 0, 
                               created: new Date, modified: new Date, awsId: "",
                               to: "", from: "", origin: 4, };
-    console.log(this.server.conversations_data.messages[this.server.conversations_data.messages.length-1].payload);
     this.conversation.messages.push(tempMsg);
     this.server.conversations_data = this.conversation;
-    this.server.conversations_dataChange.next(this.server.conversations_data);
-    console.log(this.server.conversations_data.messages[this.server.conversations_data.messages.length-1].payload);
-    
-    //this.server.sendSMS(sms).then((value) => {
-      
-    //});
+    this.server.conversations_dataChange.next(this.server.conversations_data);    
+    this.server.sendSMS(sms).subscribe((value) => {
+      console.log(value);
+      this.sleep(3000).then(()=>this.server.getConversation(this.order.phone));
+    });
+  }
+
+  sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
   }
 
   refresh(){

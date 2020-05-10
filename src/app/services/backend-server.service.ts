@@ -268,18 +268,13 @@ export class BackendServerService {
 
   sendSMS(sms: SMS){
     console.log(sms);
-    if(this.live){
-      return new Promise((resolve) => {      
-        this.http.post(SERVER_URL + SEND_SMS_PATH, {shop:this.shop, sms:sms, signature:this.signature}, {
-          observe: 'response',
-          withCredentials: false
-        }).subscribe((result) => {
-          resolve();
-        }, error => {        
-        })
+    if(this.live){      
+      return this.http.post(SERVER_URL + SEND_SMS_PATH, {shop:this.shop, sms:sms, signature:this.signature}, {
+        observe: 'response',
+        withCredentials: false
       });
     }else{
-      
+
     }
   }
 
