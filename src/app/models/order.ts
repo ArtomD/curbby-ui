@@ -7,7 +7,8 @@ export interface Order {
     location: string;
     phone: number;
     email: string;
-    date: Date;
+    created: Date;
+    displayDate: string;
     status: number;
     selected: boolean;
     save: boolean;

@@ -1,12 +1,12 @@
 <div id="header">
-    {{order.customer.first_name}} {{order.customer.first_name}} - {{order.phone}}
+    {{order?.customer?.first_name}} {{order?.customer?.first_name}} - {{order?.phone}}
     <button id="closeButton" mat-flat-button color="warn" (click)="close()">X</button>
 </div>
 <div id="buffer"></div>
 <div >
     <ul id="conversation" #scrollBottom *ngIf="conversation">
         <div #messages [ngClass]="message.origin === 0 ? 'system' : message.origin === 1 ? 'employee' :  message.origin === 2 ? 'customer' : message.origin === 3 ? 'forward' : 'employee-pending' " class="speech-bubble" *ngFor="let message of conversation.messages;let index = index;">
-            {{message.payload}}
+            {{message?.payload}}
         </div>
     </ul>
     <div #bottom style="height:100px;clear:both;"></div>

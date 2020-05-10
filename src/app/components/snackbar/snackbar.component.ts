@@ -12,10 +12,8 @@ export class SnackbarComponent implements OnInit {
   hideSpinner = true;
   constructor(@Inject(MAT_SNACK_BAR_DATA) public data: any) {
     this.message = data;
-    console.log(data);
     if(data == "Uploading Data" || data ==  "Sending SMS"){
       this.hideSpinner = false;
-      console.log("SHOWING SPINNER");
     }
    }
 

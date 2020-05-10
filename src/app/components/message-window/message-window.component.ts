@@ -22,6 +22,7 @@ export class MessageWindowComponent implements OnInit {
   text : string;
   order:Order;
   conversation: Conversation;
+  windowOpen : boolean = false;
 
   constructor(
     public dialogRef: MatDialogRef<MessageWindowComponent>,
@@ -77,10 +78,6 @@ export class MessageWindowComponent implements OnInit {
 
   sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
-  }
-
-  refresh(){
-    this.server.getConversation(this.order.phone)
   }
 
   close(){
