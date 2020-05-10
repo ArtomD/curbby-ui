@@ -67,7 +67,7 @@ export class SettingsComponent implements OnInit {
   }
 
   synchSubscriberObject() {
-    this.subscribers = this.server.stats_data;
+    this.subscribers = this.server.subscriber_data;
     this.dataSourceSubs.data =  this.subscribers;
   }
 
