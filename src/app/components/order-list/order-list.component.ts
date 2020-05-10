@@ -53,7 +53,7 @@ export class OrderListComponent implements OnInit {
   ]);
 
   constructor(public server: BackendServerService, public dialog: MatDialog, private fb: FormBuilder, private _snackBar: MatSnackBar) {
-
+    this.messageTemplateSelected = 0;
     this.server.order_dataChange.subscribe(value => {
       this.update();
         this.filter();
