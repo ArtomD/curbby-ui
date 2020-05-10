@@ -12,7 +12,7 @@ import {mock_shop} from './models/mock_models/shop'
 export class AppComponent {
   title = 'angular-shopify-app';
   constructor(
-    private route: ActivatedRoute, private server: BackendServerService
+    private route: ActivatedRoute, public server: BackendServerService
   ) {}
 
   ngOnInit() {

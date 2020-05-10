@@ -17,6 +17,9 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
@@ -30,6 +33,7 @@ import { SettingsComponent } from './components/settings/settings.component';
 import { EditSubscriberComponent } from './components/settings/edit-subscriber/edit-subscriber.component';
 import { ConfirmPopupComponent } from './components/confirm-popup/confirm-popup.component';
 import { MessageWindowComponent } from './components/message-window/message-window.component';
+import { SnackbarComponent } from './components/snackbar/snackbar.component';
 
 
 @NgModule({
@@ -40,7 +44,8 @@ import { MessageWindowComponent } from './components/message-window/message-wind
     SettingsComponent,
     EditSubscriberComponent,
     ConfirmPopupComponent,
-    MessageWindowComponent
+    MessageWindowComponent,
+    SnackbarComponent
   ],
   imports: [
     BrowserModule,
@@ -65,7 +70,10 @@ import { MessageWindowComponent } from './components/message-window/message-wind
     MatDialogModule,
     MatSelectModule,
     MatIconModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatSnackBarModule,
+    MatProgressSpinnerModule,
+    MatProgressBarModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

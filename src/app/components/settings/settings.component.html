@@ -8,7 +8,8 @@
   <mat-toolbar>
     <span> Shop Statistics</span>
   </mat-toolbar>
-  <table id="statsTable" mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  <mat-progress-spinner [hidden]="dataSource?.length > 0" [mode]="'indeterminate'"></mat-progress-spinner>
+  <table id="statsTable" [hidden]="dataSource?.length <= 0" mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
     <ng-container matColumnDef="type">
       <th mat-header-cell *matHeaderCellDef> </th>
