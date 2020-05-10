@@ -199,6 +199,9 @@ export class OrderListComponent implements OnInit {
           });
         }
       });
+    }else{
+      this.openSnackBar("No orders selected.");
+      this.sleep(2000).then(() => this._snackBar.dismiss());
     }
   }
 
@@ -235,6 +238,9 @@ export class OrderListComponent implements OnInit {
           });
         }
       });
+    }else{
+      this.openSnackBar("No orders selected.");
+      this.sleep(2000).then(() => this._snackBar.dismiss());
     }
   }
 
