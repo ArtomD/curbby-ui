@@ -16,6 +16,7 @@ import { SnackbarComponent } from '../snackbar/snackbar.component';
 import { SMS } from 'src/app/models/sms';
 import { timer } from 'rxjs';
 import { ORDER_REFRESH_RATE, CONVERSATION_REFRESH_RATE } from '../../../../settings'
+import { phone_regex } from '../../models/regex'
 
 @Component({
   selector: 'app-order-list',
@@ -117,6 +118,7 @@ export class OrderListComponent implements OnInit {
       if (tempOrders.find(x => x == element.id)) {
         element.selected = true;
       }
+      element.invalidPhone = false;
     });
     console.log(new Date().getMilliseconds);
     this.dataSource.paginator = this.paginator;
@@ -184,9 +186,24 @@ export class OrderListComponent implements OnInit {
   }
 
   onChange(order: Order) {
-    if (/* valid phone*/true) {
+    console.log(order.phone.toString());
+    console.log(order.phone.toString().search(phone_regex));
+    if (order.phone.toString().search(phone_regex)==0) {
       this.server.updateOrders(order);
+      order.invalidPhone = false;
+    }else{
+      order.invalidPhone = true;
+      this.openSnackBar("Use +9999999999 for phone formats.");
+      this.sleep(5000).then(() => this._snackBar.dismiss());
     }
+  }
+
+  validatePhone(order: Order){
+    // if (order.phone.toString().search(phone_regex)==0) {
+    //   order.invalidPhone = false;
+    // }else{
+    //   order.invalidPhone = true;
+    // }
   }
 
   changeStatus(status: number) {
@@ -294,15 +311,6 @@ export class OrderListComponent implements OnInit {
       this.server.getConversation(this.currentConversationOrder.phone)
     }
   }
-
-  getErrorMessage(element: Order) {
-    if (element.validation.hasError('required')) {
-      return 'You must enter a value';
-    }
-
-    return element.validation.hasError('pattern') ? 'Not a valid phone' : '';
-  }
-
 
   /////////////////////////////////////////
 

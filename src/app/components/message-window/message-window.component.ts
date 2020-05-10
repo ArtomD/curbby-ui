@@ -43,6 +43,7 @@ export class MessageWindowComponent implements OnInit {
     }
 
   ngOnInit(): void {
+    this.sleep(100).then(()=>this.scrollToBottom());
   }
   
   
@@ -61,7 +62,7 @@ export class MessageWindowComponent implements OnInit {
     this.conversation.messages.push(tempMsg);
     this.server.conversations_data = this.conversation;
     this.server.conversations_dataChange.next(this.server.conversations_data);
-    this.scrollToBottom();
+    this.sleep(100).then(()=>this.scrollToBottom());
     this.server.sendSMS(sms).subscribe((value) => {
       if(value.status!=200){
         this.openSnackBar("Message failed to send");

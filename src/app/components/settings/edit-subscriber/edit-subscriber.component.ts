@@ -2,6 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { Subscriber } from '../../../models/subscriber'
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { BackendServerService } from 'src/app/services/backend-server.service';
+import {phone_regex} from '../../../models/regex'
 
 @Component({
   selector: 'app-edit-subscriber',
@@ -12,6 +13,8 @@ export class EditSubscriberComponent implements OnInit {
 
   selected: Subscriber;
   temp: Subscriber = <Subscriber>{};
+  invalidPhone:boolean = false;
+  invalidTempPhone:boolean = false;
 
   constructor(
     public dialogRef: MatDialogRef<EditSubscriberComponent>,
@@ -31,12 +34,10 @@ export class EditSubscriberComponent implements OnInit {
   }
 
   save() {
-    
     if (this.temp.id) {
       this.selected.name = this.temp.name;
       this.selected.phone = this.temp.phone;
       this.server.updateSubscribers(this.selected);
-
     } else {
       this.server.createSubscriber(this.temp);
       this.server.subscriber_data.push(this.temp);
@@ -44,4 +45,22 @@ export class EditSubscriberComponent implements OnInit {
     }
     this.dialogRef.close();
   }
+
+  validatePhone(){
+    if (this.temp.phone.toString().search(phone_regex)==0) {
+      this.invalidPhone = false;
+    }else{
+      this.invalidPhone = true;
+    }
+  }
+
+  validateTypingPhone(){
+    if (this.temp.phone.toString().search(phone_regex)==0) {
+      this.invalidTempPhone = false;
+      this.invalidPhone = false;
+    }else{
+      this.invalidTempPhone = true;
+    }
+  }
+
 }

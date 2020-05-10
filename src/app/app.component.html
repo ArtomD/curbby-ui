@@ -1,6 +1,6 @@
 <mat-card style="max-width: 1200px; margin:auto">
   <div><img src="assets/img/logo-curbby3.png" width="250px;"></div>
-  <mat-tab-group *ngIf="server.order_data?.length > 0" [selectedIndex]='0' [hidden]="server.order_data?.length <= 0">
+  <mat-tab-group [hidden]="server.order_data?.length <= 0">
     <mat-tab label="Order Communications">
       <app-order-list></app-order-list>
     </mat-tab>

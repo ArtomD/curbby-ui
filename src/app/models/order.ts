@@ -15,5 +15,5 @@ export interface Order {
     customer: Customer;
     conversation: Conversation;
     newMessageAvaliable: boolean;
-    validation: any;
+    invalidPhone: boolean;
   }
