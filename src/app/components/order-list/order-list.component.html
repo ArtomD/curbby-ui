@@ -63,7 +63,7 @@
 
     </div>
     <mat-card id="messages" [hidden]="!openMassMessage">
-        <mat-tab-group animationDuration="0ms" class="example-headers-align"
+        <mat-tab-group *ngIf="openMassMessage" animationDuration="0ms" class="example-headers-align"
             [(selectedIndex)]="messageTemplateSelected">
             <mat-tab label="{{template.name}}" *ngFor="let template of templates;let index = index;">
                 <textarea [(ngModel)]="templates[index].tempBody"></textarea>

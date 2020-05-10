@@ -24,8 +24,9 @@ import { ORDER_REFRESH_RATE, CONVERSATION_REFRESH_RATE } from '../../../../setti
 })
 export class OrderListComponent implements OnInit {
 
+
   panelOpenState = false;
-  messageTemplateSelected;
+  messageTemplateSelected = 0;
 
   displayedColumns: string[] = ['selected', 'shopifyOrderNumber', 'date', 'status', 'phone', 'name', 'messages'];
   dataSource;
@@ -53,8 +54,10 @@ export class OrderListComponent implements OnInit {
   ]);
 
   constructor(public server: BackendServerService, public dialog: MatDialog, private fb: FormBuilder, private _snackBar: MatSnackBar) {
+    console.log(new Date().getMilliseconds);
     this.messageTemplateSelected = 0;
     this.server.order_dataChange.subscribe(value => {
+      console.log(new Date().getMilliseconds);
       this.update();
       this.filter();
     })
@@ -69,6 +72,7 @@ export class OrderListComponent implements OnInit {
     const sourceConv = timer(CONVERSATION_REFRESH_RATE, CONVERSATION_REFRESH_RATE);
     sourceConv.subscribe(val => { this.refreshConversation(); });
   }
+
 
   toggleMessageDiv() {
     this.openMassMessage = !this.openMassMessage;
@@ -96,6 +100,7 @@ export class OrderListComponent implements OnInit {
 
   update() {
     let tempOrders: number[] = [];
+    console.log(new Date().getMilliseconds);
     this.dataSource?.data?.forEach(element => {
       if (element.selected) {
         tempOrders.push(element.id);
@@ -113,11 +118,13 @@ export class OrderListComponent implements OnInit {
         element.selected = true;
       }
     });
-
+    console.log(new Date().getMilliseconds);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     this.loaded = 1;
+
     this.dataSource.filterPredicate = (data, filter) => {
+      console.log(filter);
       var textToSearch = "";
       for (var key in data) {
         if (data[key] != null)
@@ -147,7 +154,12 @@ export class OrderListComponent implements OnInit {
 
 
   filterUnread() {
-    this.sleep(100).then(() => this.filter());
+    
+    this.sleep(100).then(() => { 
+      if(this.filterNewMessages && !this.labelFilterString){
+        this.labelFilterString = ".";
+      }
+      this.filter()});
   }
 
   filter() {
@@ -214,6 +226,7 @@ export class OrderListComponent implements OnInit {
   }
 
   massMessage() {
+  
     let amount: number = 0;
     let sms: SMS[] = [];
     this.dataSource.data.forEach(element => {
@@ -280,6 +293,14 @@ export class OrderListComponent implements OnInit {
     if (this.conversationOpen) {
       this.server.getConversation(this.currentConversationOrder.phone)
     }
+  }
+
+  getErrorMessage(element: Order) {
+    if (element.validation.hasError('required')) {
+      return 'You must enter a value';
+    }
+
+    return element.validation.hasError('pattern') ? 'Not a valid phone' : '';
   }
 
 

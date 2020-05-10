@@ -17,6 +17,7 @@ export class TemplatesComponent implements OnInit {
 
 
   templates :Template[] = [];
+  allExpanded : boolean = false;
 
   constructor(public server: BackendServerService, private _snackBar: MatSnackBar) { 
     this.synchTemplateObject();
@@ -36,12 +37,14 @@ export class TemplatesComponent implements OnInit {
     this.accordions.forEach(
       element => element.openAll()
     )
+    this.allExpanded = true;
   }
 
   collapseAll(){
     this.accordions.forEach(
       element => element.closeAll()
     )
+    this.allExpanded = false;
   }
 
   synchTemplateObject(){

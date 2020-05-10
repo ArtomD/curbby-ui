@@ -60,7 +60,8 @@ export class MessageWindowComponent implements OnInit {
                               to: "", from: "", origin: 4, };
     this.conversation.messages.push(tempMsg);
     this.server.conversations_data = this.conversation;
-    this.server.conversations_dataChange.next(this.server.conversations_data);    
+    this.server.conversations_dataChange.next(this.server.conversations_data);
+    this.scrollToBottom();
     this.server.sendSMS(sms).subscribe((value) => {
       if(value.status!=200){
         this.openSnackBar("Message failed to send");
