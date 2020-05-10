@@ -21,7 +21,6 @@ export class EditSubscriberComponent implements OnInit {
     this.temp.id = this.selected.id;
     this.temp.name = this.selected.name;
     this.temp.phone = this.selected.phone;
-    console.log(this.temp.id);
   }
 
   ngOnInit(): void {

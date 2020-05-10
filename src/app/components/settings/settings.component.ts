@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmPopupComponent } from '../confirm-popup/confirm-popup.component';
 import { ShopDetails } from 'src/app/models/shop-details';
 import { MatTableDataSource } from '@angular/material/table';
+import { Stats } from 'src/app/models/stats';
 
 @Component({
   selector: 'app-settings',
@@ -16,8 +17,8 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 export class SettingsComponent implements OnInit {
 
-  displayedColumns: string[] = ['type', 'current', 'last'];
-  dataSource = []// mock_stats;
+  displayedColumns: string[] = ['outboundCustomerMessages', 'inboundCustomerMessages', 'forwardedMessages', 'ordersManaged'];
+  shop_stats: Stats;
   templates :Template[] = [];
   orderConfirm : Template = {id:0,shopId:0,created:new Date(), modified:new Date(), body:"",tempBody:"",name:"",type:""};
   orderRdy : Template = {id:0,shopId:0,created:new Date(), modified:new Date(), body:"",tempBody:"",name:"",type:""};
@@ -44,6 +45,10 @@ export class SettingsComponent implements OnInit {
     this.server.shop_details_dataChange.subscribe(value => {
       this.synchShopDetailsObject();
     })
+    this.synchShopStatsObject();
+    this.server.stats_dataChange.subscribe(value => {
+      this.synchShopStatsObject();
+    })
 
   }
 
@@ -62,10 +67,13 @@ export class SettingsComponent implements OnInit {
   }
 
   synchSubscriberObject() {
-    this.subscribers = this.server.subscriber_data;
+    this.subscribers = this.server.stats_data;
     this.dataSourceSubs.data =  this.subscribers;
-    this.dataSourceSubs.data = this.subscribers;
+  }
 
+  synchShopStatsObject() {
+    this.shop_stats = this.server.stats_data;
+    this.shop_stats.month = new Date(this.shop_stats.currentBillingPeriod?.to).toLocaleString('default', { month: 'long' });
   }
 
   synchTemplateObject() {

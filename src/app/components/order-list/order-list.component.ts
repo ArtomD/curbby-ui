@@ -14,6 +14,8 @@ import { MessageWindowComponent } from '../message-window/message-window.compone
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SnackbarComponent } from '../snackbar/snackbar.component';
 import { SMS } from 'src/app/models/sms';
+import { timer } from 'rxjs';
+import {ORDER_REFRESH_RATE, CONVERSATION_REFRESH_RATE} from '../../models/settings'
 
 @Component({
   selector: 'app-order-list',
@@ -35,6 +37,8 @@ export class OrderListComponent implements OnInit {
   templates :Template[] = [];
 
   openMassMessage: boolean = false;
+  currentConversationOrder: Order;
+  conversationOpen : boolean = false;
 
   statuses = STATUS;
 
@@ -57,6 +61,12 @@ export class OrderListComponent implements OnInit {
     this.server.template_dataChange.subscribe(value => {      
       this.synchTemplateObject();
     })
+
+    const sourceOrder = timer(ORDER_REFRESH_RATE, ORDER_REFRESH_RATE);
+    sourceOrder.subscribe(val => { this.refresh(); });
+
+    const sourceConv = timer(CONVERSATION_REFRESH_RATE, CONVERSATION_REFRESH_RATE);
+    sourceConv.subscribe(val => { this.refreshConversation(); });
   }
 
   toggleMessageDiv(){
@@ -71,6 +81,7 @@ export class OrderListComponent implements OnInit {
 
   synchTemplateObject(){
     this.templates = this.server.template_data;
+    this.templates.push({id: 99, shopId: 0, created: new Date, modified: new Date, body: "", tempBody:"", name: "Other", type: "other"});
     if(this.templates && this.templates.length>0){
       this.setTemporaryFields()
     }
@@ -205,7 +216,6 @@ export class OrderListComponent implements OnInit {
         if(result){
                     
           this.openSnackBar("Sending SMS");
-          console.log(sms);
           this.server.sendBatchSMS(sms).subscribe(value => { 
             this.openSnackBar("Messages Sent");
             this.sleep(2000).then(()=>this._snackBar.dismiss());
@@ -228,12 +238,23 @@ export class OrderListComponent implements OnInit {
 
 
   openConversation(order: Order){
+    this.server.getConversation(order.phone);
+    this.currentConversationOrder = order;
+    this.conversationOpen = true;
     const dialogRef = this.dialog.open(MessageWindowComponent, {
         width: '80%',
         height: '70%',
         data:order,
       });
-      
+    dialogRef.afterClosed().subscribe(result => {
+      this.conversationOpen = false;
+    });  
+  }
+
+  refreshConversation(){
+    if(this.conversationOpen){
+      this.server.getConversation(this.currentConversationOrder.phone)
+    }
   }
 
 

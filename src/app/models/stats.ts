@@ -2,6 +2,7 @@ export interface Stats {
     currentBillingPeriod : CurrentBillingPeriod;
     current: Current;
     previous: Previous;
+    month: string;
 }
 
 interface CurrentBillingPeriod {

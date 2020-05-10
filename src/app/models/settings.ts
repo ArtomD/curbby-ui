@@ -13,4 +13,11 @@ export const UPDATE_SHOP_DETAILS_PATH = "data/update/shop";
 export const GET_CONVERSATION_PATH = "data/get/conversation";
 export const SEND_SMS_PATH = "send/sms";
 export const SEND_BATCH_SMS_PATH = "send/batch/sms";
-export const GET_SHOP_STATS_PATH = "/data/stats/shop";
+export const GET_SHOP_STATS_PATH = "data/stats/shop";
+
+export const ORDER_REFRESH_RATE = 10000;
+export const SUBSCRIBERS_REFRESH_RATE = 30000;
+export const TEMPLATE_REFRESH_RATE = 30000;
+export const DETAILS_REFRESH_RATE = 30000;
+export const STATS_REFRESH_RATE = 60000;
+export const CONVERSATION_REFRESH_RATE = 5000;
