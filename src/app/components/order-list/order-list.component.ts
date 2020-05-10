@@ -55,10 +55,8 @@ export class OrderListComponent implements OnInit {
   ]);
 
   constructor(public server: BackendServerService, public dialog: MatDialog, private fb: FormBuilder, private _snackBar: MatSnackBar) {
-    console.log(new Date().getMilliseconds);
     this.messageTemplateSelected = 0;
     this.server.order_dataChange.subscribe(value => {
-      console.log(new Date().getMilliseconds);
       this.update();
       this.filter();
     })
@@ -101,7 +99,6 @@ export class OrderListComponent implements OnInit {
 
   update() {
     let tempOrders: number[] = [];
-    console.log(new Date().getMilliseconds);
     this.dataSource?.data?.forEach(element => {
       if (element.selected) {
         tempOrders.push(element.id);
@@ -120,13 +117,11 @@ export class OrderListComponent implements OnInit {
       }
       element.invalidPhone = false;
     });
-    console.log(new Date().getMilliseconds);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     this.loaded = 1;
 
     this.dataSource.filterPredicate = (data, filter) => {
-      console.log(filter);
       var textToSearch = "";
       for (var key in data) {
         if (data[key] != null)
@@ -186,8 +181,6 @@ export class OrderListComponent implements OnInit {
   }
 
   onChange(order: Order) {
-    console.log(order.phone.toString());
-    console.log(order.phone.toString().search(phone_regex));
     if (order.phone.toString().search(phone_regex)==0) {
       this.server.updateOrders(order);
       order.invalidPhone = false;
