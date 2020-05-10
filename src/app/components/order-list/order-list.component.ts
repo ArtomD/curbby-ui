@@ -53,14 +53,10 @@ export class OrderListComponent implements OnInit {
   ]);
 
   constructor(public server: BackendServerService, public dialog: MatDialog, private fb: FormBuilder, private _snackBar: MatSnackBar) {
-
+    this.messageTemplateSelected = 0;
     this.server.order_dataChange.subscribe(value => {
       this.update();
-      if (this.autoUpdate) {
-        this.autoUpdate = false;
-      } else {
-        this.filter();
-      }
+      this.filter();
 
     })
     this.synchTemplateObject();
@@ -148,7 +144,11 @@ export class OrderListComponent implements OnInit {
 
   filter() {
     if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
+      if (this.autoUpdate) {
+        this.autoUpdate = false;
+      } else {
+        this.dataSource.paginator.firstPage();
+      }
     }
     this.dataSource.filter = this.labelFilterString;
   }
@@ -199,6 +199,9 @@ export class OrderListComponent implements OnInit {
           });
         }
       });
+    } else {
+      this.openSnackBar("No orders selected.");
+      this.sleep(2000).then(() => this._snackBar.dismiss());
     }
   }
 
@@ -235,6 +238,9 @@ export class OrderListComponent implements OnInit {
           });
         }
       });
+    } else {
+      this.openSnackBar("No orders selected.");
+      this.sleep(2000).then(() => this._snackBar.dismiss());
     }
   }
 

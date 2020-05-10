@@ -22,5 +22,5 @@ export const DETAILS_REFRESH_RATE = 30000;
 export const STATS_REFRESH_RATE = 60000;
 export const CONVERSATION_REFRESH_RATE = 5000;
 
-export const LIVE_SERVER = false;
+export const LIVE_SERVER = true;
 export const LIVE_SHOP = false;
