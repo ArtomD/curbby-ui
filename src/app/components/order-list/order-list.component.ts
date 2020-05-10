@@ -63,7 +63,7 @@ export class OrderListComponent implements OnInit {
     })
 
     const sourceOrder = timer(ORDER_REFRESH_RATE, ORDER_REFRESH_RATE);
-    sourceOrder.subscribe(val => { this.refresh(); });
+    sourceOrder.subscribe(val => { this.autoRefresh(); });
 
     const sourceConv = timer(CONVERSATION_REFRESH_RATE, CONVERSATION_REFRESH_RATE);
     sourceConv.subscribe(val => { this.refreshConversation(); });
@@ -148,6 +148,10 @@ export class OrderListComponent implements OnInit {
   refresh() {
     this.server.getOrders();
     this.server.getTemplates();
+  }
+
+  autoRefresh() {
+    this.server.getOrders();
   }
 
   onChange(order: Order){
