@@ -56,11 +56,7 @@ export class OrderListComponent implements OnInit {
 
     this.server.order_dataChange.subscribe(value => {
       this.update();
-      if(this.autoUpdate){
-        this.autoUpdate = false;
-      }else{
         this.filter();
-      }
       
     })
     this.synchTemplateObject();
@@ -148,7 +144,11 @@ export class OrderListComponent implements OnInit {
 
   filter() {
     if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
+      if(this.autoUpdate){
+        this.autoUpdate = false;
+      }else{
+        this.dataSource.paginator.firstPage();
+      }
     }
     this.dataSource.filter = this.labelFilterString;
   }
