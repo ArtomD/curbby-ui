@@ -136,7 +136,7 @@ export class OrderListComponent implements OnInit {
 
 
   filterUnread() {
-    this.filter();
+    this.sleep(100).then(() => this.filter());
   }
 
   filter() {
