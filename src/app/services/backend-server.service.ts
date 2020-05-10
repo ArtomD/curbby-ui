@@ -4,7 +4,7 @@ import {SERVER_URL, GET_ORDER_PATH, UPDATE_ORDER_PATH, UPDATE_BATCH_ORDER_PATH,
         GET_TEMPLATE_PATH, UPDATE_TEMPLATE_PATH,
         GET_SUBSCRIBERS_PATH, UPDATE_SUBSCRIBERS_PATH, CREATE_SUBSCRIBERS_PATH, DELETE_SUBSCRIBERS_PATH,
         GET_SHOP_DETAILS_PATH, UPDATE_SHOP_DETAILS_PATH,
-        GET_CONVERSATION_PATH, SEND_SMS_PATH, SEND_BATCH_SMS_PATH, GET_SHOP_STATS_PATH} from '../models/settings'
+        GET_CONVERSATION_PATH, SEND_SMS_PATH, SEND_BATCH_SMS_PATH, GET_SHOP_STATS_PATH, LIVE_SERVER, LIVE_SHOP} from '../../../settings'
 import { timer, Subject } from 'rxjs';
 import {mock_order} from '../models/mock_models/order'
 import {mock_template} from '../models/mock_models/template'
@@ -24,8 +24,8 @@ import { SMS } from '../models/sms';
 export class BackendServerService {
 
   
-  public live : boolean = true;
-  public useShop : boolean = false;
+  public live : boolean = LIVE_SERVER;
+  public useShop : boolean = LIVE_SHOP;
 
   public order_data: any = [];
   public order_dataChange: Subject<any> = new Subject<any>();
