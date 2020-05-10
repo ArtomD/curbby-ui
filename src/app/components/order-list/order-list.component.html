@@ -18,14 +18,22 @@
                     <b>Filter options</b>
 
                 </mat-panel-title>
+
                 <mat-panel-description>
                     <span *ngIf="labelFilterString.length > 0"><b>Contains</b> {{labelFilterString}} &nbsp;</span>
                 </mat-panel-description>
             </mat-expansion-panel-header>
 
             <mat-dialog-content [formGroup]="filterForm">
+                <div class="section-header">
+                    <p>
+                        You may filter on any colum using thefield bellow. This includes order #, status, customer phone
+                        number, etc.
+                    </p>
+                </div>
+
                 <mat-form-field class="dialog-input">
-                    <input matInput placeholder="Filter on string content" (keyup)="applyFilter($event)"
+                    <input matInput placeholder="Filter on order content" (keyup)="applyFilter($event)"
                         formControlName="label">
                 </mat-form-field>
                 <button class="mat-button filter-button" (click)="panelOpenState = false"
@@ -75,7 +83,7 @@
     </mat-card>
     <div class="section-header">
         <p>
-            Select records bellow to perform batch sends and status updates mass actions. Changes made in the table are
+            Select records bellow to perform batch sends and status update mass actions. Changes made in the table are
             saved in real time.
         </p>
     </div>

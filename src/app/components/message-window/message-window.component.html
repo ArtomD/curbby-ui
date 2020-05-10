@@ -1,23 +1,37 @@
-<div id="header">
-    {{order?.customer?.first_name}} {{order?.customer?.first_name}} - {{order?.phone}}
-    <button id="closeButton" mat-flat-button color="warn" (click)="close()">X</button>
-</div>
-<div id="buffer"></div>
-<div>
-    <ul id="conversation" #scrollBottom *ngIf="conversation">
+<div class="message-window">
+    <div id="header">
 
-        <li #messages class="speech-bubble" *ngFor="let message of conversation.messages;let index = index;"
-            [ngClass]="message.origin === 0 ? 'system' : message.origin === 1 ? 'employee' :  message.origin === 2 ? 'customer' : message.origin === 3 ? 'forward' : 'employee-pending' ">
+        <span class="chat-header">{{order?.customer?.first_name}} {{order?.customer?.first_name}}&nbsp;&nbsp;&nbsp;
+            {{order?.phone}}
+        </span>
+        <button id="closeButton" mat-mini-fab color="warn" (click)="close()"><span class="material-icons">
+                close
+            </span></button>
 
 
-            {{message?.payload}}
+    </div>
+    <div id="buffer"></div>
 
-        </li>
-    </ul>
-    <div #bottom style="height:100px;clear:both;"></div>
-</div>
+    <div class="scrollbar scrollbar-primary">
+        <ul id="conversation" #scrollBottom *ngIf="conversation" class="force-overflow">
 
-<div id="replyArea">
-    <textarea id="reply" [(ngModel)]="text"></textarea>
-    <button id="sendButton" mat-flat-button color="primary" (click)="send()">Send</button>
+            <li #messages class="speech-bubble" *ngFor="let message of conversation.messages;let index = index;"
+                [ngClass]="message.origin === 0 ? 'system' : message.origin === 1 ? 'employee' :  message.origin === 2 ? 'customer' : message.origin === 3 ? 'forward' : 'employee-pending' ">
+
+
+                {{message?.payload}}
+
+            </li>
+        </ul>
+    </div>
+
+    <div id="replyArea">
+
+        <textarea id="reply" [(ngModel)]="text"></textarea>
+        <button id="sendButton" mat-flat-button color="primary" (click)="send()"><span class="material-icons">
+                send
+            </span></button>
+
+
+    </div>
 </div>

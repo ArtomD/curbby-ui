@@ -26,6 +26,8 @@ textarea{
     height: 50px;
     font-size: large;
     margin: 10px 0% 10px 20px;
+    font-size: large;
+    font-family:Roboto, "Helvetica Neue", sans-serif;font-size:16px
 }
 
 .tab_buton{
@@ -88,4 +90,8 @@ textarea{
 #buttonArea
 {
     float:right
+}
+
+.filter-button{
+    width:98%
 }

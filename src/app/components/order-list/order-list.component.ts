@@ -95,9 +95,9 @@ export class OrderListComponent implements OnInit {
   }
 
   update() {
-    let tempOrders : number[] = [];
+    let tempOrders: number[] = [];
     this.dataSource?.data?.forEach(element => {
-      if(element.selected){
+      if (element.selected) {
         tempOrders.push(element.id);
       }
     });
@@ -109,7 +109,7 @@ export class OrderListComponent implements OnInit {
         element.newMessageAvaliable = false;
       }
       element.displayDate = new Date(element.created)?.toLocaleDateString();
-      if(tempOrders.find(x => x == element.id)){
+      if (tempOrders.find(x => x == element.id)) {
         element.selected = true;
       }
     });
@@ -269,8 +269,6 @@ export class OrderListComponent implements OnInit {
     this.currentConversationOrder = order;
     this.conversationOpen = true;
     const dialogRef = this.dialog.open(MessageWindowComponent, {
-      width: '300px;',
-      height: '300px',
       data: order,
     });
     dialogRef.afterClosed().subscribe(result => {
