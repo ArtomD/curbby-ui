@@ -60,10 +60,16 @@
   <div [hidden]="!shop_details.autoConfirmOrders" *ngIf="orderConfirm">
     <textarea class="text-field" [(ngModel)]="orderConfirm.tempBody"></textarea>
     <div id="buttonArea">
+<<<<<<< HEAD
       <button [style.visibility]="orderConfirm.tempBody === orderConfirm.body ? 'hidden' : 'visible'"
         class="buttonConfirm" mat-flat-button color="primary" (click)="saveConfirm()">Save</button>
       <button [style.visibility]="orderConfirm.tempBody === orderConfirm.body ? 'hidden' : 'visible'"
         class="buttonCancel" mat-flat-button color="warn" (click)="cancelConfirm()">Revert</button>
+=======
+      <button [disabled]="orderConfirm.tempBody === orderConfirm.body" class="buttonConfirm" mat-flat-button color="primary" (click)="saveConfirm()">Save</button>
+      <button [disabled]="orderConfirm.tempBody === orderConfirm.body" class="buttonCancel"
+        mat-flat-button color="warn" (click)="cancelConfirm()">Revert</button>
+>>>>>>> 4aa398674e18889d68896a395c74eda803f36bd3
 
     </div>
   </div>
@@ -76,10 +82,16 @@
 
     <textarea class="text-field" [(ngModel)]="orderRdy.tempBody"></textarea>
     <div>
+<<<<<<< HEAD
       <button [style.visibility]="orderRdy.tempBody === orderRdy.body ? 'hidden' : 'visible'" class="buttonConfirm"
         mat-flat-button color="primary" (click)="saveRdy()">Save</button>
       <button [style.visibility]="orderRdy.tempBody === orderRdy.body ? 'hidden' : 'visible'" class="buttonCancel"
         mat-flat-button color="warn" (click)="cancelRdy()">Revert</button>
+=======
+      <button [disabled]="orderRdy.tempBody === orderRdy.body" class="buttonConfirm" mat-flat-button color="primary" (click)="saveRdy()">Save</button>
+      <button [disabled]="orderRdy.tempBody === orderRdy.body" class="buttonCancel" mat-flat-button
+        color="warn" (click)="cancelRdy()">Revert</button>
+>>>>>>> 4aa398674e18889d68896a395c74eda803f36bd3
 
     </div>
   </div>
