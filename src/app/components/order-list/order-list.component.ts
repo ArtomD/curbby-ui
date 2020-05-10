@@ -11,6 +11,8 @@ import {STATUS} from '../../models/status'
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmPopupComponent } from '../confirm-popup/confirm-popup.component';
 import { MessageWindowComponent } from '../message-window/message-window.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { SnackbarComponent } from '../snackbar/snackbar.component';
 
 @Component({
   selector: 'app-order-list',
@@ -42,7 +44,7 @@ export class OrderListComponent implements OnInit {
     Validators.email,
   ]);
 
-  constructor(public server: BackendServerService, public dialog: MatDialog, private fb: FormBuilder) { 
+  constructor(public server: BackendServerService, public dialog: MatDialog, private fb: FormBuilder, private _snackBar: MatSnackBar) { 
 
     this.server.order_dataChange.subscribe(value => {
       this.update();
@@ -142,11 +144,27 @@ export class OrderListComponent implements OnInit {
               orders.push(element); 
             }
           });
-          this.server.updateBatchOrders(orders);
+          this.openSnackBar("Uploading Data");
+          this.server.updateBatchOrders(orders).subscribe(value => { 
+            this.openSnackBar("Upload Complete");
+            this.sleep(2000).then(()=>this._snackBar.dismiss());
+          });
         }
       });    
     }
   }
+
+  openSnackBar(message:string) {
+    this._snackBar.openFromComponent(SnackbarComponent, {
+      data: message
+    });
+  }
+
+  sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+
 
   openConversation(order: Order){
     const dialogRef = this.dialog.open(MessageWindowComponent, {

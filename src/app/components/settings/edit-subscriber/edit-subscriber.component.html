@@ -1,9 +1,9 @@
 <form class="example-form" *ngIf="temp">
     <div class="model-header">
-        <h4 *ngIf="newRecord">
+        <h4 [hidden]="temp.id==undefined">
             Edit subscriber
         </h4>
-        <h4 *ngIf="!newRecord">
+        <h4 [hidden]="temp.id">
             New subscriber creation
         </h4>
     </div>

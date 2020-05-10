@@ -10,7 +10,6 @@ import { BackendServerService } from 'src/app/services/backend-server.service';
 })
 export class EditSubscriberComponent implements OnInit {
 
-  newRecord = true;
   selected: Subscriber;
   temp: Subscriber = <Subscriber>{};
 
@@ -19,14 +18,13 @@ export class EditSubscriberComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: Subscriber,
     public server: BackendServerService) {
     this.selected = data;
+    this.temp.id = this.selected.id;
     this.temp.name = this.selected.name;
     this.temp.phone = this.selected.phone;
-    console.log(data);
+    console.log(this.temp.id);
   }
 
   ngOnInit(): void {
-    this.newRecord = this.data.hasOwnProperty('name')
-
   }
 
   cancel() {
@@ -34,6 +32,7 @@ export class EditSubscriberComponent implements OnInit {
   }
 
   save() {
+    
     if (this.temp.id) {
       this.selected.name = this.temp.name;
       this.selected.phone = this.temp.phone;

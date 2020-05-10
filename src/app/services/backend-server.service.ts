@@ -86,17 +86,12 @@ export class BackendServerService {
 
   updateBatchOrders(orders: Order[]){    
     if(this.live){
-      return new Promise((resolve) => {      
-        this.http.post(SERVER_URL + UPDATE_BATCH_ORDER_PATH, {shop:this.shop, order_data:orders,signature:this.signature}, {
+      return this.http.post(SERVER_URL + UPDATE_BATCH_ORDER_PATH, {shop:this.shop, order_data:orders,signature:this.signature}, {
           observe: 'response',
           withCredentials: false
-        }).subscribe((result) => {
-          resolve();
-        }, error => {        
-        })
-      });
+        });
     }else{
-      return mock_order;
+      //return mock_order;
     }
   }
 
@@ -268,18 +263,13 @@ export class BackendServerService {
 
   sendSMS(sms: SMS){
     console.log(sms);
-    if(this.live){
-      return new Promise((resolve) => {      
-        this.http.post(SERVER_URL + SEND_SMS_PATH, {shop:this.shop, sms:sms, signature:this.signature}, {
-          observe: 'response',
-          withCredentials: false
-        }).subscribe((result) => {
-          resolve();
-        }, error => {        
-        })
+    if(this.live){      
+      return this.http.post(SERVER_URL + SEND_SMS_PATH, {shop:this.shop, sms:sms, signature:this.signature}, {
+        observe: 'response',
+        withCredentials: false
       });
     }else{
-      
+
     }
   }
 
