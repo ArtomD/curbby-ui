@@ -76,3 +76,11 @@ mat-slide-toggle{
 #statsTable{
     margin: 30px 40px 25px 40px;
 }
+
+.subscriberTableHeader{
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    color:rgba(0,0,0,.54) !important;
+    padding-left: 20px;
+    text-align: left;
+}

@@ -35,7 +35,7 @@ textarea{
 }
 
 .phoneInput{
-    width: 100px;
+    width: 140px;
 }
 
 .phoneColumn{
@@ -44,8 +44,8 @@ textarea{
 
 #filter{
     display: inline-flex;
-    width:80%;
-    margin: 10px 5% 10px 1%;
+    width: 95%;
+    margin: 20px 0px 10px 30px;
 }
 
 #refreshButton{
@@ -60,4 +60,19 @@ textarea{
 
 .oldMessage{
     background: darkgray;
+}
+
+.statusSelect{
+    width:125px;
+}
+
+.unreadFilter{
+    float: right;
+    padding-bottom: 30px;
+    margin-right:100px;
+    width:500px;    
+}
+
+.mat-slide-toggle{
+    max-width:none !important;
 }

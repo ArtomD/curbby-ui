@@ -60,16 +60,11 @@
   <div [hidden]="!shop_details.autoConfirmOrders" *ngIf="orderConfirm">
     <textarea class="text-field" [(ngModel)]="orderConfirm.tempBody"></textarea>
     <div id="buttonArea">
-<<<<<<< HEAD
-      <button [style.visibility]="orderConfirm.tempBody === orderConfirm.body ? 'hidden' : 'visible'"
-        class="buttonConfirm" mat-flat-button color="primary" (click)="saveConfirm()">Save</button>
-      <button [style.visibility]="orderConfirm.tempBody === orderConfirm.body ? 'hidden' : 'visible'"
-        class="buttonCancel" mat-flat-button color="warn" (click)="cancelConfirm()">Revert</button>
-=======
-      <button [disabled]="orderConfirm.tempBody === orderConfirm.body" class="buttonConfirm" mat-flat-button color="primary" (click)="saveConfirm()">Save</button>
-      <button [disabled]="orderConfirm.tempBody === orderConfirm.body" class="buttonCancel"
-        mat-flat-button color="warn" (click)="cancelConfirm()">Revert</button>
->>>>>>> 4aa398674e18889d68896a395c74eda803f36bd3
+      <button [disabled]="orderConfirm.tempBody === orderConfirm.body" class="buttonConfirm" mat-flat-button
+        color="primary" (click)="saveConfirm()">Save</button>
+      <button [disabled]="orderConfirm.tempBody === orderConfirm.body" class="buttonCancel" mat-flat-button color="warn"
+        (click)="cancelConfirm()">Revert</button>
+
 
     </div>
   </div>
@@ -82,16 +77,11 @@
 
     <textarea class="text-field" [(ngModel)]="orderRdy.tempBody"></textarea>
     <div>
-<<<<<<< HEAD
-      <button [style.visibility]="orderRdy.tempBody === orderRdy.body ? 'hidden' : 'visible'" class="buttonConfirm"
-        mat-flat-button color="primary" (click)="saveRdy()">Save</button>
-      <button [style.visibility]="orderRdy.tempBody === orderRdy.body ? 'hidden' : 'visible'" class="buttonCancel"
-        mat-flat-button color="warn" (click)="cancelRdy()">Revert</button>
-=======
-      <button [disabled]="orderRdy.tempBody === orderRdy.body" class="buttonConfirm" mat-flat-button color="primary" (click)="saveRdy()">Save</button>
-      <button [disabled]="orderRdy.tempBody === orderRdy.body" class="buttonCancel" mat-flat-button
-        color="warn" (click)="cancelRdy()">Revert</button>
->>>>>>> 4aa398674e18889d68896a395c74eda803f36bd3
+
+      <button [disabled]="orderRdy.tempBody === orderRdy.body" class="buttonConfirm" mat-flat-button color="primary"
+        (click)="saveRdy()">Save</button>
+      <button [disabled]="orderRdy.tempBody === orderRdy.body" class="buttonCancel" mat-flat-button color="warn"
+        (click)="cancelRdy()">Revert</button>
 
     </div>
   </div>
@@ -116,39 +106,39 @@
     </span>&nbsp;&nbsp;New
     Subscriber</button>
 
-  <table mat-table [dataSource]="dataSourceSubs" matSort *ngIf="server.subscriber_data?.length > 0"
-    class="mat-elevation-z8 example-container">
+  <table mat-table [dataSource]="dataSourceSubs" *ngIf="server.subscriber_data?.length > 0"
+    class="mat-elevation-z8 example-container subscriberTable">
 
     <!--- Note that these columns can be defined in any order.
             The actual rendered columns are set as a property on the row definition" -->
 
     <!-- Position Column -->
     <ng-container matColumnDef="name">
-      <th *matHeaderCellDef mat-sort-header> <B>Name</B> </th>
+      <th *matHeaderCellDef mat-header class="subscriberTableHeader"> <B>Name</B> </th>
       <td mat-cell *matCellDef="let element"> {{element.name}} </td>
     </ng-container>
 
     <ng-container matColumnDef="status">
-      <th *matHeaderCellDef mat-sort-header> <B>Active</B> </th>
+      <th *matHeaderCellDef mat-header class="subscriberTableHeader"> <B>Active</B> </th>
       <td mat-cell *matCellDef="let element">
         <mat-slide-toggle [(ngModel)]="element.active" (click)="updateSubscriber(element)"></mat-slide-toggle>
       </td>
     </ng-container>
 
     <ng-container matColumnDef="phone">
-      <th *matHeaderCellDef mat-sort-header> <B>Phone</B> </th>
+      <th *matHeaderCellDef mat-header class="subscriberTableHeader"> <B>Phone</B> </th>
       <td mat-cell *matCellDef="let element"> {{element.phone}} </td>
     </ng-container>
 
     <ng-container matColumnDef="edit">
-      <th *matHeaderCellDef mat-sort-header> </th>
+      <th *matHeaderCellDef mat-header> </th>
       <td mat-cell *matCellDef="let element">
         <button mat-flat-button color="primary" (click)="openModal(element)">Edit</button>
       </td>
     </ng-container>
 
     <ng-container matColumnDef="delete">
-      <th *matHeaderCellDef mat-sort-header> </th>
+      <th *matHeaderCellDef mat-header> </th>
       <td mat-cell *matCellDef="let element">
         <button mat-flat-button color="warn" (click)="delete(element)">Delete</button>
       </td>
