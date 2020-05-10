@@ -38,7 +38,8 @@ export class OrderListComponent implements OnInit {
 
   openMassMessage: boolean = false;
   currentConversationOrder: Order;
-  conversationOpen: boolean = false;
+  conversationOpen : boolean = false;
+  autoUpdate : boolean = false;
 
   statuses = STATUS;
 
@@ -55,7 +56,12 @@ export class OrderListComponent implements OnInit {
 
     this.server.order_dataChange.subscribe(value => {
       this.update();
-      this.filter();
+      if(this.autoUpdate){
+        this.autoUpdate = false;
+      }else{
+        this.filter();
+      }
+      
     })
     this.synchTemplateObject();
     this.server.template_dataChange.subscribe(value => {
@@ -103,6 +109,7 @@ export class OrderListComponent implements OnInit {
       }
       element.displayDate = new Date(element.created)?.toLocaleDateString();
     });
+    
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     this.loaded = 1;
@@ -152,6 +159,7 @@ export class OrderListComponent implements OnInit {
   }
 
   autoRefresh() {
+    this.autoUpdate = true;
     this.server.getOrders();
   }
 
