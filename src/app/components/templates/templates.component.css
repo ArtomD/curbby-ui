@@ -9,7 +9,7 @@ mat-panel-title{
 }
 
 textarea{
-    width:100%;
+    width:95% !important;
     height:50px;
     font-size: large;
     margin:8px;
