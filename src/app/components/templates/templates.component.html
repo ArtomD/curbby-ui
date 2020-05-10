@@ -22,16 +22,10 @@
       </mat-expansion-panel-header>
 
       <textarea class="text-field" [(ngModel)]="templates[index].tempBody"></textarea>
-<<<<<<< HEAD
-      <button [style.visibility]="templates[index].tempBody === templates[index].body ? 'hidden' : 'visible'"
-        class="button" mat-flat-button color="primary" (click)="save(template)">Save</button>
-      <button [style.visibility]="templates[index].tempBody === templates[index].body ? 'hidden' : 'visible'"
-        class="button" mat-flat-button color="warn" (click)="cancel(template)">Revert</button>
-=======
       <button [disabled]="templates[index].tempBody === templates[index].body" class="button" mat-flat-button color="primary" (click)="save(template)">Save</button>
       <button [disabled]="templates[index].tempBody === templates[index].body" class="button"
         mat-flat-button color="warn" (click)="cancel(template)">Revert</button>
->>>>>>> 4aa398674e18889d68896a395c74eda803f36bd3
+
 
 
     </mat-expansion-panel>
