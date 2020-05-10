@@ -4,12 +4,12 @@
         <button mat-flat-button color="primary" (click)="changeStatus(1)">Flag RFP</button>
         <button mat-flat-button color="primary" (click)="changeStatus(3)">Flag Cancelled</button>
         <mat-card id="messages" [hidden]="!openMassMessage">            
-            <mat-tab-group animationDuration="0ms" class="example-headers-align" >
+            <mat-tab-group animationDuration="0ms" class="example-headers-align" [(selectedIndex)]="messageTemplateSelected">
                 <mat-tab label="{{template.name}}" *ngFor="let template of templates;let index = index;">
                     <textarea [(ngModel)]="templates[index].tempBody"></textarea>
                     <button class="tab_buton" mat-flat-button color="warn" (click)="toggleMessageDiv()">Cancel</button>
                     <button class="tab_buton" mat-flat-button color="primary" (click)="cancel(template)">Revert</button>
-                    <button class="tab_buton" mat-flat-button color="primary" (click)="cancel(template)">Send</button>
+                    <button class="tab_buton" mat-flat-button color="primary" (click)="massMessage()">Send</button>
                  </mat-tab>                
             </mat-tab-group>
           </mat-card>
@@ -78,7 +78,7 @@
     <ng-container matColumnDef="messages">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> </th>
         <td mat-cell *matCellDef="let element"> 
-          <button mat-flat-button color="primary" (click)="openConversation(element)">Messages</button>
+          <button [ngClass]="element.newMessageAvaliable ? 'newMessage' : 'oldMessage'" mat-flat-button color="primary" (click)="openConversation(element)">Messages</button>
         </td>
     </ng-container>
     
