@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, ViewChildren, QueryList } from '@angular/core';
 import { BackendServerService } from 'src/app/services/backend-server.service';
 import {Template} from '../../models/template'
 import { SnackbarComponent } from '../snackbar/snackbar.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatAccordion } from '@angular/material/expansion';
 
 
 @Component({
@@ -12,9 +13,10 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class TemplatesComponent implements OnInit {
 
+  @ViewChildren(MatAccordion) accordions!: QueryList<MatAccordion>;
+
 
   templates :Template[] = [];
-
 
   constructor(public server: BackendServerService, private _snackBar: MatSnackBar) { 
     this.synchTemplateObject();
@@ -28,6 +30,18 @@ export class TemplatesComponent implements OnInit {
 
   refresh(){
     this.server.getTemplates();
+  }
+
+  expandAll(){
+    this.accordions.forEach(
+      element => element.openAll()
+    )
+  }
+
+  collapseAll(){
+    this.accordions.forEach(
+      element => element.closeAll()
+    )
   }
 
   synchTemplateObject(){

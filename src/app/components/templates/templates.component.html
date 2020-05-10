@@ -5,10 +5,13 @@
 </div>
 <div class="input-div">
   <mat-toolbar>
-    <span> Message Templates</span>
+    <span> Message Templates   
+      <button class="button" mat-stroked-button (click)="expandAll()"><span class="material-icons">unfold_more</span></button>
+      <button class="button" mat-stroked-button (click)="collapseAll()"><span class="material-icons">unfold_less</span></button>
+    </span>
   </mat-toolbar>
-  <mat-accordion *ngFor="let template of templates;let index = index;">
-    <mat-expansion-panel class="example-headers-align">
+  <mat-accordion [multi]="true" #accordion *ngFor="let template of templates;let index = index;">
+    <mat-expansion-panel [hidden]="template.name=='Other'" class="example-headers-align" >
       <mat-expansion-panel-header>
         <mat-panel-title>
           {{template.name}}
