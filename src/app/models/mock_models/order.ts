@@ -1,6 +1,288 @@
 export const mock_order = {
     "orders": [
         {
+            "id": "22",
+            "phone": "+16472955958",
+            "shopifyCartToken": "9ee3d35afd8bfc406e53a21563429dc2",
+            "shopifyOrderId": "2182056050732",
+            "shopifyOrderNumber": "1036",
+            "email": "",
+            "shopId": "14",
+            "created": "2020-05-09T16:24:16.503Z",
+            "modified": "2020-05-10T01:36:45.922Z",
+            "shopifyProcessedAt": "2020-05-09T12:24:12.000Z",
+            "pickup": true,
+            "status": 1,
+            "pickupLocation": {
+                "id": 1778765955116,
+                "title": "Apple",
+                "price": "0.00",
+                "code": "Apple",
+                "source": "shopify",
+                "phone": null,
+                "requested_fulfillment_service_id": null,
+                "delivery_category": null,
+                "carrier_identifier": "650f1a14fa979ec5c74d063e968411d4",
+                "discounted_price": "0.00",
+                "price_set": {
+                    "shop_money": {
+                        "amount": "0.00",
+                        "currency_code": "CAD"
+                    },
+                    "presentment_money": {
+                        "amount": "0.00",
+                        "currency_code": "CAD"
+                    }
+                },
+                "discounted_price_set": {
+                    "shop_money": {
+                        "amount": "0.00",
+                        "currency_code": "CAD"
+                    },
+                    "presentment_money": {
+                        "amount": "0.00",
+                        "currency_code": "CAD"
+                    }
+                },
+                "discount_allocations": [],
+                "tax_lines": []
+            },
+            "webhookDataId": "26",
+            "customer": {
+                "id": 3215124889644,
+                "email": null,
+                "accepts_marketing": false,
+                "created_at": "2020-05-03T20:03:06-04:00",
+                "updated_at": "2020-05-09T12:24:13-04:00",
+                "first_name": "asda",
+                "last_name": "sda",
+                "orders_count": 0,
+                "state": "disabled",
+                "total_spent": "0.00",
+                "last_order_id": null,
+                "note": null,
+                "verified_email": true,
+                "multipass_identifier": null,
+                "tax_exempt": false,
+                "phone": "+16472955958",
+                "tags": "",
+                "last_order_name": null,
+                "currency": "CAD",
+                "accepts_marketing_updated_at": "2020-05-09T12:24:13-04:00",
+                "marketing_opt_in_level": null,
+                "admin_graphql_api_id": "gid://shopify/Customer/3215124889644",
+                "default_address": {
+                    "id": 3463604731948,
+                    "customer_id": 3215124889644,
+                    "first_name": "asda",
+                    "last_name": "sda",
+                    "company": null,
+                    "address1": "sdasd",
+                    "address2": "asd",
+                    "city": "asdasdas",
+                    "province": "Ontario",
+                    "country": "Canada",
+                    "zip": "M5X1S2",
+                    "phone": null,
+                    "name": "asda sda",
+                    "province_code": "ON",
+                    "country_code": "CA",
+                    "country_name": "Canada",
+                    "default": true
+                }
+            },
+            "conversation": {
+                "id": "14",
+                "shopId": "14",
+                "created": "2020-05-08T02:24:51.857Z",
+                "modified": "2020-05-09T23:12:11.088Z",
+                "phone": "+16472955958",
+                "lastInbound": "2020-05-09T16:36:19.421Z",
+                "lastOutbound": "2020-05-09T23:12:11.088Z",
+                "lastRead": "2020-05-10T01:50:48.862Z"
+            }
+        },
+        {
+            "id": "21",
+            "phone": "+16472955958",
+            "shopifyCartToken": "b0e12e8b2727cbc2743f5461efecc39c",
+            "shopifyOrderId": "2182050512940",
+            "shopifyOrderNumber": "1035",
+            "email": "",
+            "shopId": "14",
+            "created": "2020-05-09T16:22:01.386Z",
+            "modified": "2020-05-10T01:36:45.948Z",
+            "shopifyProcessedAt": "2020-05-09T12:21:57.000Z",
+            "pickup": true,
+            "status": 1,
+            "pickupLocation": {
+                "id": 1778761105452,
+                "title": "test",
+                "price": "0.00",
+                "code": "test",
+                "source": "shopify",
+                "phone": null,
+                "requested_fulfillment_service_id": null,
+                "delivery_category": null,
+                "carrier_identifier": "650f1a14fa979ec5c74d063e968411d4",
+                "discounted_price": "0.00",
+                "price_set": {
+                    "shop_money": {
+                        "amount": "0.00",
+                        "currency_code": "CAD"
+                    },
+                    "presentment_money": {
+                        "amount": "0.00",
+                        "currency_code": "CAD"
+                    }
+                },
+                "discounted_price_set": {
+                    "shop_money": {
+                        "amount": "0.00",
+                        "currency_code": "CAD"
+                    },
+                    "presentment_money": {
+                        "amount": "0.00",
+                        "currency_code": "CAD"
+                    }
+                },
+                "discount_allocations": [],
+                "tax_lines": []
+            },
+            "webhookDataId": "25",
+            "customer": null,
+            "conversation": {
+                "id": "14",
+                "shopId": "14",
+                "created": "2020-05-08T02:24:51.857Z",
+                "modified": "2020-05-09T23:12:11.088Z",
+                "phone": "+16472955958",
+                "lastInbound": "2020-05-09T16:36:19.421Z",
+                "lastOutbound": "2020-05-09T23:12:11.088Z",
+                "lastRead": "2020-05-10T01:50:48.862Z"
+            }
+        },
+        {
+            "id": "20",
+            "phone": "+16472955958",
+            "shopifyCartToken": "7173c4356d5fc4fda5a1aa3e38fb9f8e",
+            "shopifyOrderId": "2182041206828",
+            "shopifyOrderNumber": "1034",
+            "email": "",
+            "shopId": "14",
+            "created": "2020-05-09T16:18:42.095Z",
+            "modified": "2020-05-10T01:36:45.974Z",
+            "shopifyProcessedAt": "2020-05-09T12:18:39.000Z",
+            "pickup": true,
+            "status": 1,
+            "pickupLocation": {
+                "id": 1778753306668,
+                "title": "test",
+                "price": "0.00",
+                "code": "test",
+                "source": "shopify",
+                "phone": null,
+                "requested_fulfillment_service_id": null,
+                "delivery_category": null,
+                "carrier_identifier": "650f1a14fa979ec5c74d063e968411d4",
+                "discounted_price": "0.00",
+                "price_set": {
+                    "shop_money": {
+                        "amount": "0.00",
+                        "currency_code": "CAD"
+                    },
+                    "presentment_money": {
+                        "amount": "0.00",
+                        "currency_code": "CAD"
+                    }
+                },
+                "discounted_price_set": {
+                    "shop_money": {
+                        "amount": "0.00",
+                        "currency_code": "CAD"
+                    },
+                    "presentment_money": {
+                        "amount": "0.00",
+                        "currency_code": "CAD"
+                    }
+                },
+                "discount_allocations": [],
+                "tax_lines": []
+            },
+            "webhookDataId": "24",
+            "customer": null,
+            "conversation": {
+                "id": "14",
+                "shopId": "14",
+                "created": "2020-05-08T02:24:51.857Z",
+                "modified": "2020-05-09T23:12:11.088Z",
+                "phone": "+16472955958",
+                "lastInbound": "2020-05-09T16:36:19.421Z",
+                "lastOutbound": "2020-05-09T23:12:11.088Z",
+                "lastRead": "2020-05-10T01:50:48.862Z"
+            }
+        },
+        {
+            "id": "19",
+            "phone": "+16472955958",
+            "shopifyCartToken": "61ab9c5f25173fdfc82aeade03c752db",
+            "shopifyOrderId": "2182032097324",
+            "shopifyOrderNumber": "1033",
+            "email": "",
+            "shopId": "14",
+            "created": "2020-05-09T16:15:26.388Z",
+            "modified": "2020-05-09T16:15:26.388Z",
+            "shopifyProcessedAt": "2020-05-09T12:15:21.000Z",
+            "pickup": true,
+            "status": 0,
+            "pickupLocation": {
+                "id": 1778745475116,
+                "title": "Apple",
+                "price": "0.00",
+                "code": "Apple",
+                "source": "shopify",
+                "phone": null,
+                "requested_fulfillment_service_id": null,
+                "delivery_category": null,
+                "carrier_identifier": "650f1a14fa979ec5c74d063e968411d4",
+                "discounted_price": "0.00",
+                "price_set": {
+                    "shop_money": {
+                        "amount": "0.00",
+                        "currency_code": "CAD"
+                    },
+                    "presentment_money": {
+                        "amount": "0.00",
+                        "currency_code": "CAD"
+                    }
+                },
+                "discounted_price_set": {
+                    "shop_money": {
+                        "amount": "0.00",
+                        "currency_code": "CAD"
+                    },
+                    "presentment_money": {
+                        "amount": "0.00",
+                        "currency_code": "CAD"
+                    }
+                },
+                "discount_allocations": [],
+                "tax_lines": []
+            },
+            "webhookDataId": "23",
+            "customer": null,
+            "conversation": {
+                "id": "14",
+                "shopId": "14",
+                "created": "2020-05-08T02:24:51.857Z",
+                "modified": "2020-05-09T23:12:11.088Z",
+                "phone": "+16472955958",
+                "lastInbound": "2020-05-09T16:36:19.421Z",
+                "lastOutbound": "2020-05-09T23:12:11.088Z",
+                "lastRead": "2020-05-10T01:50:48.862Z"
+            }
+        },
+        {
             "id": "17",
             "phone": "+15197190241",
             "shopifyCartToken": "da0911bf0807c18d2adaa5e9fb9c7a86",
@@ -48,6 +330,7 @@ export const mock_order = {
                 "tax_lines": []
             },
             "webhookDataId": "21",
+            "customer": null,
             "conversation": {
                 "id": "17",
                 "shopId": "14",
@@ -56,7 +339,7 @@ export const mock_order = {
                 "phone": "+15197190241",
                 "lastInbound": "2020-05-09T03:37:18.585Z",
                 "lastOutbound": "2020-05-09T13:37:31.104Z",
-                "lastRead": null
+                "lastRead": "2020-05-09T20:44:41.485Z"
             }
         },
         {
@@ -107,6 +390,7 @@ export const mock_order = {
                 "tax_lines": []
             },
             "webhookDataId": "20",
+            "customer": null,
             "conversation": {
                 "id": "16",
                 "shopId": "14",
@@ -115,7 +399,7 @@ export const mock_order = {
                 "phone": "+16265869621",
                 "lastInbound": null,
                 "lastOutbound": "2020-05-09T13:37:31.091Z",
-                "lastRead": null
+                "lastRead": "2020-05-10T00:12:27.460Z"
             }
         },
         {
@@ -166,6 +450,7 @@ export const mock_order = {
                 "tax_lines": []
             },
             "webhookDataId": "19",
+            "customer": null,
             "conversation": {
                 "id": "16",
                 "shopId": "14",
@@ -174,7 +459,7 @@ export const mock_order = {
                 "phone": "+16265869621",
                 "lastInbound": null,
                 "lastOutbound": "2020-05-09T13:37:31.091Z",
-                "lastRead": null
+                "lastRead": "2020-05-10T00:12:27.460Z"
             }
         },
         {
@@ -225,6 +510,7 @@ export const mock_order = {
                 "tax_lines": []
             },
             "webhookDataId": "18",
+            "customer": null,
             "conversation": {
                 "id": "16",
                 "shopId": "14",
@@ -233,7 +519,7 @@ export const mock_order = {
                 "phone": "+16265869621",
                 "lastInbound": null,
                 "lastOutbound": "2020-05-09T13:37:31.091Z",
-                "lastRead": null
+                "lastRead": "2020-05-10T00:12:27.460Z"
             }
         },
         {
@@ -284,6 +570,7 @@ export const mock_order = {
                 "tax_lines": []
             },
             "webhookDataId": "17",
+            "customer": null,
             "conversation": {
                 "id": "16",
                 "shopId": "14",
@@ -292,7 +579,7 @@ export const mock_order = {
                 "phone": "+16265869621",
                 "lastInbound": null,
                 "lastOutbound": "2020-05-09T13:37:31.091Z",
-                "lastRead": null
+                "lastRead": "2020-05-10T00:12:27.460Z"
             }
         },
         {
@@ -343,6 +630,7 @@ export const mock_order = {
                 "tax_lines": []
             },
             "webhookDataId": "16",
+            "customer": null,
             "conversation": {
                 "id": "16",
                 "shopId": "14",
@@ -351,7 +639,7 @@ export const mock_order = {
                 "phone": "+16265869621",
                 "lastInbound": null,
                 "lastOutbound": "2020-05-09T13:37:31.091Z",
-                "lastRead": null
+                "lastRead": "2020-05-10T00:12:27.460Z"
             }
         },
         {
@@ -402,15 +690,16 @@ export const mock_order = {
                 "tax_lines": []
             },
             "webhookDataId": "15",
+            "customer": null,
             "conversation": {
                 "id": "14",
                 "shopId": "14",
                 "created": "2020-05-08T02:24:51.857Z",
-                "modified": "2020-05-09T04:19:52.152Z",
+                "modified": "2020-05-09T23:12:11.088Z",
                 "phone": "+16472955958",
-                "lastInbound": "2020-05-09T04:19:51.398Z",
-                "lastOutbound": "2020-05-09T04:19:52.152Z",
-                "lastRead": "2020-05-09T15:32:28.849Z"
+                "lastInbound": "2020-05-09T16:36:19.421Z",
+                "lastOutbound": "2020-05-09T23:12:11.088Z",
+                "lastRead": "2020-05-10T01:50:48.862Z"
             }
         },
         {
@@ -461,14 +750,15 @@ export const mock_order = {
                 "tax_lines": []
             },
             "webhookDataId": "22",
+            "customer": null,
             "conversation": {
                 "id": "18",
                 "shopId": "14",
                 "created": "2020-05-09T04:19:52.220Z",
-                "modified": "2020-05-09T04:19:52.220Z",
+                "modified": "2020-05-09T16:36:20.261Z",
                 "phone": "+12262249668",
                 "lastInbound": null,
-                "lastOutbound": "2020-05-09T04:19:52.205Z",
+                "lastOutbound": "2020-05-09T16:36:20.261Z",
                 "lastRead": null
             }
         },
@@ -520,15 +810,16 @@ export const mock_order = {
                 "tax_lines": []
             },
             "webhookDataId": null,
+            "customer": null,
             "conversation": {
                 "id": "14",
                 "shopId": "14",
                 "created": "2020-05-08T02:24:51.857Z",
-                "modified": "2020-05-09T04:19:52.152Z",
+                "modified": "2020-05-09T23:12:11.088Z",
                 "phone": "+16472955958",
-                "lastInbound": "2020-05-09T04:19:51.398Z",
-                "lastOutbound": "2020-05-09T04:19:52.152Z",
-                "lastRead": "2020-05-09T15:32:28.849Z"
+                "lastInbound": "2020-05-09T16:36:19.421Z",
+                "lastOutbound": "2020-05-09T23:12:11.088Z",
+                "lastRead": "2020-05-10T01:50:48.862Z"
             }
         },
         {
@@ -579,15 +870,16 @@ export const mock_order = {
                 "tax_lines": []
             },
             "webhookDataId": null,
+            "customer": null,
             "conversation": {
                 "id": "14",
                 "shopId": "14",
                 "created": "2020-05-08T02:24:51.857Z",
-                "modified": "2020-05-09T04:19:52.152Z",
+                "modified": "2020-05-09T23:12:11.088Z",
                 "phone": "+16472955958",
-                "lastInbound": "2020-05-09T04:19:51.398Z",
-                "lastOutbound": "2020-05-09T04:19:52.152Z",
-                "lastRead": "2020-05-09T15:32:28.849Z"
+                "lastInbound": "2020-05-09T16:36:19.421Z",
+                "lastOutbound": "2020-05-09T23:12:11.088Z",
+                "lastRead": "2020-05-10T01:50:48.862Z"
             }
         },
         {
@@ -638,15 +930,16 @@ export const mock_order = {
                 "tax_lines": []
             },
             "webhookDataId": null,
+            "customer": null,
             "conversation": {
                 "id": "14",
                 "shopId": "14",
                 "created": "2020-05-08T02:24:51.857Z",
-                "modified": "2020-05-09T04:19:52.152Z",
+                "modified": "2020-05-09T23:12:11.088Z",
                 "phone": "+16472955958",
-                "lastInbound": "2020-05-09T04:19:51.398Z",
-                "lastOutbound": "2020-05-09T04:19:52.152Z",
-                "lastRead": "2020-05-09T15:32:28.849Z"
+                "lastInbound": "2020-05-09T16:36:19.421Z",
+                "lastOutbound": "2020-05-09T23:12:11.088Z",
+                "lastRead": "2020-05-10T01:50:48.862Z"
             }
         },
         {
@@ -697,15 +990,16 @@ export const mock_order = {
                 "tax_lines": []
             },
             "webhookDataId": null,
+            "customer": null,
             "conversation": {
                 "id": "14",
                 "shopId": "14",
                 "created": "2020-05-08T02:24:51.857Z",
-                "modified": "2020-05-09T04:19:52.152Z",
+                "modified": "2020-05-09T23:12:11.088Z",
                 "phone": "+16472955958",
-                "lastInbound": "2020-05-09T04:19:51.398Z",
-                "lastOutbound": "2020-05-09T04:19:52.152Z",
-                "lastRead": "2020-05-09T15:32:28.849Z"
+                "lastInbound": "2020-05-09T16:36:19.421Z",
+                "lastOutbound": "2020-05-09T23:12:11.088Z",
+                "lastRead": "2020-05-10T01:50:48.862Z"
             }
         },
         {
@@ -756,6 +1050,7 @@ export const mock_order = {
                 "tax_lines": []
             },
             "webhookDataId": null,
+            "customer": null,
             "conversation": {
                 "id": "16",
                 "shopId": "14",
@@ -764,7 +1059,7 @@ export const mock_order = {
                 "phone": "+16265869621",
                 "lastInbound": null,
                 "lastOutbound": "2020-05-09T13:37:31.091Z",
-                "lastRead": null
+                "lastRead": "2020-05-10T00:12:27.460Z"
             }
         },
         {
@@ -815,15 +1110,16 @@ export const mock_order = {
                 "tax_lines": []
             },
             "webhookDataId": null,
+            "customer": null,
             "conversation": {
                 "id": "14",
                 "shopId": "14",
                 "created": "2020-05-08T02:24:51.857Z",
-                "modified": "2020-05-09T04:19:52.152Z",
+                "modified": "2020-05-09T23:12:11.088Z",
                 "phone": "+16472955958",
-                "lastInbound": "2020-05-09T04:19:51.398Z",
-                "lastOutbound": "2020-05-09T04:19:52.152Z",
-                "lastRead": "2020-05-09T15:32:28.849Z"
+                "lastInbound": "2020-05-09T16:36:19.421Z",
+                "lastOutbound": "2020-05-09T23:12:11.088Z",
+                "lastRead": "2020-05-10T01:50:48.862Z"
             }
         },
         {
@@ -874,15 +1170,16 @@ export const mock_order = {
                 "tax_lines": []
             },
             "webhookDataId": null,
+            "customer": null,
             "conversation": {
                 "id": "14",
                 "shopId": "14",
                 "created": "2020-05-08T02:24:51.857Z",
-                "modified": "2020-05-09T04:19:52.152Z",
+                "modified": "2020-05-09T23:12:11.088Z",
                 "phone": "+16472955958",
-                "lastInbound": "2020-05-09T04:19:51.398Z",
-                "lastOutbound": "2020-05-09T04:19:52.152Z",
-                "lastRead": "2020-05-09T15:32:28.849Z"
+                "lastInbound": "2020-05-09T16:36:19.421Z",
+                "lastOutbound": "2020-05-09T23:12:11.088Z",
+                "lastRead": "2020-05-10T01:50:48.862Z"
             }
         },
         {
@@ -933,15 +1230,16 @@ export const mock_order = {
                 "tax_lines": []
             },
             "webhookDataId": null,
+            "customer": null,
             "conversation": {
                 "id": "14",
                 "shopId": "14",
                 "created": "2020-05-08T02:24:51.857Z",
-                "modified": "2020-05-09T04:19:52.152Z",
+                "modified": "2020-05-09T23:12:11.088Z",
                 "phone": "+16472955958",
-                "lastInbound": "2020-05-09T04:19:51.398Z",
-                "lastOutbound": "2020-05-09T04:19:52.152Z",
-                "lastRead": "2020-05-09T15:32:28.849Z"
+                "lastInbound": "2020-05-09T16:36:19.421Z",
+                "lastOutbound": "2020-05-09T23:12:11.088Z",
+                "lastRead": "2020-05-10T01:50:48.862Z"
             }
         },
         {
@@ -992,15 +1290,16 @@ export const mock_order = {
                 "tax_lines": []
             },
             "webhookDataId": null,
+            "customer": null,
             "conversation": {
                 "id": "14",
                 "shopId": "14",
                 "created": "2020-05-08T02:24:51.857Z",
-                "modified": "2020-05-09T04:19:52.152Z",
+                "modified": "2020-05-09T23:12:11.088Z",
                 "phone": "+16472955958",
-                "lastInbound": "2020-05-09T04:19:51.398Z",
-                "lastOutbound": "2020-05-09T04:19:52.152Z",
-                "lastRead": "2020-05-09T15:32:28.849Z"
+                "lastInbound": "2020-05-09T16:36:19.421Z",
+                "lastOutbound": "2020-05-09T23:12:11.088Z",
+                "lastRead": "2020-05-10T01:50:48.862Z"
             }
         }
     ]

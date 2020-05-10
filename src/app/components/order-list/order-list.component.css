@@ -53,3 +53,11 @@ textarea{
     width:10%;
     margin: 10px 1% 10px 3%;
 }
+
+.newMessage{
+
+}
+
+.oldMessage{
+    background: darkgray;
+}

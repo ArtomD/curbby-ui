@@ -13,6 +13,7 @@ import { ConfirmPopupComponent } from '../confirm-popup/confirm-popup.component'
 import { MessageWindowComponent } from '../message-window/message-window.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SnackbarComponent } from '../snackbar/snackbar.component';
+import { SMS } from 'src/app/models/sms';
 
 @Component({
   selector: 'app-order-list',
@@ -22,6 +23,7 @@ import { SnackbarComponent } from '../snackbar/snackbar.component';
 export class OrderListComponent implements OnInit {
 
   panelOpenState = false;
+  messageTemplateSelected;
   
   displayedColumns: string[] = ['selected','shopifyOrderNumber', 'status', 'phone', 'messages'];
   dataSource;
@@ -81,6 +83,13 @@ export class OrderListComponent implements OnInit {
 
   update() {
     this.dataSource = new MatTableDataSource(this.server.order_data);
+    this.dataSource.data.forEach(element => {
+      if(element.conversation.lastInbound >= element.conversation.lastRead){
+        element.newMessageAvaliable = true;
+      }else{
+        element.newMessageAvaliable = false;
+      }
+    });
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     this.loaded = 1;
@@ -98,6 +107,9 @@ export class OrderListComponent implements OnInit {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.labelFilterString = filterValue.trim().toLowerCase();
+    this.dataSource.data.forEach(element => {
+      element.selected = false;
+    });
     this.filter();
   }
 
@@ -130,8 +142,6 @@ export class OrderListComponent implements OnInit {
    
     if(amount>0){
       const dialogRef = this.dialog.open(ConfirmPopupComponent, {
-        width: '400px',
-        height: '160px',
         data:"You are changing " + amount + " orders to " + STATUS[status].name+".",
       });
 
@@ -147,6 +157,43 @@ export class OrderListComponent implements OnInit {
           this.openSnackBar("Uploading Data");
           this.server.updateBatchOrders(orders).subscribe(value => { 
             this.openSnackBar("Upload Complete");
+            this.sleep(2000).then(()=>this._snackBar.dismiss());
+          });
+        }
+      });    
+    }
+  }
+
+  massMessage(){
+    let amount: number = 0;
+    let sms :SMS[] = [];
+    this.dataSource.data.forEach(element => {
+      if(element.selected){
+        let found = false;
+        sms.forEach(inner => {
+          if(inner.phone == element.phone){
+            found = true;
+          }
+        });
+        if(!found){
+          amount++;
+          sms.push(<SMS>{message:this.server.template_data[this.messageTemplateSelected]["body"],phone:element.phone,subject:""})
+        }
+      }
+    });
+   
+    if(amount>0){
+      const dialogRef = this.dialog.open(ConfirmPopupComponent, {
+        data:"You are sending a message to " + amount + " customers.",
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        if(result){
+                    
+          this.openSnackBar("Sending SMS");
+          console.log(sms);
+          this.server.sendBatchSMS(sms).subscribe(value => { 
+            this.openSnackBar("Messages Sent");
             this.sleep(2000).then(()=>this._snackBar.dismiss());
           });
         }

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { BackendServerService } from 'src/app/services/backend-server.service';
 import {Template} from '../../models/template'
+import { SnackbarComponent } from '../snackbar/snackbar.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 @Component({
@@ -14,7 +16,7 @@ export class TemplatesComponent implements OnInit {
   templates :Template[] = [];
 
 
-  constructor(public server: BackendServerService) { 
+  constructor(public server: BackendServerService, private _snackBar: MatSnackBar) { 
     this.synchTemplateObject();
     this.server.template_dataChange.subscribe(value => {      
       this.synchTemplateObject();
@@ -44,9 +46,23 @@ export class TemplatesComponent implements OnInit {
   save(template: Template){
     template.body = template.tempBody;
     this.server.saveTemplate(template.id,template.body);
+    this.openSnackBar("Template saved.");
+    this.sleep(2000).then(()=>this._snackBar.dismiss());
+
   }
 
   cancel(template: Template){
     template.tempBody = template.body; 
   }
-}
+
+  sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+
+  openSnackBar(message:string) {
+    this._snackBar.openFromComponent(SnackbarComponent, {
+      data: message
+      });
+    }
+  }

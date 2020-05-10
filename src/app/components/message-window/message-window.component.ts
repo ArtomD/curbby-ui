@@ -5,6 +5,8 @@ import { Order } from 'src/app/models/order';
 import { Conversation } from '../../models/conversation';
 import {SMS} from '../../models/sms'
 import { Message } from 'src/app/models/message';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { SnackbarComponent } from '../snackbar/snackbar.component';
 
 @Component({
   selector: 'app-message-window',
@@ -24,7 +26,7 @@ export class MessageWindowComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<MessageWindowComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Order,
-    public server: BackendServerService) {
+    public server: BackendServerService, private _snackBar: MatSnackBar) {
       this.server.getConversation(data.phone);
       this.order = data;
       this.synchConversationObject();      
@@ -59,8 +61,17 @@ export class MessageWindowComponent implements OnInit {
     this.server.conversations_data = this.conversation;
     this.server.conversations_dataChange.next(this.server.conversations_data);    
     this.server.sendSMS(sms).subscribe((value) => {
-      console.log(value);
+      if(value.status!=200){
+        this.openSnackBar("Message failed to send");
+        this.sleep(3000).then(()=>this._snackBar.dismiss());
+      }
       this.sleep(3000).then(()=>this.server.getConversation(this.order.phone));
+    });
+  }
+
+  openSnackBar(message:string) {
+    this._snackBar.openFromComponent(SnackbarComponent, {
+      data: message
     });
   }
 

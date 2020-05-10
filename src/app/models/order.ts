@@ -13,4 +13,5 @@ export interface Order {
     save: boolean;
     customer: Customer;
     conversation: Conversation;
+    newMessageAvaliable: boolean;
   }
