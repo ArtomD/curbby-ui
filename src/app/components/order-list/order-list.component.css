@@ -22,10 +22,10 @@ button{
 }
 
 textarea{
-    width:90%;
-    height:50px;
+    width: 95%;
+    height: 50px;
     font-size: large;
-    margin:8px;
+    margin: 10px 0% 10px 20px;
 }
 
 .tab_buton{
@@ -42,8 +42,7 @@ textarea{
     margin-right:20px;
 }
 
-#filter{
-    display: inline-flex;
+#filter{    
     width: 95%;
     margin: 20px 0px 10px 30px;
 }
@@ -68,11 +67,25 @@ textarea{
 
 .unreadFilter{
     float: right;
-    padding-bottom: 30px;
+    padding-top: 15px;
     margin-right:100px;
     width:500px;    
 }
 
 .mat-slide-toggle{
     max-width:none !important;
+}
+
+.mass-button{
+    margin-left:20px;
+}
+
+#messages{
+    width: 94%;
+    margin-left: 20px;
+}
+
+#buttonArea
+{
+    float:right
 }
