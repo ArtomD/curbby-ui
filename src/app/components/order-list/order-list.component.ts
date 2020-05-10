@@ -57,7 +57,6 @@ export class OrderListComponent implements OnInit {
     this.server.order_dataChange.subscribe(value => {
       this.update();
       this.filter();
-
     })
     this.synchTemplateObject();
     this.server.template_dataChange.subscribe(value => {
@@ -96,6 +95,12 @@ export class OrderListComponent implements OnInit {
   }
 
   update() {
+    let tempOrders : number[] = [];
+    this.dataSource?.data?.forEach(element => {
+      if(element.selected){
+        tempOrders.push(element.id);
+      }
+    });
     this.dataSource = new MatTableDataSource(this.server.order_data);
     this.dataSource.data.forEach(element => {
       if (element.conversation.lastInbound >= element.conversation.lastRead) {
@@ -104,6 +109,9 @@ export class OrderListComponent implements OnInit {
         element.newMessageAvaliable = false;
       }
       element.displayDate = new Date(element.created)?.toLocaleDateString();
+      if(tempOrders.find(x => x == element.id)){
+        element.selected = true;
+      }
     });
 
     this.dataSource.paginator = this.paginator;
