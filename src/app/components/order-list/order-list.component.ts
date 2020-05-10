@@ -25,11 +25,12 @@ export class OrderListComponent implements OnInit {
   panelOpenState = false;
   messageTemplateSelected;
   
-  displayedColumns: string[] = ['selected','shopifyOrderNumber', 'status', 'phone', 'messages'];
+  displayedColumns: string[] = ['selected','shopifyOrderNumber', 'date', 'status', 'phone', 'name', 'messages'];
   dataSource;
   loaded = 0;
   labelFilterString = "";
   filterForm: FormGroup;
+  filterNewMessages: boolean = false;
 
   templates :Template[] = [];
 
@@ -89,6 +90,7 @@ export class OrderListComponent implements OnInit {
       }else{
         element.newMessageAvaliable = false;
       }
+      element.displayDate = new Date(element.created)?.toLocaleDateString();
     });
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
@@ -100,7 +102,15 @@ export class OrderListComponent implements OnInit {
           textToSearch = textToSearch + data[key];
       }
       textToSearch = textToSearch + this.statuses.filter(x=>x.id===data.status)[0]["name"];
-      return textToSearch.toLowerCase().indexOf(filter) !== -1;
+      if(this.filterNewMessages){
+        if(data.newMessageAvaliable){
+          return textToSearch.toLowerCase().indexOf(filter) !== -1;
+        }else{
+          return false;
+        }
+      }else{
+        return textToSearch.toLowerCase().indexOf(filter) !== -1;
+      }
     };
   }
 
@@ -110,6 +120,10 @@ export class OrderListComponent implements OnInit {
     this.dataSource.data.forEach(element => {
       element.selected = false;
     });
+    this.filter();
+  }
+
+  filterUnread(){
     this.filter();
   }
 

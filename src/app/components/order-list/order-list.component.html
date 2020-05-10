@@ -22,7 +22,7 @@
     <mat-expansion-panel id="filter"  (opened)="panelOpenState = true" (closed)="panelOpenState = false" #mep="matExpansionPanel">
         <mat-expansion-panel-header>
             <mat-panel-title>
-                <b>Filter options</b>
+                <b>Filter options</b> <mat-slide-toggle [(ngModel)]="filterNewMessages" (click)="filterUnread()" class="configToggle">Unread Messages</mat-slide-toggle>
             </mat-panel-title>
             <mat-panel-description>
                 <span *ngIf="labelFilterString.length > 0"><b>Contains</b> {{labelFilterString}} &nbsp;</span>
@@ -59,6 +59,11 @@
         <td mat-cell *matCellDef="let element"> {{element.shopifyOrderNumber}} </td>
     </ng-container>
 
+    <ng-container matColumnDef="date">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> <B>Date</B> </th>
+        <td mat-cell *matCellDef="let element"> {{element.displayDate}} </td>
+    </ng-container>
+
     <ng-container class="phoneColumn" matColumnDef="status">
         <th  mat-header-cell *matHeaderCellDef mat-sort-header> <B>Status</B> </th>
         <td  mat-cell *matCellDef="let element"> 
@@ -69,10 +74,15 @@
     </ng-container>
 
     <ng-container matColumnDef="phone">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> <B>Phone</B> </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> <B>Phone Number</B> </th>
         <td mat-cell *matCellDef="let element">
             <input class="phoneInput" [(ngModel)]=element.phone (change)="onChange(element)">  
         </td>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> <B>Customer Name</B> </th>
+        <td  mat-cell *matCellDef="let element"> {{element.customer?.first_name}} {{element.customer?.last_name}} </td>
     </ng-container>
 
     <ng-container matColumnDef="messages">

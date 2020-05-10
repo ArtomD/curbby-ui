@@ -23,7 +23,7 @@ import { SMS } from '../models/sms';
 export class BackendServerService {
 
   
-  public live : boolean = true;
+  public live : boolean = false;
   public useShop : boolean = false;
 
   public order_data: any = [];
