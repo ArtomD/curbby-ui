@@ -15,7 +15,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { SnackbarComponent } from '../snackbar/snackbar.component';
 import { SMS } from 'src/app/models/sms';
 import { timer } from 'rxjs';
-import {ORDER_REFRESH_RATE, CONVERSATION_REFRESH_RATE} from '../../models/settings'
+import {ORDER_REFRESH_RATE, CONVERSATION_REFRESH_RATE} from '../../../../settings'
 
 @Component({
   selector: 'app-order-list',
