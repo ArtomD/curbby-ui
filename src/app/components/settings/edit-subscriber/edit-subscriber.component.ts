@@ -15,6 +15,8 @@ export class EditSubscriberComponent implements OnInit {
   temp: Subscriber = <Subscriber>{};
   invalidPhone:boolean = false;
   invalidTempPhone:boolean = false;
+  invalidName:boolean = false;
+  invalidTempName:boolean = false;
 
   constructor(
     public dialogRef: MatDialogRef<EditSubscriberComponent>,
@@ -27,6 +29,7 @@ export class EditSubscriberComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.validateOnStart();
   }
 
   cancel() {
@@ -46,8 +49,20 @@ export class EditSubscriberComponent implements OnInit {
     this.dialogRef.close();
   }
 
+  validateOnStart(){
+    if(!this.temp.phone){
+      this.invalidTempPhone = true;
+    }
+    if(!this.temp.name){
+      this.invalidTempName = true;
+    } 
+    this.validateTypingPhone();
+    this.validateTypingName();
+    
+  }
+
   validatePhone(){
-    if (this.temp.phone.toString().search(phone_regex)==0) {
+    if (this.temp?.phone?.toString().search(phone_regex)==0) {
       this.invalidPhone = false;
     }else{
       this.invalidPhone = true;
@@ -55,12 +70,30 @@ export class EditSubscriberComponent implements OnInit {
   }
 
   validateTypingPhone(){
-    if (this.temp.phone.toString().search(phone_regex)==0) {
+    if (this.temp?.phone?.toString().search(phone_regex)==0) {
       this.invalidTempPhone = false;
       this.invalidPhone = false;
     }else{
       this.invalidTempPhone = true;
     }
   }
+
+  validateName(){
+    if (this.temp?.name?.length>0) {
+      this.invalidName = false;
+    }else{
+      this.invalidName = true;
+    }
+  }
+
+  validateTypingName(){
+    if (this.temp?.name?.length>0) {
+      this.invalidTempName = false;
+      this.invalidName = false;
+    }else{
+      this.invalidTempName = true;
+    }
+  }
+
 
 }

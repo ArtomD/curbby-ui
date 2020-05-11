@@ -15,8 +15,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { SnackbarComponent } from '../snackbar/snackbar.component';
 import { SMS } from 'src/app/models/sms';
 import { timer } from 'rxjs';
-import { ORDER_REFRESH_RATE, CONVERSATION_REFRESH_RATE } from '../../../../settings'
+import { ORDER_REFRESH_RATE, CONVERSATION_REFRESH_RATE, LIVE_SERVER } from '../../../../settings'
 import { phone_regex } from '../../models/regex'
+
 
 @Component({
   selector: 'app-order-list',
@@ -35,7 +36,7 @@ export class OrderListComponent implements OnInit {
   labelFilterString = "";
   filterForm: FormGroup;
   filterNewMessages: boolean = false;
-
+  filterText : string;
   templates: Template[] = [];
 
   openMassMessage: boolean = false;
@@ -223,10 +224,17 @@ export class OrderListComponent implements OnInit {
             }
           });
           this.openSnackBar("Uploading Data");
-          this.server.updateBatchOrders(orders).subscribe(value => {
-            this.openSnackBar("Upload Complete");
-            this.sleep(2000).then(() => this._snackBar.dismiss());
-          });
+          if(LIVE_SERVER){
+            this.server.updateBatchOrders(orders).subscribe(value => {
+              this.openSnackBar("Upload Complete");
+              this.sleep(2000).then(() => this._snackBar.dismiss());
+            });
+          }else{
+            this.sleep(1800).then(() => {this.openSnackBar("Upload Complete"); 
+                                         this.sleep(2000).then(() => this._snackBar.dismiss());
+                                        });
+            
+          }
         }
       });
     } else {
@@ -261,12 +269,18 @@ export class OrderListComponent implements OnInit {
 
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-
           this.openSnackBar("Sending SMS");
-          this.server.sendBatchSMS(sms).subscribe(value => {
-            this.openSnackBar("Messages Sent");
-            this.sleep(2000).then(() => this._snackBar.dismiss());
-          });
+          if(LIVE_SERVER){
+            this.server.sendBatchSMS(sms).subscribe(value => {
+              this.openSnackBar("Messages Sent");
+              this.sleep(2000).then(() => this._snackBar.dismiss());
+            });
+          }else{
+            this.sleep(1800).then(() => {this.openSnackBar("Messages Sent"); 
+                                         this.sleep(2000).then(() => this._snackBar.dismiss());
+                                        });
+            
+          }
         }
       });
     } else {
@@ -302,7 +316,7 @@ export class OrderListComponent implements OnInit {
   clearSearch(){
     this.labelFilterString = "";
     this.dataSource.filter = this.labelFilterString;
-    
+    this.filterText = "";
   }
 
   refreshConversation() {

@@ -33,7 +33,7 @@
                 </div>
 
                 <mat-form-field class="dialog-input">
-                    <input matInput placeholder="Filter on order content" (keyup)="applyFilter($event)"
+                    <input matInput placeholder="Filter on order content" (keyup)="applyFilter($event)" [(ngModel)]="filterText"
                         formControlName="label">
                 </mat-form-field>
                 <button class="mat-button filter-button" (click)="panelOpenState = false" (click)="clearSearch()"
