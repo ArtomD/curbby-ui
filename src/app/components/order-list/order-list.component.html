@@ -36,8 +36,8 @@
                     <input matInput placeholder="Filter on order content" (keyup)="applyFilter($event)" [(ngModel)]="filterText"
                         formControlName="label">
                 </mat-form-field>
-                <button class="mat-button filter-button" (click)="panelOpenState = false" (click)="clearSearch()"
-                    (click)="mep.expanded = false;">Close</button>
+                <button class="mat-button filter-button" (click)="panelOpenState = false" (click)="mep.expanded = false;">Close</button>
+                    <button class="mat-button filter-button" (click)="clearSearch()">Clear</button>
             </mat-dialog-content>
         </mat-expansion-panel>
     </mat-accordion>
