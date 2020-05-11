@@ -301,6 +301,8 @@ export class OrderListComponent implements OnInit {
 
   clearSearch(){
     this.labelFilterString = "";
+    this.dataSource.filter = this.labelFilterString;
+    
   }
 
   refreshConversation() {
