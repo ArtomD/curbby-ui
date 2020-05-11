@@ -299,6 +299,10 @@ export class OrderListComponent implements OnInit {
     });
   }
 
+  clearSearch(){
+    this.labelFilterString = "";
+  }
+
   refreshConversation() {
     if (this.conversationOpen) {
       this.server.getConversation(this.currentConversationOrder.phone)
