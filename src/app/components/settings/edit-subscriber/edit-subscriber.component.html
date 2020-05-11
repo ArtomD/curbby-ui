@@ -13,7 +13,7 @@
     </mat-form-field>
     <mat-form-field class="example-full-width">
         <mat-label>Phone</mat-label>
-        <input [ngClass]="invalidPhone? 'invalidInput' : 'validInput'" (change)="validatePhone()" (keyup)="validateTypingPhone()" matInput [(ngModel)]="temp.phone" name="phone">
+        <input placeholder="+1(555)555-5555" [ngClass]="invalidPhone? 'invalidInput' : 'validInput'" (change)="validatePhone()" (keyup)="validateTypingPhone()" matInput [(ngModel)]="temp.phone" name="phone">
     </mat-form-field>
 </form>
 <button mat-flat-button color="warn" (click)="cancel()">Cancel</button>

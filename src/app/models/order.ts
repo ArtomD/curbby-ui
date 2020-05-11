@@ -5,7 +5,7 @@ export interface Order {
     id: number;
     orderNumber: number;
     location: string;
-    phone: number;
+    phone: string;
     email: string;
     created: Date;
     displayDate: string;

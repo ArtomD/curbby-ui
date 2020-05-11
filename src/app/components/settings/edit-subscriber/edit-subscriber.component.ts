@@ -37,6 +37,7 @@ export class EditSubscriberComponent implements OnInit {
   }
 
   save() {
+    this.temp.phone = "+" + this.temp.phone;
     if (this.temp.id) {
       this.selected.name = this.temp.name;
       this.selected.phone = this.temp.phone;
@@ -62,7 +63,8 @@ export class EditSubscriberComponent implements OnInit {
   }
 
   validatePhone(){
-    if (this.temp?.phone?.toString().search(phone_regex)==0) {
+    this.temp.phone = this.temp.phone?.replace(/[^0-9\.]+/g, "");
+    if (this.temp?.phone?.search(phone_regex)==0) {
       this.invalidPhone = false;
     }else{
       this.invalidPhone = true;
@@ -70,7 +72,8 @@ export class EditSubscriberComponent implements OnInit {
   }
 
   validateTypingPhone(){
-    if (this.temp?.phone?.toString().search(phone_regex)==0) {
+    this.temp.phone = this.temp.phone?.replace(/[^0-9\.]+/g, "");
+    if (this.temp?.phone?.search(phone_regex)==0) {
       this.invalidTempPhone = false;
       this.invalidPhone = false;
     }else{

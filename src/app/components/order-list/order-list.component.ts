@@ -182,12 +182,14 @@ export class OrderListComponent implements OnInit {
   }
 
   onChange(order: Order) {
-    if (order.phone.toString().search(phone_regex)==0) {
+    order.phone = order.phone?.replace(/[^0-9\.]+/g, "");
+    if (order.phone.search(phone_regex)==0) {
+      order.phone = "+" + order.phone;
       this.server.updateOrders(order);
       order.invalidPhone = false;
     }else{
       order.invalidPhone = true;
-      this.openSnackBar("Use +9999999999 for phone formats.");
+      this.openSnackBar("Use 1(555)555-5555 for phone formats.");
       this.sleep(5000).then(() => this._snackBar.dismiss());
     }
   }
