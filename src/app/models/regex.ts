@@ -1,0 +1,1 @@
+export const phone_regex = "^[0-9]{11}$";

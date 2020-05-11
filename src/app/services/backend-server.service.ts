@@ -245,14 +245,13 @@ export class BackendServerService {
     }
   }
 
-  getConversation(phone:number){
+  getConversation(phone:string){
     if(this.live){
       return new Promise((resolve) => {      
         this.http.post(SERVER_URL + GET_CONVERSATION_PATH, {shop:this.shop, conversation_data:{phone:phone}, signature:this.signature}, {
           observe: 'response',
           withCredentials: false
         }).subscribe((result) => {
-          console.log(result.body);
           this.conversations_data = result.body["result"];
           this.conversations_dataChange.next(this.conversations_data);
           resolve();
@@ -267,7 +266,6 @@ export class BackendServerService {
   }
 
   sendSMS(sms: SMS){
-    console.log(sms);
     if(this.live){      
       return this.http.post(SERVER_URL + SEND_SMS_PATH, {shop:this.shop, sms:sms, signature:this.signature}, {
         observe: 'response',
@@ -296,7 +294,6 @@ export class BackendServerService {
           observe: 'response',
           withCredentials: false
         }).subscribe((result) => {
-          console.log(result.body);
           this.stats_data = result.body["result"];
           this.stats_dataChange.next(this.stats_data);
           resolve();

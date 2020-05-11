@@ -9,3 +9,9 @@ mat-form-field{
     width: 90%;
 }
 
+.validInput{
+}
+
+.invalidInput{
+    background-color: indianred;
+}

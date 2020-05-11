@@ -5,7 +5,7 @@ export interface Order {
     id: number;
     orderNumber: number;
     location: string;
-    phone: number;
+    phone: string;
     email: string;
     created: Date;
     displayDate: string;
@@ -15,4 +15,5 @@ export interface Order {
     customer: Customer;
     conversation: Conversation;
     newMessageAvaliable: boolean;
+    invalidPhone: boolean;
   }

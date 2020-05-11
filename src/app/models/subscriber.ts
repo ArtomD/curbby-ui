@@ -3,7 +3,7 @@ export interface Subscriber {
   shopId: number;
   created: Date;
   modified: Date;
-  phone: number;
+  phone: string;
   name: string;
   allowResponse: boolean;
   active: boolean;

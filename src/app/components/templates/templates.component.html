@@ -10,11 +10,11 @@
 
     <span class="fill-space"></span>
 
-    <button class="" mat-icon-button (click)="expandAll()"><span class="material-icons">unfold_more</span></button>
-    <button class="" mat-icon-button (click)="collapseAll()"><span class="material-icons">unfold_less</span></button>
+    <button class="" mat-icon-button [hidden]="allExpanded" (click)="expandAll()"><span class="material-icons">unfold_more</span></button>
+    <button class="" mat-icon-button [hidden]="!allExpanded" (click)="collapseAll()"><span class="material-icons">unfold_less</span></button>
   </mat-toolbar>
   <mat-accordion [multi]="true" #accordion *ngFor="let template of templates;let index = index;">
-    <mat-expansion-panel [hidden]="template.name=='Other'" class="example-headers-align">
+    <mat-expansion-panel (opened)="allExpanded = true" [hidden]="template.name=='Other'" class="example-headers-align">
       <mat-expansion-panel-header>
         <mat-panel-title>
           {{template.name}}

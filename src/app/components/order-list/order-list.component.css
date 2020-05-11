@@ -40,6 +40,11 @@ textarea{
     width: 140px;
 }
 
+.invalidPhoneInput{
+    width: 140px;
+    background-color: indianred;
+}
+
 .phoneColumn{
     margin-right:20px;
 }
