@@ -23,6 +23,7 @@ export class MessageWindowComponent implements OnInit {
   order:Order;
   conversation: Conversation;
   windowOpen : boolean = false;
+  manualRefresh: boolean = false;
 
   constructor(
     public dialogRef: MatDialogRef<MessageWindowComponent>,
@@ -30,6 +31,7 @@ export class MessageWindowComponent implements OnInit {
     public server: BackendServerService, private _snackBar: MatSnackBar) {
       this.server.getConversation(data.phone);
       this.order = data;
+      this.manualRefresh = true;
       this.synchConversationObject();      
       this.server.conversations_dataChange.subscribe(value => { 
         this.synchConversationObject();
@@ -38,7 +40,11 @@ export class MessageWindowComponent implements OnInit {
 
     synchConversationObject(){
       this.conversation = this.server.conversations_data;
-      this.scrollToBottom();
+      if(this.manualRefresh){
+        this.scrollToBottom();
+        this.manualRefresh = false;
+      }
+      
       //this.messages.changes.subscribe(this.scrollToBottom);
     }
 
@@ -61,6 +67,7 @@ export class MessageWindowComponent implements OnInit {
                               to: "", from: "", origin: 4, };
     this.conversation.messages.push(tempMsg);
     this.server.conversations_data = this.conversation;
+    this.manualRefresh = true;
     this.server.conversations_dataChange.next(this.server.conversations_data);
     this.text = "";
     this.sleep(100).then(()=>this.scrollToBottom());
