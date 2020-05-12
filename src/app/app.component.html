@@ -1,6 +1,6 @@
 <mat-card style="max-width: 1200px; margin:auto">
   <div><img src="assets/img/logo-curbby3.png" width="250px;"></div>
-  <mat-tab-group [hidden]="server.order_data?.length <= 0">
+  <mat-tab-group [hidden]="server.order_data?.length <= 0 || noShopData">
     <mat-tab label="Order Communications">
       <app-order-list></app-order-list>
     </mat-tab>
@@ -14,15 +14,14 @@
 </mat-card>
 
 <div class="loading-image" [hidden]="!noShopData">
-  <img src="assets/img/desk-illustration.svg">
+  <img class="splash-image" src="assets/img/web_shopping.svg">
   <h4>Please visit through the Shopify Store</h4>
   <!--img src="assets/img/rocket.png" width="500px">
   <h4>Hang on while we prepare for blastoff...</h4-->
-  <mat-progress-bar mode="buffer"></mat-progress-bar>
 </div>
 
 <div class="loading-image" [hidden]="server.order_data?.length > 0 || noShopData">
-  <img src="assets/img/desk-illustration.svg">
+  <img class="splash-image" src="assets/img/fast_loading.svg">
   <h4>Hang on while we fetch your data...</h4>
   <!--img src="assets/img/rocket.png" width="500px">
   <h4>Hang on while we prepare for blastoff...</h4-->

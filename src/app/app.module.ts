@@ -21,6 +21,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatBadgeModule } from '@angular/material/badge';
+import { InternationalPhoneNumberModule } from 'ngx-international-phone-number';
 
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
@@ -75,7 +76,8 @@ import { SnackbarComponent } from './components/snackbar/snackbar.component';
     MatSnackBarModule,
     MatProgressSpinnerModule,
     MatProgressBarModule,
-    MatBadgeModule
+    MatBadgeModule,
+    InternationalPhoneNumberModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
