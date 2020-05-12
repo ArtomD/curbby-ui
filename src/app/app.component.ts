@@ -21,15 +21,15 @@ export class AppComponent {
       this.route.queryParams.subscribe(params => {
         this.server.shop = params["shop"];
         this.server.signature = params;
-        if(!this.server.shop || !this.server.signature ){
-          this.noShopData = true;
-        }else{
+        //if(!this.server.shop || !this.server.signature ){
+        //  this.noShopData = true;
+        //}else{
           this.server.getOrders();
           this.server.getTemplates();
           this.server.getSubscribers();
           this.server.getShopDetails();
           this.server.getShopStats();
-        }
+        //}
         
       });
     }else{
