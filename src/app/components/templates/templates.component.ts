@@ -17,7 +17,7 @@ export class TemplatesComponent implements OnInit {
 
 
   templates :Template[] = [];
-  allExpanded : boolean = false;
+  someExpanded : boolean = false;
 
   constructor(public server: BackendServerService, private _snackBar: MatSnackBar) { 
     this.synchTemplateObject();
@@ -37,14 +37,32 @@ export class TemplatesComponent implements OnInit {
     this.accordions.forEach(
       element => element.openAll()
     )
-    this.allExpanded = true;
+    this.templates.forEach(element => element.isOpen = true);
+    this.someExpanded = true;
   }
 
   collapseAll(){
     this.accordions.forEach(
       element => element.closeAll()
     )
-    this.allExpanded = false;
+    this.templates.forEach(element => element.isOpen = false);
+    this.someExpanded = false;
+  }
+
+  openCheck(template: Template){
+    this.someExpanded = true;
+    template.isOpen = true;
+  }
+
+  checkAllClosed(template: Template){
+    let someOpen = false;
+    template.isOpen = false;
+    this.templates.forEach(element => {     
+      if(element.isOpen){
+        someOpen = true;
+      }
+    });
+    this.someExpanded = someOpen;
   }
 
   synchTemplateObject(){

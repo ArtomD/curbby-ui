@@ -86,7 +86,7 @@ export class OrderListComponent implements OnInit {
 
   synchTemplateObject() {
     this.templates = this.server.template_data;
-    this.templates.push({ id: 99, shopId: 0, created: new Date, modified: new Date, body: "", tempBody: "", name: "Other", type: "other" });
+    this.templates.push({ id: 99, shopId: 0, created: new Date, modified: new Date, body: "", tempBody: "", name: "Other", type: "other", isOpen:false });
     if (this.templates && this.templates.length > 0) {
       this.setTemporaryFields()
     }
