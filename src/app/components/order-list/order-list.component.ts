@@ -311,6 +311,7 @@ export class OrderListComponent implements OnInit {
       data: order,
     });
     dialogRef.afterClosed().subscribe(result => {
+      this.server.conversations_data = null;
       this.conversationOpen = false;
     });
   }
