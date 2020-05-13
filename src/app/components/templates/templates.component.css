@@ -23,7 +23,7 @@ textarea{
 }
 
 .example-headers-align{
-    margin: 10px;
+    margin: 5px !important;
 }
 
 .fill-space {
