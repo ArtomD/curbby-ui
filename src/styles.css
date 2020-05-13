@@ -171,16 +171,10 @@ body {
 .example-form {
     height: 200px;   
     width: 400px;
-   }
+}
 
-   .section-header2{
-       padding-top:10px;
-    padding-left: 50px;
-    font-weight: 500;
-   }
 
-   .section-header{    
- padding-left: 50px;
+.section-header{    
  font-weight: 500;
 }
 
