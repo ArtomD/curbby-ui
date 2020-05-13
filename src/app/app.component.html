@@ -14,14 +14,14 @@
 </mat-card>
 
 <div class="loading-image" [hidden]="!noShopData">
-  <img class="splash-image" src="assets/img/web_shopping.svg">
+  <img class="splash-image" src="{{imgSrc}}images/undraw_web_shopping_dd4l.svg">
   <h4>Please visit through the Shopify Store</h4>
   <!--img src="assets/img/rocket.png" width="500px">
   <h4>Hang on while we prepare for blastoff...</h4-->
 </div>
 
 <div class="loading-image" [hidden]="server.order_data?.length > 0 || noShopData">
-  <img class="splash-image" src="assets/img/fast_loading.svg">
+  <img class="splash-image" src="{{imgSrc}}images/undraw_fast_loading_0lbh.svg">
   <h4>Hang on while we fetch your data...</h4>
   <!--img src="assets/img/rocket.png" width="500px">
   <h4>Hang on while we prepare for blastoff...</h4-->

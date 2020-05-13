@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { BackendServerService } from './services/backend-server.service';
 import {mock_signature} from './models/mock_models/signature'
 import {mock_shop} from './models/mock_models/shop'
+import {S3_AMZ_CLOUD} from '../../settings'
 
 @Component({
   selector: 'app-root',
@@ -11,6 +12,7 @@ import {mock_shop} from './models/mock_models/shop'
 })
 export class AppComponent {
   title = 'angular-shopify-app';
+  imgSrc = S3_AMZ_CLOUD;
   constructor(
     private route: ActivatedRoute, public server: BackendServerService
   ) {}
