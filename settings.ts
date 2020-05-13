@@ -15,6 +15,8 @@ export const SEND_SMS_PATH = "send/sms";
 export const SEND_BATCH_SMS_PATH = "send/batch/sms";
 export const GET_SHOP_STATS_PATH = "data/stats/shop";
 
+export const S3_AMZ_CLOUD = "https://curbby.s3.amazonaws.com/"
+
 export const ORDER_REFRESH_RATE = 10000;
 export const SUBSCRIBERS_REFRESH_RATE = 30000;
 export const TEMPLATE_REFRESH_RATE = 30000;
