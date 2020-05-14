@@ -26,7 +26,6 @@ import { phone_regex } from '../../models/regex'
 })
 export class OrderListComponent implements OnInit {
 
-
   panelOpenState = false;
   messageTemplateSelected = 0;
 
