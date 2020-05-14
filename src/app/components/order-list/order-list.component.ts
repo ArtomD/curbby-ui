@@ -316,7 +316,11 @@ export class OrderListComponent implements OnInit {
   }
 
   clearSearch(){
-    this.labelFilterString = "";
+    if(this.filterNewMessages){
+      this.labelFilterString = ".";
+    }else{
+      this.labelFilterString = "";
+    }
     this.dataSource.filter = this.labelFilterString;
     this.filterText = "";
   }
