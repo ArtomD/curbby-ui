@@ -17,20 +17,27 @@ export class AppComponent {
 
   noShopData : boolean = false;
   ngOnInit() {
+    let testString = "shop";
+    console.log(testString);
+    console.log(!testString);
+    console.log(testString?.length>0);
+    let testString2;
+    console.log(testString2);
+    console.log(!testString2);
+    console.log(testString2?.length>0);
     if(this.server.useShop){
       this.route.queryParams.subscribe(params => {
         this.server.shop = params["shop"];
         this.server.signature = params;
-        //if(!this.server.shop || !this.server.signature ){
-        //  this.noShopData = true;
-        //}else{
+        if(!(this.server.shop?.length > 0) ){
+          this.noShopData = true;
+        }else{
           this.server.getOrders();
           this.server.getTemplates();
           this.server.getSubscribers();
           this.server.getShopDetails();
           this.server.getShopStats();
-        //}
-        
+        }        
       });
     }else{
       this.server.shop = mock_shop;
