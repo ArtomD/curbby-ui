@@ -321,6 +321,12 @@ export class OrderListComponent implements OnInit {
     this.filterText = "";
   }
 
+  deselectAll(){
+    this.dataSource.data.forEach(element => {
+      element.selected = false;
+    });
+  }
+
   refreshConversation() {
     if (this.conversationOpen) {
       this.server.getConversation(this.currentConversationOrder.phone)
