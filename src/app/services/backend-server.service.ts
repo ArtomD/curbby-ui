@@ -48,13 +48,15 @@ export class BackendServerService {
 
   public signature : any;
   public shop : any;
+  public authenticated:  boolean = false;
 
   constructor(private http: HttpClient) {
 
   }
 
+
   getOrders(){    
-    if(this.live){
+    if(this.live && this.authenticated){
       return new Promise((resolve) => {      
         this.http.post(SERVER_URL + GET_ORDER_PATH, {shop:this.shop, order_data:{},signature:this.signature}, {
           observe: 'response',
@@ -74,7 +76,7 @@ export class BackendServerService {
   }
 
   updateOrders(order: Order){    
-    if(this.live){
+    if(this.live  && this.authenticated){
       return new Promise((resolve) => {      
         this.http.post(SERVER_URL + UPDATE_ORDER_PATH, {shop:this.shop, order_data:order,signature:this.signature}, {
           observe: 'response',
@@ -90,7 +92,7 @@ export class BackendServerService {
   }
 
   updateBatchOrders(orders: Order[]){    
-    if(this.live){
+    if(this.live  && this.authenticated){
       return this.http.post(SERVER_URL + UPDATE_BATCH_ORDER_PATH, {shop:this.shop, order_data:orders,signature:this.signature}, {
           observe: 'response',
           withCredentials: false
@@ -101,7 +103,7 @@ export class BackendServerService {
   }
 
   getTemplates(){
-    if(this.live){
+    if(this.live  && this.authenticated){
       return new Promise((resolve) => {      
         this.http.post(SERVER_URL + GET_TEMPLATE_PATH, {shop:this.shop, template_data:{},signature:this.signature}, {
           observe: 'response',
@@ -121,7 +123,7 @@ export class BackendServerService {
   }
 
   saveTemplate(id, body){
-    if(this.live){
+    if(this.live  && this.authenticated){
       return new Promise((resolve) => {      
         this.http.post(SERVER_URL + UPDATE_TEMPLATE_PATH, {shop:this.shop, template_data:{id:id, body:body},signature:this.signature}, {
           observe: 'response',
@@ -141,7 +143,7 @@ export class BackendServerService {
   }
 
   getSubscribers(){
-    if(this.live){
+    if(this.live  && this.authenticated){
       return new Promise((resolve) => {      
         this.http.post(SERVER_URL + GET_SUBSCRIBERS_PATH, {shop:this.shop, subscriber_data:{},signature:this.signature}, {
           observe: 'response',
@@ -161,7 +163,7 @@ export class BackendServerService {
   }
 
   updateSubscribers(subscriber: Subscriber){
-    if(this.live){
+    if(this.live  && this.authenticated){
       return new Promise((resolve) => {
         this.http.post(SERVER_URL + UPDATE_SUBSCRIBERS_PATH, {shop:this.shop, subscriber_data:subscriber,signature:this.signature}, {
           observe: 'response',
@@ -176,7 +178,7 @@ export class BackendServerService {
   }
 
   createSubscriber(subscriber: Subscriber){
-    if(this.live){
+    if(this.live  && this.authenticated){
       return new Promise((resolve) => {      
         this.http.post(SERVER_URL + CREATE_SUBSCRIBERS_PATH, {shop:this.shop, subscriber_data:subscriber,signature:this.signature}, {
           observe: 'response',
@@ -191,7 +193,7 @@ export class BackendServerService {
   }
 
   deleteSubscriber(subscriber: Subscriber){
-    if(this.live){
+    if(this.live  && this.authenticated){
       return new Promise((resolve) => {      
         this.http.post(SERVER_URL + DELETE_SUBSCRIBERS_PATH, {shop:this.shop, subscriber_data:subscriber,signature:this.signature}, {
           observe: 'response',
@@ -206,7 +208,7 @@ export class BackendServerService {
   }
 
   getShopDetails(){
-    if(this.live){
+    if(this.live  && this.authenticated){
       return new Promise((resolve) => {      
         this.http.post(SERVER_URL + GET_SHOP_DETAILS_PATH, {shop:this.shop, signature:this.signature}, {
           observe: 'response',
@@ -226,7 +228,7 @@ export class BackendServerService {
   }
 
   updateShopDetails(shop_details: ShopDetails){
-    if(this.live){
+    if(this.live  && this.authenticated){
       return new Promise((resolve) => {      
         this.http.post(SERVER_URL + UPDATE_SHOP_DETAILS_PATH, {shop:this.shop, shop_data:shop_details, signature:this.signature}, {
           observe: 'response',
@@ -246,7 +248,7 @@ export class BackendServerService {
   }
 
   getConversation(phone:string){
-    if(this.live){
+    if(this.live  && this.authenticated){
       return new Promise((resolve) => {      
         this.http.post(SERVER_URL + GET_CONVERSATION_PATH, {shop:this.shop, conversation_data:{phone:phone}, signature:this.signature}, {
           observe: 'response',
@@ -266,7 +268,7 @@ export class BackendServerService {
   }
 
   sendSMS(sms: SMS){
-    if(this.live){      
+    if(this.live  && this.authenticated){      
       return this.http.post(SERVER_URL + SEND_SMS_PATH, {shop:this.shop, sms:sms, signature:this.signature}, {
         observe: 'response',
         withCredentials: false
@@ -278,7 +280,7 @@ export class BackendServerService {
 
   sendBatchSMS(sms: SMS[]){
 
-    if(this.live){
+    if(this.live  && this.authenticated){
       return this.http.post(SERVER_URL + SEND_BATCH_SMS_PATH, {shop:this.shop, sms:sms, signature:this.signature}, {
           observe: 'response',
           withCredentials: false
@@ -288,7 +290,7 @@ export class BackendServerService {
   }
 
   getShopStats(){
-    if(this.live){
+    if(this.live  && this.authenticated){
       return new Promise((resolve) => {      
         this.http.post(SERVER_URL + GET_SHOP_STATS_PATH, {shop:this.shop, signature:this.signature}, {
           observe: 'response',
