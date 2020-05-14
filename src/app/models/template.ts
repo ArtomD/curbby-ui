@@ -7,4 +7,5 @@ export interface Template {
   name:string;
   type:string;
   tempBody:string;
+  isOpen: boolean;
   }
