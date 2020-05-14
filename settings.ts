@@ -15,7 +15,7 @@ export const SEND_SMS_PATH = "send/sms";
 export const SEND_BATCH_SMS_PATH = "send/batch/sms";
 export const GET_SHOP_STATS_PATH = "data/stats/shop";
 
-export const S3_AMZ_CLOUD = "https://curbby.s3.amazonaws.com/"
+export const FILE_DAM_PATH = "https://curbby.s3.amazonaws.com/"
 
 export const ORDER_REFRESH_RATE = 10000;
 export const SUBSCRIBERS_REFRESH_RATE = 30000;
@@ -24,5 +24,5 @@ export const DETAILS_REFRESH_RATE = 30000;
 export const STATS_REFRESH_RATE = 60000;
 export const CONVERSATION_REFRESH_RATE = 5000;
 
-export const LIVE_SERVER: boolean = false;
+export const LIVE_SERVER: boolean = true;
 export const LIVE_SHOP:  boolean = false;
