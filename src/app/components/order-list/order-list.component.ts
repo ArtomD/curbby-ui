@@ -500,7 +500,7 @@ export class OrderListComponent implements OnInit {
     let chart = new CanvasJS.Chart("chartContainerFunnel", {
       animationEnabled: false,
       title:{
-        text: "Recruitment Analysis - July 2016"
+        text: "Customer Time Waiting"
       },
       data: [{
         type: "funnel",
