@@ -9,6 +9,30 @@
     </mat-toolbar>
 
 </div>
+
+
+<div [hidden]="true">
+    <mat-accordion>
+        <mat-expansion-panel id="filter" (opened)="showGraph()">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                   Title
+                </mat-panel-title>
+                <mat-panel-description>
+                    Desc
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+
+            <mat-dialog-content >
+                <div class="graph" id="chartContainerRFP"></div>
+                <div class="graph" id="chartContainerCW"></div>
+                <div class="graph" id="chartContainerBar"></div>
+                <div class="graph" id="chartContainerFunnel"></div>
+            </mat-dialog-content>
+        </mat-expansion-panel>
+    </mat-accordion>
+</div>
+
 <div>
     <mat-accordion>
         <mat-expansion-panel id="filter" (opened)="panelOpenState = true" (closed)="panelOpenState = false"
