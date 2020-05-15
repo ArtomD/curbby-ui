@@ -17,10 +17,6 @@ import { SMS } from 'src/app/models/sms';
 import { timer } from 'rxjs';
 import { ORDER_REFRESH_RATE, CONVERSATION_REFRESH_RATE, LIVE_SERVER } from '../../../../settings'
 import { phone_regex } from '../../models/regex'
-import { CustomerStats } from 'src/app/models/customer-stats';
-
-import * as CanvasJS from '../../libraries/canvasjs.min';
-import { GraphData,dataPoints } from 'src/app/models/graph-data';
 
 @Component({
   selector: 'app-order-list',
@@ -32,8 +28,6 @@ export class OrderListComponent implements OnInit {
 
   panelOpenState = false;
   messageTemplateSelected = 0;
-
-  customerStats: CustomerStats;
 
   displayedColumns: string[] = ['selected', 'shopifyOrderNumber', 'date', 'status', 'phone', 'name', 'messages'];
   dataSource;
@@ -61,9 +55,6 @@ export class OrderListComponent implements OnInit {
   ]);
 
   constructor(public server: BackendServerService, public dialog: MatDialog, private fb: FormBuilder, private _snackBar: MatSnackBar) {
-    ////////////////////////////
-    this.populateCustomerStats();
-    ////////////////////////////
     this.messageTemplateSelected = 0;
     this.server.order_dataChange.subscribe(value => {
       this.update();
@@ -349,210 +340,6 @@ export class OrderListComponent implements OnInit {
   cancel(template: Template) {
     template.tempBody = template.body;
   }
-
-  /////////////////////////////////////////
-
-  displayStatTable: boolean = false;
-  chart: any;
-  RFPAvg: GraphData[] = [];
-  RFPLongest: GraphData[] = [];
-  RFPCount: GraphData[] = [];
-  CWAvg: GraphData[] = [];
-  CWLongest: GraphData[] = [];
-  CWCount: GraphData[] = [];
-
-  populateCustomerStats(){
-    this.displayStatTable = true;
-    this.customerStats = <CustomerStats>{};
-    this.customerStats.RFP = [];
-    this.customerStats.CW = [];
-    
-    for(let i =0; i< 12;i++){
-      let date = new Date();
-      date.setHours(date.getHours()-i);
-      let avgRFP = Math.floor(Math.random() * 41);
-      let avgCW = Math.floor(Math.random() * 41);
-      this.customerStats.RFP.push({date:date,amount:Math.floor(Math.random() * 31),average:avgRFP,max:avgRFP+3+Math.floor(Math.random() * 16)});
-      this.customerStats.CW.push({date:date,amount:Math.floor(Math.random() * 31),average:avgCW,max:avgCW+3+Math.floor(Math.random() * 16)});
-    }
-
-    for(let i =0; i< 12;i++){
-      let RFPTimeStr = this.customerStats.RFP[i].date.getHours() + " : " + this.customerStats.RFP[i].date.getMinutes();
-      this.RFPAvg.push({label:RFPTimeStr,y:this.customerStats.RFP[i].average});
-      this.RFPLongest.push({label:RFPTimeStr,y:this.customerStats.RFP[i].max});
-      this.RFPCount.push({label:RFPTimeStr,y:this.customerStats.RFP[i].amount});
-      let CWTimeStr = this.customerStats.CW[i].date.getHours() + " : " + this.customerStats.CW[i].date.getMinutes();
-      this.CWAvg.push({label:CWTimeStr,y:this.customerStats.CW[i].average});
-      this.CWLongest.push({label:CWTimeStr,y:this.customerStats.CW[i].max});
-      this.CWCount.push({label:CWTimeStr,y:this.customerStats.CW[i].amount});
-    }
-    
-  }
-
-  showGraph(){
-    this.displayTableRFP();
-    this.displayTableCW();
-    this.displayTableFunnel();
-    this.displayTableBar();
-  }
-
-  displayTableRFP(){
-    console.log(this.RFPCount);
-    this.chart = new CanvasJS.Chart("chartContainerRFP", {
-      title:{
-        text: "Customer Data"
-      },
-      axisY: {
-        title: "Order Count",
-        lineColor: "#000",
-        tickColor: "#000",
-        labelFontColor: "#4F81BC",
-        showInLegend: true,
-        legendText: "RFP Count",
-        gridThickness: 1
-      },
-      axisY2: {
-        gridThickness: 0,
-        lineColor: "#C0504E",
-        tickColor: "#C0504E",
-        labelFontColor: "#C0504E"
-      },      
-      data: [{
-        type: "column",
-        dataPoints: this.RFPCount
-      }]
-    });
-    this.chart.render();
-    this.createParetoRFP();
-  }
-
-  createParetoRFP(){
-    var dps = [];
-    var yValue, yTotal = 0, yPercent = 0;
-  
-    for(var i = 0; i < this.chart.data[0].dataPoints.length; i++)
-      yTotal += this.chart.data[0].dataPoints[i].y;
-  
-    for(var i = 0; i < this.chart.data[0].dataPoints.length; i++) {
-      yValue = this.chart.data[0].dataPoints[i].y;
-      yPercent += (yValue / yTotal * 100);
-      dps.push({label: this.chart.data[0].dataPoints[i].label, y: yPercent });
-    }
-    
-    this.chart.addTo("data", {type:"line", axisYType: "secondary", yValueFormatString: "", indexLabel: "{y}", lineColor:"#C44", tickColor:"#C44", indexLabelFontColor: "#C44", dataPoints: this.RFPAvg, showInLegend:true, legendText:"RFP Avg"});
-    this.chart.addTo("data", {type:"line", axisYType: "secondary", yValueFormatString: "", indexLabel: "{y}", lineColor:"#4B4", tickColor:"#4B4", indexLabelFontColor: "#4B4", dataPoints: this.RFPLongest, showInLegend:true, legendText:"RFP Longest"});
-    this.chart.axisY[0].set("maximum", yTotal, false);
-    this.chart.axisY2[0].set("maximum", 70, false );
-    this.chart.axisY2[0].set("interval", 10 );
-  }
-
-  displayTableCW(){
-    console.log(this.RFPCount);
-    this.chart = new CanvasJS.Chart("chartContainerCW", {
-      title:{
-        text: "Customer Data"
-      },
-      axisY: {
-        lineColor: "#000",
-        tickColor: "#000",
-        labelFontColor: "#4F81BC",
-        showInLegend: true,
-        legendText: "RFP Count",
-        gridThickness: 1
-      },
-      axisY2: {
-        title: "Wait Time",
-        gridThickness: 0,
-        lineColor: "#C0504E",
-        tickColor: "#C0504E",
-        labelFontColor: "#C0504E"
-      },      
-      data: [{
-        type: "column",
-        dataPoints: this.CWCount
-      }]
-    });
-    this.chart.render();
-    this.createParetoCW();
-  }
-
-  createParetoCW(){
-    var dps = [];
-    var yValue, yTotal = 0, yPercent = 0;
-  
-    for(var i = 0; i < this.chart.data[0].dataPoints.length; i++)
-      yTotal += this.chart.data[0].dataPoints[i].y;
-  
-    for(var i = 0; i < this.chart.data[0].dataPoints.length; i++) {
-      yValue = this.chart.data[0].dataPoints[i].y;
-      yPercent += (yValue / yTotal * 100);
-      dps.push({label: this.chart.data[0].dataPoints[i].label, y: yPercent });
-    }
-    
-    this.chart.addTo("data", {type:"line", axisYType: "secondary", yValueFormatString: "", indexLabel: "{y}", lineColor:"#C44", tickColor:"#C44", indexLabelFontColor: "#C44", dataPoints: this.CWAvg, showInLegend:true, legendText:"CW Avg"});
-    this.chart.addTo("data", {type:"line", axisYType: "secondary", yValueFormatString: "", indexLabel: "{y}", lineColor:"#4B4", tickColor:"#4B4", indexLabelFontColor: "#4B4", dataPoints: this.CWLongest, showInLegend:true, legendText:"CW Longest"});
-    this.chart.axisY[0].set("maximum", yTotal, false);
-    this.chart.axisY2[0].set("maximum", 70, false );
-    this.chart.axisY2[0].set("interval", 10 );
-  }
-
-  displayTableFunnel(){
-    let chart = new CanvasJS.Chart("chartContainerFunnel", {
-      animationEnabled: false,
-      title:{
-        text: "Recruitment Analysis - July 2016"
-      },
-      data: [{
-        type: "funnel",
-        indexLabel: "{label} - {y}",
-        toolTipContent: "<b>{label}</b>: {y} <b>({percentage}%)</b>",
-        neckWidth: 20,
-        neckHeight: 0,
-        valueRepresents: "area",
-        dataPoints: dataPoints
-      }]
-    });
-    //calculatePercentage();
-    chart.render();
-  }
-
-  calculatePercentage() {
-    var dataPoint = this.chart.options.data[0].dataPoints;
-    var total = dataPoint[0].y;
-    for(var i = 0; i < dataPoint.length; i++) {
-      if(i == 0) {
-        this.chart.options.data[0].dataPoints[i].percentage = 100;
-      } else {
-        this.chart.options.data[0].dataPoints[i].percentage = ((dataPoint[i].y / total) * 100).toFixed(2);
-      }
-    }
-  }
-
-  displayTableBar(){
-    let chart = new CanvasJS.Chart("chartContainerBar", {
-      animationEnabled: false,
-      theme: "light2", // "light1", "light2", "dark1", "dark2"
-      title:{
-        text: "Customer Time Waiting"
-      },
-      axisY: {
-        title: "Customer Count"
-      },
-      data: [{        
-        type: "column",  
-        showInLegend: true, 
-        legendMarkerColor: "grey",
-        legendText: "Minutes waiting",
-        dataPoints: dataPoints
-      }]
-    });
-    chart.render();
-    
-  }
-  
-
-
-  ///////////////////////////////////////
 
 
 }
