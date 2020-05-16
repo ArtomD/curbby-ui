@@ -17,6 +17,7 @@ import { SMS } from 'src/app/models/sms';
 import { timer } from 'rxjs';
 import { environment } from '../../../environments/environment'
 import { phone_regex } from '../../models/regex'
+import {LIVE_SERVER } from '../../../../settings'
 
 @Component({
   selector: 'app-order-list',
@@ -225,7 +226,7 @@ export class OrderListComponent implements OnInit {
             }
           });
           this.openSnackBar("Uploading Data");
-          if(environment.LIVE_SERVER){
+          if(LIVE_SERVER){
             this.server.updateBatchOrders(orders).subscribe(value => {
               this.openSnackBar("Upload Complete");
               this.sleep(2000).then(() => this._snackBar.dismiss());
@@ -271,7 +272,7 @@ export class OrderListComponent implements OnInit {
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
           this.openSnackBar("Sending SMS");
-          if(environment.LIVE_SERVER){
+          if(LIVE_SERVER){
             this.server.sendBatchSMS(sms).subscribe(value => {
               this.openSnackBar("Messages Sent");
               this.sleep(2000).then(() => this._snackBar.dismiss());
