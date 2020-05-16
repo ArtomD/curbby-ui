@@ -21,4 +21,5 @@ RUN npm install --save-dev @angular-devkit/build-angular
 COPY . /app
 
 # start app
+CMD ngcc --properties es2015 browser module main --async false
 CMD ng serve --disableHostCheck true
