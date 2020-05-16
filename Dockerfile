@@ -15,10 +15,10 @@ ENV PATH /app/node_modules/.bin:$PATH
 # install and cache app dependencies
 COPY package.json /app/package.json
 RUN npm install
-RUN npm install --save-dev @angular-devkit/build-angular
 
 # add app
 COPY . /app
 
 # start app
+CMD ngcc --properties es2015 browser module main --async false
 CMD ng serve --disableHostCheck true
