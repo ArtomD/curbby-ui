@@ -18,13 +18,13 @@ import { timer } from 'rxjs';
 import { ORDER_REFRESH_RATE, CONVERSATION_REFRESH_RATE, LIVE_SERVER } from '../../../../settings'
 import { phone_regex } from '../../models/regex'
 
-
 @Component({
   selector: 'app-order-list',
   templateUrl: './order-list.component.html',
   styleUrls: ['./order-list.component.css']
 })
 export class OrderListComponent implements OnInit {
+
 
   panelOpenState = false;
   messageTemplateSelected = 0;
@@ -336,20 +336,10 @@ export class OrderListComponent implements OnInit {
       this.server.getConversation(this.currentConversationOrder.phone)
     }
   }
-
-  /////////////////////////////////////////
-
-  save(template: Template) {
-    template.body = template.tempBody;
-    this.server.saveTemplate(template.id, template.body);
-  }
-
+  
   cancel(template: Template) {
     template.tempBody = template.body;
   }
-
-
-  ///////////////////////////////////////
 
 
 }
