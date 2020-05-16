@@ -15,7 +15,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { SnackbarComponent } from '../snackbar/snackbar.component';
 import { SMS } from 'src/app/models/sms';
 import { timer } from 'rxjs';
-import { ORDER_REFRESH_RATE, CONVERSATION_REFRESH_RATE, LIVE_SERVER } from '../../../../settings'
+import { environment } from '../../../environments/environment'
 import { phone_regex } from '../../models/regex'
 
 @Component({
@@ -65,10 +65,10 @@ export class OrderListComponent implements OnInit {
       this.synchTemplateObject();
     })
 
-    const sourceOrder = timer(ORDER_REFRESH_RATE, ORDER_REFRESH_RATE);
+    const sourceOrder = timer(environment.ORDER_REFRESH_RATE, environment.ORDER_REFRESH_RATE);
     sourceOrder.subscribe(val => { this.autoRefresh(); });
 
-    const sourceConv = timer(CONVERSATION_REFRESH_RATE, CONVERSATION_REFRESH_RATE);
+    const sourceConv = timer(environment.CONVERSATION_REFRESH_RATE, environment.CONVERSATION_REFRESH_RATE);
     sourceConv.subscribe(val => { this.refreshConversation(); });
   }
 
@@ -225,7 +225,7 @@ export class OrderListComponent implements OnInit {
             }
           });
           this.openSnackBar("Uploading Data");
-          if(LIVE_SERVER){
+          if(environment.LIVE_SERVER){
             this.server.updateBatchOrders(orders).subscribe(value => {
               this.openSnackBar("Upload Complete");
               this.sleep(2000).then(() => this._snackBar.dismiss());
@@ -271,7 +271,7 @@ export class OrderListComponent implements OnInit {
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
           this.openSnackBar("Sending SMS");
-          if(LIVE_SERVER){
+          if(environment.LIVE_SERVER){
             this.server.sendBatchSMS(sms).subscribe(value => {
               this.openSnackBar("Messages Sent");
               this.sleep(2000).then(() => this._snackBar.dismiss());
