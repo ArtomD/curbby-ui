@@ -24,6 +24,7 @@ export class MessageWindowComponent implements OnInit {
   conversation: Conversation;
   windowOpen : boolean = false;
   manualRefresh: boolean = false;
+  monthName: string[] = ["January","February","March","April","May","June","July","August","September","October","November","December"];  
 
   constructor(
     public dialogRef: MatDialogRef<MessageWindowComponent>,
@@ -40,6 +41,11 @@ export class MessageWindowComponent implements OnInit {
 
     synchConversationObject(){
       this.conversation = this.server.conversations_data;
+      this.conversation.messages.forEach(m =>{ 
+          m.created=new Date(m.created); 
+          m.displayDate = this.setDate(m.created);
+          console.log(m.displayDate);
+      } )
       if(this.manualRefresh){
         this.scrollToBottom();
         this.manualRefresh = false;
@@ -51,8 +57,28 @@ export class MessageWindowComponent implements OnInit {
   ngOnInit(): void {
     this.sleep(100).then(()=>this.scrollToBottom());
   }
-  
-  
+
+  setDate(date: Date){
+    let today = new Date();
+    let returnString = "";
+    if(today.getFullYear() != date.getFullYear() || today.getDate() != date.getDate()){
+      returnString += date.getDate() + " " + this.monthName[date.getMonth()] + " " + date.getFullYear() + " - ";
+    }
+    returnString += this.formatAMPM(date);
+    return returnString;
+  }
+
+  formatAMPM(date) {
+    var hours = date.getHours();
+    var minutes = date.getMinutes();
+    var ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12;
+    hours = hours ? hours : 12; // the hour '0' should be '12'
+    minutes = minutes < 10 ? '0'+minutes : minutes;
+    var strTime = hours + ':' + minutes + ' ' + ampm;
+    return strTime;
+  }
+
 
   scrollToBottom(): void {
     try {
@@ -64,7 +90,7 @@ export class MessageWindowComponent implements OnInit {
     let sms: SMS = {message:this.text, phone:this.order.phone.toString(),subject:""};
     let tempMsg : Message = { id: 0, payload: this.text, conversationId: 0, 
                               created: new Date, modified: new Date, awsId: "",
-                              to: "", from: "", origin: 4, };
+                              to: "", from: "", origin: 4, displayDate:this.setDate(new Date)};
     this.conversation.messages.push(tempMsg);
     this.server.conversations_data = this.conversation;
     this.manualRefresh = true;

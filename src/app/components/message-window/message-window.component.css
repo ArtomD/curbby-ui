@@ -145,9 +145,10 @@
 .speech-bubble{
     margin-bottom: 20px;
     width: 80%;
-    min-height: 40px;
+    min-height: 50px;
     padding-left: 15px;
     padding-right: 15px;
+    position: relative;
 }
 
 
@@ -222,4 +223,17 @@ min-height: 450px;
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
     background: #673ab7; 
+}
+
+.dateDisplayCust{
+    font-size: small;
+    position: absolute;
+    bottom: 0px;
+    left: 40px;
+}
+.dateDisplaySys{
+    font-size: small;
+    position: absolute;
+    bottom: 0px;
+    right: 40px;
 }

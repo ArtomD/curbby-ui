@@ -7,5 +7,6 @@ export interface Message {
     awsId: string;
     to: string;
     from: string;
-    origin: number;                
+    origin: number;     
+    displayDate: string;           
 }
