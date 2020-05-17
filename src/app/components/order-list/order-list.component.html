@@ -9,6 +9,7 @@
     </mat-toolbar>
 
 </div>
+
 <div>
     <mat-accordion>
         <mat-expansion-panel id="filter" (opened)="panelOpenState = true" (closed)="panelOpenState = false"
@@ -36,8 +37,8 @@
                     <input matInput placeholder="Filter on order content" (keyup)="applyFilter($event)" [(ngModel)]="filterText"
                         formControlName="label">
                 </mat-form-field>
-                <button class="mat-button filter-button" (click)="panelOpenState = false" (click)="clearSearch()"
-                    (click)="mep.expanded = false;">Close</button>
+                <button class="mat-button filter-button" (click)="clearSearch()">Clear</button>
+                <button class="mat-button filter-button" (click)="panelOpenState = false" (click)="mep.expanded = false;">Close</button>
             </mat-dialog-content>
         </mat-expansion-panel>
     </mat-accordion>
@@ -55,12 +56,6 @@
         <button mat-flat-button color="primary" (click)="changeStatus(1)" class="mass-button">Flag Ready for
             Pickup</button>
         <button mat-flat-button color="primary" (click)="changeStatus(3)" class="mass-button">Flag Cancelled</button>
-
-        <mat-panel-title class="unreadFilter">
-            <mat-slide-toggle [(ngModel)]="filterNewMessages" (click)="filterUnread()" class="configToggle">
-                Show only unread messages</mat-slide-toggle>
-        </mat-panel-title>
-
     </div>
     <mat-card id="messages" [hidden]="!openMassMessage">
         <mat-tab-group *ngIf="openMassMessage" animationDuration="0ms" class="example-headers-align"
@@ -68,23 +63,32 @@
             <mat-tab label="{{template.name}}" *ngFor="let template of templates;let index = index;">
                 <textarea [(ngModel)]="templates[index].tempBody"></textarea>
                 <div id="buttonArea">
-                    <button class="buttonCancel" mat-flat-button color="warn"
-                        (click)="toggleMessageDiv()">Cancel</button>
+                    <button class="buttonClose" mat-flat-button color="warn"
+                        (click)="toggleMessageDiv()">Close</button>
+
+                    <button class="buttonConfirm" mat-flat-button color="primary" (click)="massMessage()">
+                    <span class="material-icons">
+                        mail
+                    </span>&nbsp;&nbsp; Send</button>
                     <button class="buttonRevert" mat-flat-button color="primary"
                         (click)="cancel(template)">Revert</button>
-                    <button class="buttonConfirm" mat-flat-button color="primary" (click)="massMessage()">
-                        <span class="material-icons">
-                            mail
-                        </span>&nbsp;&nbsp; Send</button>
+
                 </div>
 
             </mat-tab>
         </mat-tab-group>
     </mat-card>
     <div class="section-header">
+        <button class="buttonDeselectAll" mat-flat-button color="primary" (click)="deselectAll()">Deselect All</button>
+        <p class="tableDesc">
+        Select records below to perform batch sends or status updates.
+        <br>
+        Changes made in the table are saved in real time.
+        </p>
+        <mat-slide-toggle [(ngModel)]="filterNewMessages" (click)="filterUnread()" class="configToggle">
+        </mat-slide-toggle>
         <p>
-            Select records below to perform batch sends or status updates. Changes made in the table are
-            saved in real time.
+        Show only unread messages
         </p>
     </div>
 </div>

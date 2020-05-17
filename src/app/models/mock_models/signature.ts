@@ -1,7 +1,7 @@
 export const mock_signature = {
-    "hmac": "28a0c35ba73bc893172537e2e392f70af425606a562d9365fe15d3e4507528ee",
-    "locale": "en",
-    "session": "17752846312170a1d44c58f261e40b8f58ac326170fdd168fa1b5a146ca5e534",
-    "shop":"purple-pencil.myshopify.com",
-    "timestamp": "1588637302"
-  };
+  "hmac": "37b41495d6047d6dcf81b2b9008d9fccbbe260df44d3a495a3af98c8325e8f4b",
+  "locale": "en",
+  "session": "ed6e2b92b68fdd93607f8f54b5649250c7bbb22bcbe2d01b2f7fb2ee472159ce",
+  "shop" : "dev-pencil.myshopify.com",
+  "timestamp": "1589504513"
+};

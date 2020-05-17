@@ -21,13 +21,30 @@ button{
     margin-bottom: 20px;
 }
 
+.buttonClose{
+    float:left;
+    margin-left: 30px;
+    min-width: 100px;
+}
+.buttonRevert{
+    float:right;
+    margin-right: 35px;
+    min-width: 90px;
+}
+.buttonConfirm{
+    float:right;
+    margin-right: 28px;
+    min-width: 90px;
+}
+
 textarea{
     width: 95%;
     height: 50px;
     font-size: large;
-    margin: 10px 0% 10px 20px;
+    margin: 10px 28px 10px 20px;
     font-size: large;
     font-family:Roboto, "Helvetica Neue", sans-serif;font-size:16px
+
 }
 
 .tab_buton{
@@ -72,11 +89,25 @@ textarea{
     width:125px;
 }
 
-.unreadFilter{
-    float: right;
-    padding-top: 15px;
-    margin-right:100px;
-    width:500px;    
+.tableDesc{
+    text-align: center;
+    width: inherit;
+}
+
+.section-header{
+    width: 100%;
+    display:inline-flex;
+}
+
+.buttonDeselectAll{
+    min-width: 85px;
+    padding: 0px;
+    height: 45px;
+    margin-top: 13px;
+}
+
+.configToggle{
+    margin:20px;
 }
 
 .mat-slide-toggle{
@@ -94,9 +125,17 @@ textarea{
 
 #buttonArea
 {
-    float:right
+    width:100%
 }
 
 .filter-button{
-    width:98%
+    width:44%
+}
+
+.graph{
+    height: 370px; 
+    width: 48%; 
+    margin-left:auto;
+    margin-right:auto;
+    display:inline-block;
 }

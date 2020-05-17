@@ -1,3 +1,5 @@
+import { Customer } from './customer';
+
 export interface Stats {
     currentBillingPeriod : CurrentBillingPeriod;
     current: Current;

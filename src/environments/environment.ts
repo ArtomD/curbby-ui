@@ -3,8 +3,15 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  ORDER_REFRESH_RATE: 10000,
+  SUBSCRIBERS_REFRESH_RATE: 30000,
+  TEMPLATE_REFRESH_RATE: 30000,
+  DETAILS_REFRESH_RATE: 30000,
+  STATS_REFRESH_RATE: 60000,
+  CONVERSATION_REFRESH_RATE: 5000,
 };
+
 
 /*
  * For easier debugging in development mode, you can import the following file

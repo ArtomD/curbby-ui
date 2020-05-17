@@ -15,9 +15,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { SnackbarComponent } from '../snackbar/snackbar.component';
 import { SMS } from 'src/app/models/sms';
 import { timer } from 'rxjs';
-import { ORDER_REFRESH_RATE, CONVERSATION_REFRESH_RATE, LIVE_SERVER } from '../../../../settings'
+import { environment } from '../../../environments/environment'
 import { phone_regex } from '../../models/regex'
-
+import {LIVE_SERVER } from '../../../../settings'
 
 @Component({
   selector: 'app-order-list',
@@ -66,10 +66,10 @@ export class OrderListComponent implements OnInit {
       this.synchTemplateObject();
     })
 
-    const sourceOrder = timer(ORDER_REFRESH_RATE, ORDER_REFRESH_RATE);
+    const sourceOrder = timer(environment.ORDER_REFRESH_RATE, environment.ORDER_REFRESH_RATE);
     sourceOrder.subscribe(val => { this.autoRefresh(); });
 
-    const sourceConv = timer(CONVERSATION_REFRESH_RATE, CONVERSATION_REFRESH_RATE);
+    const sourceConv = timer(environment.CONVERSATION_REFRESH_RATE, environment.CONVERSATION_REFRESH_RATE);
     sourceConv.subscribe(val => { this.refreshConversation(); });
   }
 
@@ -86,7 +86,7 @@ export class OrderListComponent implements OnInit {
 
   synchTemplateObject() {
     this.templates = this.server.template_data;
-    this.templates.push({ id: 99, shopId: 0, created: new Date, modified: new Date, body: "", tempBody: "", name: "Other", type: "other" });
+    this.templates.push({ id: 99, shopId: 0, created: new Date, modified: new Date, body: "", tempBody: "", name: "Other", type: "other", isOpen:false });
     if (this.templates && this.templates.length > 0) {
       this.setTemporaryFields()
     }
@@ -311,14 +311,25 @@ export class OrderListComponent implements OnInit {
       data: order,
     });
     dialogRef.afterClosed().subscribe(result => {
+      this.server.conversations_data = null;
       this.conversationOpen = false;
     });
   }
 
   clearSearch(){
-    this.labelFilterString = "";
+    if(this.filterNewMessages){
+      this.labelFilterString = ".";
+    }else{
+      this.labelFilterString = "";
+    }
     this.dataSource.filter = this.labelFilterString;
     this.filterText = "";
+  }
+
+  deselectAll(){
+    this.dataSource.data.forEach(element => {
+      element.selected = false;
+    });
   }
 
   refreshConversation() {
@@ -326,20 +337,10 @@ export class OrderListComponent implements OnInit {
       this.server.getConversation(this.currentConversationOrder.phone)
     }
   }
-
-  /////////////////////////////////////////
-
-  save(template: Template) {
-    template.body = template.tempBody;
-    this.server.saveTemplate(template.id, template.body);
-  }
-
+  
   cancel(template: Template) {
     template.tempBody = template.body;
   }
-
-
-  ///////////////////////////////////////
 
 
 }

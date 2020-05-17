@@ -1,1 +1,1 @@
-export const mock_shop = "purple-pencil.myshopify.com";
+export const mock_shop = "dev-pencil.myshopify.com";

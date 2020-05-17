@@ -3,7 +3,7 @@ import { Conversation } from './conversation';
 
 export interface Order {
     id: number;
-    orderNumber: number;
+    shopifyOrderNumber: number;
     location: string;
     phone: string;
     email: string;
