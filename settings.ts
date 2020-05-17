@@ -1,4 +1,4 @@
-export const SERVER_URL: string = "https://dulldroid.com/";
+export const SERVER_URL: string = "https://2462df86.ngrok.io/";
 export const GET_ORDER_PATH = "data/get/orders";
 export const UPDATE_ORDER_PATH = "data/update/orders";
 export const UPDATE_BATCH_ORDER_PATH = "data/batch/update/orders";
@@ -25,4 +25,4 @@ export const STATS_REFRESH_RATE = 60000;
 export const CONVERSATION_REFRESH_RATE = 5000;
 
 export const LIVE_SERVER: boolean = true;
-export const LIVE_SHOP:  boolean = false;
+export const LIVE_SHOP: boolean = false;
