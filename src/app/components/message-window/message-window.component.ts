@@ -21,6 +21,7 @@ export class MessageWindowComponent implements OnInit {
 
   text : string;
   order:Order;
+  orders:Order[] = [];
   conversation: Conversation;
   windowOpen : boolean = false;
   manualRefresh: boolean = false;
@@ -37,22 +38,25 @@ export class MessageWindowComponent implements OnInit {
       this.server.conversations_dataChange.subscribe(value => { 
         this.synchConversationObject();
       })
-    }
+  }
 
-    synchConversationObject(){
-      this.conversation = this.server.conversations_data;
-      this.conversation.messages.forEach(m =>{ 
-          m.created=new Date(m.created); 
-          m.displayDate = this.setDate(m.created);
-          console.log(m.displayDate);
-      } )
-      if(this.manualRefresh){
-        this.scrollToBottom();
-        this.manualRefresh = false;
-      }
-      
-      //this.messages.changes.subscribe(this.scrollToBottom);
+  synchConversationObject(){
+    this.conversation = this.server.conversations_data;
+    this.conversation.messages.forEach(m =>{ 
+      m.created=new Date(m.created); 
+      m.displayDate = this.setDate(m.created);
+          
+    });
+    if(this.manualRefresh){
+      this.scrollToBottom();
+      this.manualRefresh = false;
     }
+  }
+
+  getOrders(){
+    this.server.order_data
+  }
+
 
   ngOnInit(): void {
     this.sleep(100).then(()=>this.scrollToBottom());
