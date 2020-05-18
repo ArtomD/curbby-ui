@@ -32,6 +32,7 @@ export class MessageWindowComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: Order,
     public server: BackendServerService, private _snackBar: MatSnackBar) {
       this.server.getConversation(data.phone);
+      this.conversation = this.server.conversations_data;
       this.order = data;
       this.manualRefresh = true;
       this.synchConversationObject();      
@@ -41,20 +42,67 @@ export class MessageWindowComponent implements OnInit {
   }
 
   synchConversationObject(){
-    this.conversation = this.server.conversations_data;
-    this.conversation.messages.forEach(m =>{ 
-      m.created=new Date(m.created); 
-      m.displayDate = this.setDate(m.created);
-          
-    });
+    //gets orders from service
+    this.getOrders();
+    //clears out all orders from conversation
+    for(let i = 0;i< this.conversation.messages.length;i++){
+      if(this.conversation.messages[i].origin == 5){
+        this.conversation.messages.splice(i,1);
+        i--;
+      }
+    }
+    let orderIndex = 0;
+    let msgIndex = 0;
+    //inserts orders before conversation started
+    for(; orderIndex< this.orders.length;orderIndex++){
+      if(new Date(this.orders[orderIndex].created)<new Date(this.conversation.messages[msgIndex].created)){
+        this.conversation.messages.splice(orderIndex,0,this.orderToMessage(this.orders[orderIndex],5,"ORDER BEFORE"));
+        msgIndex++;
+      }else{
+        break;
+      }
+    }
+    //inserts orders in the middle of the conversation
+    for(;msgIndex< this.conversation.messages.length;msgIndex++){
+      this.conversation.messages[msgIndex].created=new Date(this.conversation.messages[msgIndex].created); 
+      this.conversation.messages[msgIndex].displayDate = this.setDate(this.conversation.messages[msgIndex].created);
+      if(new Date(this.orders[orderIndex].created)<new Date(this.conversation.messages[msgIndex].created)){
+        this.conversation.messages.splice(msgIndex,0,this.orderToMessage(this.orders[orderIndex],5, "ORDER MIDDLE"));
+        orderIndex++;
+        msgIndex++;
+      }
+    }
+    //inserts orders after conversation
+    for(; orderIndex< this.orders.length;orderIndex++){
+      this.conversation.messages.push(this.orderToMessage(this.orders[orderIndex],5,"ORDER AFTER"));      
+    }
+    //scrolls to bottom of chat(happens on chat load and new message sent)
     if(this.manualRefresh){
       this.scrollToBottom();
       this.manualRefresh = false;
     }
+    
   }
 
   getOrders(){
-    this.server.order_data
+    //clear array
+    this.orders.length = 0;
+    //populate array
+    this.server.order_data.forEach(o => {
+      if(o.phone==this.order.phone){
+        this.orders.push(o);
+      }      
+    })
+    //sort array
+    this.orders.sort(function (a, b) {
+      return new Date(a.created).getTime() - new Date(b.created).getTime();
+    })
+  }
+
+  orderToMessage(order: Order, type: number, msg: string){
+    return <Message>{ id: 0, payload: msg, conversationId: 0, 
+      created: new Date(order.created), modified: new Date(order.created), awsId: "",
+      to: "", from: "", origin: type, displayDate:this.setDate(new Date(order.created))}
   }
 
 
