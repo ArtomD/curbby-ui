@@ -1,5 +1,91 @@
 <mat-card style="max-width: 1200px; margin:auto">
-  <div><img src="{{imgSrc}}images/logo-curbby.png" width="250px;"></div>
+  <div>
+    <img src="{{imgSrc}}images/logo-curbby.png" width="250px;">
+    <span class="example-spacer"></span>
+    <div dir="rtl" class="icon">
+      <span [matMenuTriggerFor]="menu" class="material-icons icon" aria-hidden="false" aria-label="Example delete icon"
+        matBadge="!" matBadgePosition="after" matBadgeColor="accent">
+        message
+      </span>
+      <mat-menu #menu="matMenu" dir="rtl" class="notification-menu">
+        <mat-card onClick="console.log('here')" class="notification-card new-message">
+          <p>+1 234 234 2234<b> @ </b> 1/1/2020 12:43:12</p>
+          <p><b>Last message: </b>Hi there, can you hear me111</p>
+        </mat-card>
+        <mat-divider></mat-divider>
+        <mat-card onClick="console.log('here')" class="notification-card new-message">
+          <p>+1 234 234 2234<b> @ </b> 1/1/2020 12:43:12</p>
+          <p><b>Last message: </b>Hi there, can you hear me111</p>
+        </mat-card>
+        <mat-divider></mat-divider>
+        <mat-card onClick="console.log('here')" class="notification-card">
+          <p>+1 234 234 2234<b> @ </b> 1/1/2020 12:43:12</p>
+          <p><b>Last message: </b>Hi there, can you hear me111</p>
+        </mat-card>
+        <mat-divider></mat-divider>
+        <mat-card onClick="console.log('here')" class="notification-card new-message">
+          <p>+1 234 234 2234<b> @ </b> 1/1/2020 12:43:12</p>
+          <p><b>Last message: </b>Hi there, can you hear me111</p>
+        </mat-card>
+        <mat-divider></mat-divider>
+        <mat-card onClick="console.log('here')" class="notification-card">
+          <p>+1 234 234 2234<b> @ </b> 1/1/2020 12:43:12</p>
+          <p><b>Last message: </b>Hi there, can you hear me111</p>
+        </mat-card>
+        <mat-divider></mat-divider>
+        <mat-card onClick="console.log('here')" class="notification-card">
+          <p>+1 234 234 2234<b> @ </b> 1/1/2020 12:43:12</p>
+          <p><b>Last message: </b>Hi there, can you hear me111</p>
+        </mat-card>
+        <mat-divider></mat-divider>
+        <mat-card onClick="console.log('here')" class="notification-card">
+          <p>+1 234 234 2234<b> @ </b> 1/1/2020 12:43:12</p>
+          <p><b>Last message: </b>Hi there, can you hear me111</p>
+        </mat-card>
+        <mat-divider></mat-divider>
+        <mat-card onClick="console.log('here')" class="notification-card">
+          <p>+1 234 234 2234<b> @ </b> 1/1/2020 12:43:12</p>
+          <p><b>Last message: </b>Hi there, can you hear me111</p>
+        </mat-card>
+        <mat-divider></mat-divider>
+        <mat-card onClick="console.log('here')" class="notification-card">
+          <p>+1 234 234 2234<b> @ </b> 1/1/2020 12:43:12</p>
+          <p><b>Last message: </b>Hi there, can you hear me111</p>
+        </mat-card>
+        <mat-divider></mat-divider>
+        <mat-card onClick="console.log('here')" class="notification-card">
+          <p>+1 234 234 2234<b> @ </b> 1/1/2020 12:43:12</p>
+          <p><b>Last message: </b>Hi there, can you hear me111</p>
+        </mat-card>
+        <mat-divider></mat-divider>
+        <mat-card onClick="console.log('here')" class="notification-card">
+          <p>+1 234 234 2234<b> @ </b> 1/1/2020 12:43:12</p>
+          <p><b>Last message: </b>Hi there, can you hear me111</p>
+        </mat-card>
+        <mat-divider></mat-divider>
+        <mat-card onClick="console.log('here')" class="notification-card">
+          <p>+1 234 234 2234<b> @ </b> 1/1/2020 12:43:12</p>
+          <p><b>Last message: </b>Hi there, can you hear me111</p>
+        </mat-card>
+        <mat-divider></mat-divider>
+        <mat-card onClick="console.log('here')" class="notification-card">
+          <p>+1 234 234 2234<b> @ </b> 1/1/2020 12:43:12</p>
+          <p><b>Last message: </b>Hi there, can you hear me111</p>
+        </mat-card>
+        <mat-divider></mat-divider>
+        <mat-card onClick="console.log('here')" class="notification-card">
+          <p>+1 234 234 2234<b> @ </b> 1/1/2020 12:43:12</p>
+          <p><b>Last message: </b>Hi there, can you hear me111</p>
+        </mat-card>
+        <mat-card onClick="console.log('here')" class="notification-card-button">
+          <p>See more</p>
+        </mat-card>
+      </mat-menu>
+    </div>
+
+
+  </div>
+
   <mat-tab-group [hidden]="server.order_data?.length <= 0">
     <mat-tab label="Order Communications">
       <app-order-list></app-order-list>
@@ -10,6 +96,7 @@
     <mat-tab label="Settings">
       <app-settings></app-settings>
     </mat-tab>
+    <mat-icon aria-hidden="false" aria-label="Example home icon">home</mat-icon>
   </mat-tab-group>
 </mat-card>
 

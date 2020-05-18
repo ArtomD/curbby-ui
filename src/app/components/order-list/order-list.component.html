@@ -21,24 +21,27 @@
                 </mat-panel-title>
 
                 <mat-panel-description>
-                    <span *ngIf="labelFilterString.length > 0 && labelFilterString!='.'"><b>Contains</b> {{labelFilterString}} &nbsp;</span>
+                    <span *ngIf="labelFilterString.length > 0 && labelFilterString!='.'"><b>Contains</b>
+                        {{labelFilterString}} &nbsp;</span>
                 </mat-panel-description>
             </mat-expansion-panel-header>
 
             <mat-dialog-content [formGroup]="filterForm">
                 <div class="section-header">
                     <p>
-                        You may filter on any column using the field below. This includes order #, status, customer phone
+                        You may filter on any column using the field below. This includes order #, status, customer
+                        phone
                         number, etc.
                     </p>
                 </div>
 
                 <mat-form-field class="dialog-input">
-                    <input matInput placeholder="Filter on order content" (keyup)="applyFilter($event)" [(ngModel)]="filterText"
-                        formControlName="label">
+                    <input matInput placeholder="Filter on order content" (keyup)="applyFilter($event)"
+                        [(ngModel)]="filterText" formControlName="label">
                 </mat-form-field>
                 <button class="mat-button filter-button" (click)="clearSearch()">Clear</button>
-                <button class="mat-button filter-button" (click)="panelOpenState = false" (click)="mep.expanded = false;">Close</button>
+                <button class="mat-button filter-button" (click)="panelOpenState = false"
+                    (click)="mep.expanded = false;">Close</button>
             </mat-dialog-content>
         </mat-expansion-panel>
     </mat-accordion>
@@ -52,10 +55,19 @@
             (click)="toggleMessageDiv()" class="mass-button"> <span class="material-icons">
                 message
             </span> &nbsp;&nbsp; Mass Message</button>
-        <button mat-flat-button color="primary" (click)="changeStatus(2)" class="mass-button">Flag Completed</button>
-        <button mat-flat-button color="primary" (click)="changeStatus(1)" class="mass-button">Flag Ready for
+        <button mat-flat-button color="primary" (click)="changeStatus(2)" class="mass-button"><span
+                class="material-icons">
+                flag
+            </span> &nbsp;&nbsp; Completed</button>
+        <button mat-flat-button color="primary" (click)="changeStatus(1)" class="mass-button"><span
+                class="material-icons">
+                flag
+            </span> &nbsp;&nbsp; Ready for
             Pickup</button>
-        <button mat-flat-button color="primary" (click)="changeStatus(3)" class="mass-button">Flag Cancelled</button>
+        <button mat-flat-button color="primary" (click)="changeStatus(3)" class="mass-button"><span
+                class="material-icons">
+                flag
+            </span> &nbsp;&nbsp; Cancelled</button>
     </div>
     <mat-card id="messages" [hidden]="!openMassMessage">
         <mat-tab-group *ngIf="openMassMessage" animationDuration="0ms" class="example-headers-align"
@@ -63,13 +75,12 @@
             <mat-tab label="{{template.name}}" *ngFor="let template of templates;let index = index;">
                 <textarea [(ngModel)]="templates[index].tempBody"></textarea>
                 <div id="buttonArea">
-                    <button class="buttonClose" mat-flat-button color="warn"
-                        (click)="toggleMessageDiv()">Close</button>
+                    <button class="buttonClose" mat-flat-button color="warn" (click)="toggleMessageDiv()">Close</button>
 
                     <button class="buttonConfirm" mat-flat-button color="primary" (click)="massMessage()">
-                    <span class="material-icons">
-                        mail
-                    </span>&nbsp;&nbsp; Send</button>
+                        <span class="material-icons">
+                            mail
+                        </span>&nbsp;&nbsp; Send</button>
                     <button class="buttonRevert" mat-flat-button color="primary"
                         (click)="cancel(template)">Revert</button>
 
@@ -80,27 +91,58 @@
     </mat-card>
     <div class="section-header">
         <button class="buttonDeselectAll" mat-flat-button color="primary" (click)="deselectAll()">Deselect All</button>
-        <p class="tableDesc">
-        Select records below to perform batch sends or status updates.
-        <br>
-        Changes made in the table are saved in real time.
-        </p>
+        <!--p class="tableDesc">
+            Select records below to perform batch sends or status updates.
+            <br>
+            Changes made in the table are saved in real time.
+        </p-->
         <mat-slide-toggle [(ngModel)]="filterNewMessages" (click)="filterUnread()" class="configToggle">
         </mat-slide-toggle>
         <p>
-        Show only unread messages
+            Show only unread messages
         </p>
+    </div>
+    <div class="section-header">
+        <mat-dialog-content [formGroup]="filterForm" class="search-field order-form">
+            <mat-form-field class="dialog-input">
+                <mat-label>Type here to start filtering</mat-label>
+                <span matPrefix><span class="material-icons ">
+                        search
+                    </span> &nbsp;</span>
+                <input matInput (keyup)="applyFilter($event)" [(ngModel)]="filterText" formControlName="label">
+            </mat-form-field>
+        </mat-dialog-content>
+        <mat-form-field class="dialog-select order-form">
+            <mat-label>Status</mat-label>
+            <mat-select [formControl]="statusListFC" multiple>
+                <mat-option *ngFor="let status of statusList" [value]="status">{{status}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field class="dialog-select order-form">
+            <mat-label>Location</mat-label>
+            <mat-select [formControl]="locationListFC" multiple>
+                <mat-option *ngFor="let location of locationList" [value]="location">{{location}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <span class="example-spacer"></span>
+
+        <mat-slide-toggle [(ngModel)]="filterNewMessages" (click)="filterUnread()" class="configToggle order-form">
+            Unread only
+        </mat-slide-toggle>
+
     </div>
 </div>
 
 <table mat-table [dataSource]="dataSource" *ngIf="server.order_data?.length > 0"
-    class="mat-elevation-z8 example-container">
+    class="mat-elevation-z8 example-container curbby-table">
 
     <!--- Note that these columns can be defined in any order.
           The actual rendered columns are set as a property on the row definition" -->
 
     <ng-container matColumnDef="selected">
-        <th mat-header-cell *matHeaderCellDef mat-header> <B>Select</B> </th>
+        <th mat-header-cell *matHeaderCellDef mat-header>
+            <mat-checkbox [indeterminate]="1" (click)="deselectAll()"></mat-checkbox>
+        </th>
         <td mat-cell *matCellDef="let element">
             <mat-checkbox [(ngModel)]="element.selected"></mat-checkbox>
         </td>
@@ -113,7 +155,7 @@
 
     <ng-container matColumnDef="date">
         <th mat-header-cell *matHeaderCellDef mat-header> <B>Order Date</B> </th>
-        <td mat-cell *matCellDef="let element"> {{element.displayDate}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.created | date:'medium' }} </td>
     </ng-container>
 
     <ng-container matColumnDef="status">
@@ -128,8 +170,14 @@
     <ng-container matColumnDef="phone">
         <th mat-header-cell *matHeaderCellDef mat-header> <B>Phone Number</B> </th>
         <td mat-cell *matCellDef="let element">
-            <input [ngClass]="element.invalidPhone ? 'invalidPhoneInput' : 'phoneInput'" [(ngModel)]=element.phone (keyup)="validatePhone(element)" (change)="onChange(element)">
+            <input [ngClass]="element.invalidPhone ? 'invalidPhoneInput' : 'phoneInput'" [(ngModel)]=element.phone
+                (keyup)="validatePhone(element)" (change)="onChange(element)">
         </td>
+    </ng-container>
+
+    <ng-container matColumnDef="lastMessage">
+        <th mat-header-cell *matHeaderCellDef mat-header> <B>Last Message</B> </th>
+        <td mat-cell *matCellDef="let element"> {{element.conversation.lastInbound | date:'medium' }} </td>
     </ng-container>
 
     <ng-container matColumnDef="name">
@@ -137,15 +185,32 @@
         <td mat-cell *matCellDef="let element"> {{element.customer?.first_name}} {{element.customer?.last_name}} </td>
     </ng-container>
 
+    <ng-container matColumnDef="location">
+        <th mat-header-cell *matHeaderCellDef mat-header> <B>Pickup Location</B> </th>
+        <td mat-cell *matCellDef="let element"> {{element.pickupLocation.code}} </td>
+    </ng-container>
+
     <ng-container matColumnDef="messages">
         <th mat-header-cell *matHeaderCellDef mat-header> </th>
         <td mat-cell *matCellDef="let element">
             <button [ngClass]="element.newMessageAvaliable ? 'newMessage' : 'oldMessage'" mat-flat-button
                 color="primary" (click)="openConversation(element)" matBadge="!" matBadgePosition="after"
-                matBadgeColor="accent" [matBadgeHidden]="!element.newMessageAvaliable">
+                matBadgeColor="accent" [matBadgeHidden]="!element.newMessageAvaliable" class="row-button"
+                MatBadgeSize='small'>
 
                 <span class="material-icons">
                     message
+                </span></button>
+        </td>
+    </ng-container>
+
+    <ng-container matColumnDef="details">
+        <th mat-header-cell *matHeaderCellDef mat-header> </th>
+        <td mat-cell *matCellDef="let element">
+            <button mat-flat-button color="primary" class="row-button table-button">
+
+                <span class="material-icons">
+                    info
                 </span></button>
         </td>
     </ng-container>

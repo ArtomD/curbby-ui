@@ -22,6 +22,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatBadgeModule } from '@angular/material/badge';
 import { InternationalPhoneNumberModule } from 'ngx-international-phone-number';
+import { MatMenuModule } from '@angular/material/menu';
 
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
@@ -78,6 +79,7 @@ import { SnackbarComponent } from './components/snackbar/snackbar.component';
     MatProgressBarModule,
     MatBadgeModule,
     InternationalPhoneNumberModule,
+    MatMenuModule
   ],
   providers: [],
   bootstrap: [AppComponent]

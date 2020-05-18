@@ -17,7 +17,7 @@ import { SMS } from 'src/app/models/sms';
 import { timer } from 'rxjs';
 import { environment } from '../../../environments/environment'
 import { phone_regex } from '../../models/regex'
-import {LIVE_SERVER } from '../../../../settings'
+import { LIVE_SERVER } from '../../../../settings'
 
 @Component({
   selector: 'app-order-list',
@@ -30,13 +30,18 @@ export class OrderListComponent implements OnInit {
   panelOpenState = false;
   messageTemplateSelected = 0;
 
-  displayedColumns: string[] = ['selected', 'shopifyOrderNumber', 'date', 'status', 'phone', 'name', 'messages'];
+  displayedColumns: string[] = ['selected', 'shopifyOrderNumber', 'date', 'status', 'phone', 'lastMessage', 'name', 'location', 'messages', 'details'];
+  statusListFC = new FormControl();
+  statusList: string[] = ['Cancelled', 'Complete', 'Ready for pickup', 'Placed']
+  locationListFC = new FormControl();
+  locationList: string[] = ['Apple', 'test']
+
   dataSource;
   loaded = 0;
   labelFilterString = "";
   filterForm: FormGroup;
   filterNewMessages: boolean = false;
-  filterText : string;
+  filterText: string;
   templates: Template[] = [];
 
   openMassMessage: boolean = false;
@@ -86,7 +91,7 @@ export class OrderListComponent implements OnInit {
 
   synchTemplateObject() {
     this.templates = this.server.template_data;
-    this.templates.push({ id: 99, shopId: 0, created: new Date, modified: new Date, body: "", tempBody: "", name: "Other", type: "other", isOpen:false });
+    this.templates.push({ id: 99, shopId: 0, created: new Date, modified: new Date, body: "", tempBody: "", name: "Other", type: "other", isOpen: false });
     if (this.templates && this.templates.length > 0) {
       this.setTemporaryFields()
     }
@@ -152,12 +157,13 @@ export class OrderListComponent implements OnInit {
 
 
   filterUnread() {
-    
-    this.sleep(100).then(() => { 
-      if(this.filterNewMessages && !this.labelFilterString){
+
+    this.sleep(100).then(() => {
+      if (this.filterNewMessages && !this.labelFilterString) {
         this.labelFilterString = ".";
       }
-      this.filter()});
+      this.filter()
+    });
   }
 
   filter() {
@@ -183,18 +189,18 @@ export class OrderListComponent implements OnInit {
 
   onChange(order: Order) {
     order.phone = order.phone?.replace(/[^0-9\.]+/g, "");
-    if (order.phone.search(phone_regex)==0) {
+    if (order.phone.search(phone_regex) == 0) {
       order.phone = "+" + order.phone;
       this.server.updateOrders(order);
       order.invalidPhone = false;
-    }else{
+    } else {
       order.invalidPhone = true;
       this.openSnackBar("Use 1(555)555-5555 for phone formats.");
       this.sleep(5000).then(() => this._snackBar.dismiss());
     }
   }
 
-  validatePhone(order: Order){
+  validatePhone(order: Order) {
     // if (order.phone.toString().search(phone_regex)==0) {
     //   order.invalidPhone = false;
     // }else{
@@ -226,16 +232,17 @@ export class OrderListComponent implements OnInit {
             }
           });
           this.openSnackBar("Uploading Data");
-          if(LIVE_SERVER){
+          if (LIVE_SERVER) {
             this.server.updateBatchOrders(orders).subscribe(value => {
               this.openSnackBar("Upload Complete");
               this.sleep(2000).then(() => this._snackBar.dismiss());
             });
-          }else{
-            this.sleep(1800).then(() => {this.openSnackBar("Upload Complete"); 
-                                         this.sleep(2000).then(() => this._snackBar.dismiss());
-                                        });
-            
+          } else {
+            this.sleep(1800).then(() => {
+              this.openSnackBar("Upload Complete");
+              this.sleep(2000).then(() => this._snackBar.dismiss());
+            });
+
           }
         }
       });
@@ -246,7 +253,7 @@ export class OrderListComponent implements OnInit {
   }
 
   massMessage() {
-  
+
     let amount: number = 0;
     let sms: SMS[] = [];
     this.dataSource.data.forEach(element => {
@@ -272,16 +279,17 @@ export class OrderListComponent implements OnInit {
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
           this.openSnackBar("Sending SMS");
-          if(LIVE_SERVER){
+          if (LIVE_SERVER) {
             this.server.sendBatchSMS(sms).subscribe(value => {
               this.openSnackBar("Messages Sent");
               this.sleep(2000).then(() => this._snackBar.dismiss());
             });
-          }else{
-            this.sleep(1800).then(() => {this.openSnackBar("Messages Sent"); 
-                                         this.sleep(2000).then(() => this._snackBar.dismiss());
-                                        });
-            
+          } else {
+            this.sleep(1800).then(() => {
+              this.openSnackBar("Messages Sent");
+              this.sleep(2000).then(() => this._snackBar.dismiss());
+            });
+
           }
         }
       });
@@ -316,17 +324,17 @@ export class OrderListComponent implements OnInit {
     });
   }
 
-  clearSearch(){
-    if(this.filterNewMessages){
+  clearSearch() {
+    if (this.filterNewMessages) {
       this.labelFilterString = ".";
-    }else{
+    } else {
       this.labelFilterString = "";
     }
     this.dataSource.filter = this.labelFilterString;
     this.filterText = "";
   }
 
-  deselectAll(){
+  deselectAll() {
     this.dataSource.data.forEach(element => {
       element.selected = false;
     });
@@ -337,7 +345,7 @@ export class OrderListComponent implements OnInit {
       this.server.getConversation(this.currentConversationOrder.phone)
     }
   }
-  
+
   cancel(template: Template) {
     template.tempBody = template.body;
   }

@@ -1,4 +1,3 @@
-
 # Set vars
 DATA_DIR="$HOME/docker/angular_start"
 CONTAINER_NAME="ui"

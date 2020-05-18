@@ -54,7 +54,9 @@ textarea{
 }
 
 .phoneInput{
-    width: 140px;
+    width: 80px;
+    font-size:11.5px;
+    margin:0px;
 }
 
 .invalidPhoneInput{
@@ -78,15 +80,17 @@ textarea{
 }
 
 .newMessage{
-
+    background: white;
+    color:#673ab7;
 }
 
 .oldMessage{
-    background: darkgray;
+    background: white;
+    color:darkgray;
 }
 
 .statusSelect{
-    width:125px;
+    width:105px;
 }
 
 .tableDesc{
@@ -138,4 +142,50 @@ textarea{
     margin-left:auto;
     margin-right:auto;
     display:inline-block;
+}
+
+.mat-header-cell{
+    font-size:11.5px !important;    
+}
+
+.mat-cell{
+    font-size:11.5px !important;
+    max-height:40px;
+    margin:0px;
+}
+
+.mat-header-row{
+    height:30px !important;
+}
+
+.mat-row{
+    height:30px !important;
+}
+
+.row-button {
+    min-width:40px;
+    padding:0px;
+    margin:0px;
+}
+
+.table-button{
+    background: white;
+    color:#673ab7;
+}
+
+.search-field{
+    width: 38%;
+    padding-left: 20px;
+}
+
+.dialog-select{
+    width: 23%;
+    padding-left:20px;
+}
+
+.order-form{
+    font-size:14px;
+}
+.newMessage.mat-badge-content{
+    top: 0px !important;
 }

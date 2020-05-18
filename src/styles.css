@@ -26,6 +26,7 @@
 table,  mat-paginator{
   width: 95%;
   margin: auto;
+  
 }
 
 .example-container{
@@ -235,4 +236,13 @@ mat-progress-spinner{
 
 .stat-row-one {    
     padding:5px;
+}
+
+.notification-menu{
+    width:375px !important;
+    max-width:none !important;
+}
+
+.notification-menu div{
+    padding:0px !important;
 }
