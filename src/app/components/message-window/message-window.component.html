@@ -18,8 +18,9 @@
             <li #messages class="speech-bubble" *ngFor="let message of conversation.messages;let index = index;"
                 [ngClass]="message.origin === 0 ? 'system' : message.origin === 1 ? 'employee' :  message.origin === 2 ? 'customer' : message.origin === 3 ? 'forward' : 'employee-pending' ">
                 {{message?.payload}}
-                <div [ngClass]="message.origin === 2 ? 'dateDisplayCust' : 'dateDisplaySys'">{{message?.displayDate}}</div>
+                <div [ngClass]="message.origin === 2 ? 'dateDisplayCust' : 'dateDisplaySys'">{{message?.created | date : 'medium'}}</div>
             </li>
+
         </ul>
     </div>
 

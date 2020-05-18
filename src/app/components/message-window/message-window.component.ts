@@ -8,6 +8,8 @@ import { Message } from 'src/app/models/message';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SnackbarComponent } from '../snackbar/snackbar.component';
 
+import {PENDING_MSG_ORIGIN, MSG_TIMESTAMP_ORIGIN, MSG_ORDER_ORIGIN} from '../../shared/config'
+
 @Component({
   selector: 'app-message-window',
   templateUrl: './message-window.component.html',
@@ -18,14 +20,13 @@ export class MessageWindowComponent implements OnInit {
   @ViewChild('scrollBottom') private scrollBottom: ElementRef;
 
   disableScrollDown = false
-
   text : string;
   order:Order;
   orders:Order[] = [];
   conversation: Conversation;
   windowOpen : boolean = false;
   manualRefresh: boolean = false;
-  monthName: string[] = ["January","February","March","April","May","June","July","August","September","October","November","December"];  
+  monthName: string[] = ["January","February","March","April","May","June","July","August","September","October","November","December"]; 
 
   constructor(
     public dialogRef: MatDialogRef<MessageWindowComponent>,
@@ -42,11 +43,33 @@ export class MessageWindowComponent implements OnInit {
   }
 
   synchConversationObject(){
-    //gets orders from service
+    for(let i = 0;i< this.conversation.messages.length;i++){
+      if(this.conversation.messages[i].origin == MSG_TIMESTAMP_ORIGIN){
+        this.conversation.messages.splice(i,1);
+        i--;
+      }
+    }
+    //inserts timestamp under message (to move it above message change offset below to 0)
+    let offset = 1;
+    for(let i = 0;i< this.conversation.messages.length;i++){
+      if(this.conversation.messages[i].origin == 0 || this.conversation.messages[i].origin == 1 || this.conversation.messages[i].origin == 2 || this.conversation.messages[i].origin == 4){
+        this.conversation.messages.splice(i+offset,0,this.customMessage(MSG_TIMESTAMP_ORIGIN, this.conversation.messages[i].created, this.conversation.messages[i].created.toString()));
+        i++;
+      }
+    }
+    //scrolls to bottom of chat(happens on chat load and new message sent)
+    if(this.manualRefresh){
+      this.scrollToBottom();
+      this.manualRefresh = false;
+    }
+    
+  }
+
+  insertOrders(){
     this.getOrders();
     //clears out all orders from conversation
     for(let i = 0;i< this.conversation.messages.length;i++){
-      if(this.conversation.messages[i].origin == 5){
+      if(this.conversation.messages[i].origin == MSG_ORDER_ORIGIN){
         this.conversation.messages.splice(i,1);
         i--;
       }
@@ -56,7 +79,7 @@ export class MessageWindowComponent implements OnInit {
     //inserts orders before conversation started
     for(; orderIndex< this.orders.length;orderIndex++){
       if(new Date(this.orders[orderIndex].created)<new Date(this.conversation.messages[msgIndex].created)){
-        this.conversation.messages.splice(orderIndex,0,this.orderToMessage(this.orders[orderIndex],5,"ORDER BEFORE"));
+        this.conversation.messages.splice(orderIndex,0,this.customMessage(MSG_ORDER_ORIGIN,this.orders[orderIndex].created,"ORDER BEFORE"));
         msgIndex++;
       }else{
         break;
@@ -67,21 +90,15 @@ export class MessageWindowComponent implements OnInit {
       this.conversation.messages[msgIndex].created=new Date(this.conversation.messages[msgIndex].created); 
       this.conversation.messages[msgIndex].displayDate = this.setDate(this.conversation.messages[msgIndex].created);
       if(new Date(this.orders[orderIndex].created)<new Date(this.conversation.messages[msgIndex].created)){
-        this.conversation.messages.splice(msgIndex,0,this.orderToMessage(this.orders[orderIndex],5, "ORDER MIDDLE"));
+        this.conversation.messages.splice(msgIndex,0,this.customMessage(MSG_ORDER_ORIGIN,this.orders[orderIndex].created,"ORDER BEFORE"));
         orderIndex++;
         msgIndex++;
       }
     }
     //inserts orders after conversation
     for(; orderIndex< this.orders.length;orderIndex++){
-      this.conversation.messages.push(this.orderToMessage(this.orders[orderIndex],5,"ORDER AFTER"));      
+      this.conversation.messages.push(this.customMessage(MSG_ORDER_ORIGIN,this.orders[orderIndex].created,"ORDER BEFORE"));      
     }
-    //scrolls to bottom of chat(happens on chat load and new message sent)
-    if(this.manualRefresh){
-      this.scrollToBottom();
-      this.manualRefresh = false;
-    }
-    
   }
 
   getOrders(){
@@ -100,11 +117,14 @@ export class MessageWindowComponent implements OnInit {
   }
 
   orderToMessage(order: Order, type: number, msg: string){
-    return <Message>{ id: 0, payload: msg, conversationId: 0, 
-      created: new Date(order.created), modified: new Date(order.created), awsId: "",
-      to: "", from: "", origin: type, displayDate:this.setDate(new Date(order.created))}
+    return this.customMessage(MSG_ORDER_ORIGIN,order.created,msg);
   }
 
+  customMessage(type: number, date: Date, payload:string){
+    return <Message>{ id: 0, payload: payload, conversationId: 0, 
+      created: new Date(date), modified: new Date(date), awsId: "",
+      to: "", from: "", origin: type, displayDate:""}
+  }
 
   ngOnInit(): void {
     this.sleep(100).then(()=>this.scrollToBottom());
@@ -140,9 +160,7 @@ export class MessageWindowComponent implements OnInit {
 
   async send(){
     let sms: SMS = {message:this.text, phone:this.order.phone.toString(),subject:""};
-    let tempMsg : Message = { id: 0, payload: this.text, conversationId: 0, 
-                              created: new Date, modified: new Date, awsId: "",
-                              to: "", from: "", origin: 4, displayDate:this.setDate(new Date)};
+    let tempMsg : Message = this.customMessage( PENDING_MSG_ORIGIN,new Date,this.text);
     this.conversation.messages.push(tempMsg);
     this.server.conversations_data = this.conversation;
     this.manualRefresh = true;
