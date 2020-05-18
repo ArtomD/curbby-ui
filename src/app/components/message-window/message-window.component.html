@@ -1,10 +1,13 @@
 <div class="message-window">
     <div id="header">
+        <div class="chat-header">
+            <p><b>{{order?.customer?.first_name}} {{order?.customer?.last_name}}</b>&nbsp;
+                {{order?.phone}}
+            </p>
 
-        <span class="chat-header">{{order?.customer?.first_name}} {{order?.customer?.last_name}}&nbsp;&nbsp;&nbsp;
-            {{order?.phone}}
-        </span>
-        <button id="closeButton" mat-mini-fab color="warn" (click)="close()"><span class="material-icons">
+        </div>
+        <button mat-raised-button color="primary" (click)="close()" style="margin-top: 3px;">Order # 1234</button>
+        <button id="closeButton" mat-icon-button color="primary" (click)="close()"><span class="material-icons">
                 close
             </span></button>
 
@@ -16,17 +19,25 @@
         <ul id="conversation" #scrollBottom *ngIf="conversation" class="force-overflow">
 
             <li #messages class="speech-bubble" *ngFor="let message of conversation.messages;let index = index;"
-                [ngClass]="message.origin === 0 ? 'system' : message.origin === 1 ? 'employee' :  message.origin === 2 ? 'customer' : message.origin === 3 ? 'forward' : 'employee-pending' ">
-                {{message?.payload}}
-                <div [ngClass]="message.origin === 2 ? 'dateDisplayCust' : 'dateDisplaySys'">{{message?.created | date : 'medium'}}</div>
+                [ngClass]="message.origin === 0 ? 'system' : message.origin === 1 ? 'employee' :  message.origin === 2 ? 'customer' : message.origin === 3 ? 'forward' : message.origin === -2 ? 'timestamp' : 'employee-pending' ">
+                {{message.origin != -2 ? message?.payload : message?.payload | date : 'short'}}
+
             </li>
 
         </ul>
     </div>
 
     <div id="replyArea">
+        <textarea matInput cdkTextareaAutosize id="reply" [(ngModel)]="text" #autosize="cdkTextareaAutosize"></textarea>
+        <!--textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
+            cdkAutosizeMaxRows="3" [(ngModel)]="text" class="reply-area"></textarea-->
 
-        <textarea id="reply" [(ngModel)]="text"></textarea>
+
+        <!--mat-form-field>
+            <mat-label>Autosize textarea</mat-label>
+            <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
+                cdkAutosizeMaxRows="5" [(ngModel)]="text"></textarea>
+        </mat-form-field-->
         <button id="sendButton" mat-flat-button color="primary" (click)="send()"><span class="material-icons">
                 send
             </span></button>

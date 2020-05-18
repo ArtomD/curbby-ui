@@ -139,3 +139,7 @@ textarea{
     margin-right:auto;
     display:inline-block;
 }
+
+.mat-dialog-container{
+    padding-top: 10px !important;
+}
