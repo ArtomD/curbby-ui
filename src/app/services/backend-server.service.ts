@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {SERVER_URL, GET_ORDER_PATH, UPDATE_ORDER_PATH, UPDATE_BATCH_ORDER_PATH,
+import {SERVER_URL, LIVE_SHOP, LIVE_SERVER} from '../../../settings'
+import {GET_ORDER_PATH, UPDATE_ORDER_PATH, UPDATE_BATCH_ORDER_PATH,
         GET_TEMPLATE_PATH, UPDATE_TEMPLATE_PATH,
         GET_SUBSCRIBERS_PATH, UPDATE_SUBSCRIBERS_PATH, CREATE_SUBSCRIBERS_PATH, DELETE_SUBSCRIBERS_PATH,
         GET_SHOP_DETAILS_PATH, UPDATE_SHOP_DETAILS_PATH,
-        GET_CONVERSATION_PATH, SEND_SMS_PATH, SEND_BATCH_SMS_PATH, GET_SHOP_STATS_PATH, LIVE_SHOP, LIVE_SERVER} from '../../../settings'
+        GET_CONVERSATION_PATH, SEND_SMS_PATH, SEND_BATCH_SMS_PATH, GET_SHOP_STATS_PATH, } from '../shared/config' 
 import { environment } from '../../environments/environment'
 import { timer, Subject } from 'rxjs';
 import {mock_order} from '../models/mock_models/order'

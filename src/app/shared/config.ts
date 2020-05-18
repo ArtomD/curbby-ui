@@ -1,0 +1,19 @@
+export const GET_ORDER_PATH = "data/get/orders";
+export const UPDATE_ORDER_PATH = "data/update/orders";
+export const UPDATE_BATCH_ORDER_PATH = "data/batch/update/orders";
+export const GET_TEMPLATE_PATH = "data/get/templates";
+export const UPDATE_TEMPLATE_PATH = "data/update/templates";
+export const GET_SUBSCRIBERS_PATH = "data/get/subscribers";
+export const UPDATE_SUBSCRIBERS_PATH = "data/update/subscribers";
+export const CREATE_SUBSCRIBERS_PATH = "data/create/subscribers";
+export const DELETE_SUBSCRIBERS_PATH = "data/delete/subscribers";
+export const GET_SHOP_DETAILS_PATH = "data/get/shop";
+export const UPDATE_SHOP_DETAILS_PATH = "data/update/shop";
+export const GET_CONVERSATION_PATH = "data/get/conversation";
+export const SEND_SMS_PATH = "send/sms";
+export const SEND_BATCH_SMS_PATH = "send/batch/sms";
+export const GET_SHOP_STATS_PATH = "data/stats/shop";
+
+export const PENDING_MSG_ORIGIN = -1;
+export const MSG_TIMESTAMP_ORIGIN = -2;
+export const MSG_ORDER_ORIGIN = -3;

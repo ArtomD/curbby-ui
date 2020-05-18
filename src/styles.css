@@ -151,8 +151,7 @@ input{
 
 
 textarea{
-    width:100%;
-    height:50px;
+    width:100%;    
     font-size: large;
     margin:8px;
     resize: vertical;
@@ -235,4 +234,8 @@ mat-progress-spinner{
 
 .stat-row-one {    
     padding:5px;
+}
+
+.mat-dialog-container{
+    padding-top: 15px !important;
 }
