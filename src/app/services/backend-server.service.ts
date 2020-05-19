@@ -251,8 +251,8 @@ export class BackendServerService {
     }
   }
 
-  getConversation(phone: string) {
 
+  getConversation(phone: string) {
     if (this.live && this.authenticated) {
       return new Promise((resolve) => {
         this.http.post(SERVER_URL + GET_CONVERSATION_PATH, { shop: this.shop, conversation_data: { phone: phone }, signature: this.signature }, {

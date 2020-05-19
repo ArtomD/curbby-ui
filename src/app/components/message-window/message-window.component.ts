@@ -38,21 +38,21 @@ export class MessageWindowComponent implements OnInit {
     this.myEventSubscription = this.server.conversations_dataChange.subscribe(value => {
       this.synchConversationObject();
     })
+    this.server.getConversation(this.order.phone);
   }
 
   synchConversationObject() {
     this.conversation = this.server.conversations_data;
-    console.log(this.server.conversations_data)
     var messageWindowSeconds = 60;
     var lastTimeStamp = null;
     var lastType = -99;
-
     for (let i = 0; i < this.conversation.messages.length; i++) {
       if (this.conversation.messages[i].origin == MSG_TIMESTAMP_ORIGIN) {
         this.conversation.messages.splice(i, 1);
         i--;
       }
     }
+    
     //inserts timestamp under message (to move it above message change offset below to 0)
     let offset = 1;
     for (let i = 0; i < this.conversation.messages.length; i++) {
@@ -75,7 +75,6 @@ export class MessageWindowComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    console.log("kill me")
     this.myEventSubscription.unsubscribe()
   }
 
@@ -103,8 +102,6 @@ export class MessageWindowComponent implements OnInit {
     }
     //inserts orders in the middle of the conversation
     for (; msgIndex < this.conversation.messages.length; msgIndex++) {
-      this.conversation.messages[msgIndex].created = new Date(this.conversation.messages[msgIndex].created);
-      this.conversation.messages[msgIndex].displayDate = this.setDate(this.conversation.messages[msgIndex].created);
       if (new Date(this.orders[orderIndex].created) < new Date(this.conversation.messages[msgIndex].created)) {
         this.conversation.messages.splice(msgIndex, 0, this.customMessage(MSG_ORDER_ORIGIN, this.orders[orderIndex].created, "ORDER BEFORE"));
         // set last type = type of message inserted date before

@@ -17,7 +17,9 @@ import { SMS } from 'src/app/models/sms';
 import { timer } from 'rxjs';
 import { environment } from '../../../environments/environment'
 import { phone_regex } from '../../models/regex'
+
 import { LIVE_SERVER } from '../../../../settings'
+
 
 @Component({
   selector: 'app-order-list',
@@ -25,8 +27,6 @@ import { LIVE_SERVER } from '../../../../settings'
   styleUrls: ['./order-list.component.css']
 })
 export class OrderListComponent implements OnInit {
-
-
   panelOpenState = false;
   messageTemplateSelected = 0;
 
@@ -185,7 +185,6 @@ export class OrderListComponent implements OnInit {
   onChange(order: Order) {
     order.phone = order.phone?.replace(/[^0-9\.]+/g, "");
     if (order.phone.search(phone_regex) == 0) {
-      order.phone = "+" + order.phone;
       this.server.updateOrders(order);
       order.invalidPhone = false;
     } else {
@@ -307,8 +306,6 @@ export class OrderListComponent implements OnInit {
 
 
   openConversation(order: Order) {
-    console.log("openin")
-    this.server.getConversation(order.phone);
     this.currentConversationOrder = order;
     this.conversationOpen = true;
     const dialogRef = this.dialog.open(MessageWindowComponent, {
@@ -346,5 +343,44 @@ export class OrderListComponent implements OnInit {
     template.tempBody = template.body;
   }
 
+  formatPhone(tel: string){
+    if (!tel) { return ''; }
+
+    var value = tel.toString().trim().replace(/^\+/, '');
+
+    if (value.match(/[^0-9]/)) {
+        return tel;
+    }
+
+    var country, city, number, prefix;
+    if(value.length > 0){
+      prefix = value[0];
+      value = value.slice(1);
+    }
+    switch (value.length) {
+        case 1:
+        case 2:
+        case 3:
+            city = value;
+            break;
+        default:
+            city = value.slice(0, 3);
+            number = value.slice(3);
+    }
+
+    if(number){
+        if(number.length>3){
+            number = number.slice(0, 3) + '-' + number.slice(3,7);
+        }
+        else{
+            number = number;
+        }
+
+        return ("+"+prefix+"(" + city + ") " + number).trim();
+    }
+    else{
+        return "+"+prefix+ "(" + city;
+    };
+  }
 
 }
