@@ -27,6 +27,7 @@ export class MessageWindowComponent implements OnInit {
   windowOpen: boolean = false;
   manualRefresh: boolean = false;
   monthName: string[] = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  myEventSubscription;
 
   constructor(
     public dialogRef: MatDialogRef<MessageWindowComponent>,
@@ -34,9 +35,10 @@ export class MessageWindowComponent implements OnInit {
     public server: BackendServerService, private _snackBar: MatSnackBar) {
     this.order = data;
     this.manualRefresh = true;
-    this.server.conversations_dataChange.subscribe(value => {
+    this.myEventSubscription = this.server.conversations_dataChange.subscribe(value => {
       this.synchConversationObject();
     })
+    this.server.getConversation(this.order.phone);
   }
 
   synchConversationObject() {
@@ -70,6 +72,10 @@ export class MessageWindowComponent implements OnInit {
       this.manualRefresh = false;
     }
 
+  }
+
+  ngOnDestroy() {
+    this.myEventSubscription.unsubscribe()
   }
 
   insertOrders() {
