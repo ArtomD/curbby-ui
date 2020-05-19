@@ -7,9 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OrderDetailsComponent implements OnInit {
 
+  order;
   constructor() { }
 
   ngOnInit(): void {
   }
+
+  close(){}
 
 }

@@ -37,7 +37,6 @@ export class EditSubscriberComponent implements OnInit {
   }
 
   save() {
-    this.temp.phone = "+" + this.temp.phone;
     if (this.temp.id) {
       this.selected.name = this.temp.name;
       this.selected.phone = this.temp.phone;

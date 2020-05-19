@@ -190,3 +190,15 @@ textarea{
     top: 0px !important;
 }
 
+.mat-dialog-container{
+    padding-top: 10px !important;
+}
+
+.country-flag{
+    width:15px;
+    height:15px;
+}
+.flag-select{
+    width: 40px;
+    height: 20px;
+}

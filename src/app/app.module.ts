@@ -23,6 +23,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatMenuModule } from '@angular/material/menu';
 
+
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -38,6 +39,8 @@ import { MessageWindowComponent } from './components/order-list/message-window/m
 import { SnackbarComponent } from './components/snackbar/snackbar.component';
 import { OrderDetailsComponent } from './components/order-list/order-details/order-details.component';
 
+import {PhoneFormatPipe} from '../app/pipes/phone'
+
 
 @NgModule({
   declarations: [
@@ -49,7 +52,9 @@ import { OrderDetailsComponent } from './components/order-list/order-details/ord
     ConfirmPopupComponent,
     MessageWindowComponent,
     SnackbarComponent,
-    OrderDetailsComponent
+    OrderDetailsComponent,
+    PhoneFormatPipe,
+
   ],
   imports: [
     BrowserModule,

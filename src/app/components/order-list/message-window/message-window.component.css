@@ -2,20 +2,33 @@
     margin: 0px;
     float:left;
     overflow-y: auto;
-    height: 400px;
+    height: 200px;
     padding: 5px;
     width: 100%;
+    
+    box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12) !important;
 }
 
 #closeButton{
     float:right;
+}
 
+#closeButton span{
+padding-top:0px;
+padding-left:0px;
 }
 
 .chat-header{
     font-size: large;
-    font-family:Roboto, "Helvetica Neue", sans-serif;font-size:18px;
+    font-family:Roboto, "Helvetica Neue", sans-serif;font-size:15px;
     font-weight: 500;
+    float: left;
+    margin: 12px;
+    text-align: left;
+}
+
+.chat-header p{
+    margin:0px !important;
 }
 
 #header{
@@ -38,26 +51,39 @@
     left: 10%;
     background: white;
     padding-top:20px;
+    
 }
 
 #reply{
     float:left;
-    width:68%;
-    margin-left:5%;
-    resize: vertical;
-    margin-top:20px;
+    width: 85%;    
+    resize: vertical;    
     height:22px;
     font-size: large;
-    font-family:Roboto, "Helvetica Neue", sans-serif;font-size:16px
+    font-family:Roboto, "Helvetica Neue", sans-serif;font-size:14px;
+    margin-left: 0px;
+    margin-right: 0px;   
+    resize: none; 
+    margin-top: 12.5px;
+    border-bottom-style: solid;
+    border-width: 2px;
+    border-color: #673ab7;
+}
+
+#replyArea .mat-form-field{
+    width:85%;
 }
 
 
-
 #sendButton{
-    width:16%;
+    
     margin-top:15px;
     float: right;
     margin-right: 16px;
+    color:#673ab7;
+    background-color: white;
+    padding:0px;
+    margin:0px;
 }
 
 .customer2{
@@ -65,17 +91,12 @@
     position: relative;
     border-radius: .4em;
     margin-bottom: 20px;
-    min-height: 20px;
-    width: 80%;
+    min-height: 20px;    
     float:left;
 }
 .customer{
     background: #99d2f3;
     float: left;
-    border-radius: 20px 20px 20px 20px;
-    clear: both;
-    border:0px;
-    padding:7px;
 }
 
 
@@ -93,20 +114,13 @@
     background: #673ab7;
     color:white;
     float: right;
-    border-radius: 20px 20px 20px 20px;
-    clear: both;
-    border:0px;
-    padding:7px;
 }
 
 .employee{
     background: #855bcf;
     color:white;
-    float: right;
-    border-radius: 20px 20px 20px 20px;
-    clear: both;
-    padding:7px;
-    border:0px;
+    float: right;    
+    
 }
 
 .employee2{
@@ -121,20 +135,15 @@
 
 .employee-pending2{
     background: #ffa69d;
-    float: right;
-    border-radius: 20px 20px 20px 20px;
-    clear: both;
+    float: right;    
+    
 }
 
 
 .employee-pending{
     background: darkgray;
     color:white;
-    float: right;
-    border-radius: 20px 20px 20px 20px;
-    clear: both;
-    padding:7px;
-    border:0px;
+    float: right;           
 }
 
 
@@ -145,9 +154,13 @@
 .speech-bubble{
     margin-bottom: 0px;
     max-width: 70%;
-    min-height: 20px;
-    padding-left: 15px;
-    padding-right: 15px;
+    min-height: 15px;    
+    padding: 5px 15px 5px 15px;
+    font-size: 13px;
+    clear: both;    
+    
+    border-radius: 20px 20px 20px 20px;
+    border:0px;
 }
 
 
@@ -182,7 +195,7 @@ li {
 
   .message-window{
       width:450px;
-      height:500px;
+      height:300px;
   }
 
   
@@ -191,7 +204,7 @@ li {
     height: inherit;
 }
 .force-overflow {
-min-height: 450px;
+    min-height: 300px;
 }
 
 
@@ -215,4 +228,33 @@ min-height: 450px;
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
     background: #673ab7; 
+}
+
+.timestamp{
+    background: white;
+    color:grey;
+    float: center;
+    border-radius: 20px 20px 20px 20px;
+    clear: both;
+    padding:7px;
+    border:0px;
+    width:100%;
+    text-align: center;
+    max-width:98%;
+    border-bottom: 2px grey !important;
+    font-size:12px;    
+}
+
+.material-icons{
+    font-size: 30px;
+    padding-top:6px;
+    padding-left: 20px;
+}
+
+.reply-area{
+    width: 80%;
+}
+
+.mat-dialog-container{
+    padding-top: 10px !important;
 }
