@@ -30,3 +30,8 @@ textarea{
 
     flex: 1 1 auto;
   }
+
+.foldButton{
+    float:right;
+    margin-top: -10px !important;
+}

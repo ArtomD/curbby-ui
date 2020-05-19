@@ -56,10 +56,16 @@ export class SettingsComponent implements OnInit {
 
   }
 
-  refresh() {
-    this.server.getTemplates();
-    this.server.getSubscribers();
+  refreshShopDetails() {
     this.server.getShopDetails();
+  }
+
+  refreshTemplates() {
+    this.server.getTemplates();
+  }
+
+  refreshSubscribers() {
+    this.server.getSubscribers();
   }
 
   synchShopDetailsObject() {

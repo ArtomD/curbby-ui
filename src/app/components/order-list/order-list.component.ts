@@ -10,7 +10,7 @@ import { Template } from 'src/app/models/template';
 import { STATUS } from '../../models/status'
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmPopupComponent } from '../confirm-popup/confirm-popup.component';
-import { MessageWindowComponent } from '../message-window/message-window.component';
+import { MessageWindowComponent } from './message-window/message-window.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SnackbarComponent } from '../snackbar/snackbar.component';
 import { SMS } from 'src/app/models/sms';

@@ -1,0 +1,36 @@
+<div class="message-window">
+    <div id="header">
+        <span class="chat-header">{{order?.id}} {{order?.phone | formatPhone}}&nbsp;&nbsp;&nbsp;
+            {{order?.phone}}
+        </span>
+        <button id="closeButton" mat-mini-fab color="warn" (click)="close()"><span class="material-icons">
+                close
+            </span></button>
+
+
+    </div>
+    <div id="buffer"></div>
+
+    <div class="scrollbar scrollbar-primary">
+        <ul id="conversation" #scrollBottom *ngIf="conversation" class="force-overflow">
+
+            <li #messages class="speech-bubble" *ngFor="let message of conversation.messages;let index = index;"
+                [ngClass]="message.origin === 0 ? 'system' : message.origin === 1 ? 'employee' :  message.origin === 2 ? 'customer' : message.origin === 3 ? 'forward' : 'employee-pending' ">
+
+
+                {{message?.payload}}
+
+            </li>
+        </ul>
+    </div>
+
+    <div id="replyArea">
+
+        <textarea id="reply" [(ngModel)]="text"></textarea>
+        <button id="sendButton" mat-flat-button color="primary" (click)="send()"><span class="material-icons">
+                send
+            </span></button>
+
+
+    </div>
+</div>

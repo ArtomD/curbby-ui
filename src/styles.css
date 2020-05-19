@@ -181,7 +181,8 @@ body {
 
 .refreshPage{
     float:right;
-    margin-bottom:20px !important;    
+    margin-top: -10px !important;
+    margin-right: 8px !important;
 }
 
 .input-div{
@@ -245,4 +246,15 @@ mat-progress-spinner{
 
 .notification-menu div{
     padding:0px !important;
+}
+
+.header-div{
+    margin:10px;
+    height:35px;
+    background:lightgray;
+    border-radius: 7px;
+    padding-top:18px;
+    padding-left: 30px;
+    font-family:Roboto, "Helvetica Neue", sans-serif;
+    font-size:16px !important;    
 }

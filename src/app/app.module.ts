@@ -21,7 +21,6 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatBadgeModule } from '@angular/material/badge';
-import { InternationalPhoneNumberModule } from 'ngx-international-phone-number';
 import { MatMenuModule } from '@angular/material/menu';
 
 import { MatTableModule } from '@angular/material/table';
@@ -35,8 +34,9 @@ import { TemplatesComponent } from './components/templates/templates.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { EditSubscriberComponent } from './components/settings/edit-subscriber/edit-subscriber.component';
 import { ConfirmPopupComponent } from './components/confirm-popup/confirm-popup.component';
-import { MessageWindowComponent } from './components/message-window/message-window.component';
+import { MessageWindowComponent } from './components/order-list/message-window/message-window.component';
 import { SnackbarComponent } from './components/snackbar/snackbar.component';
+import { OrderDetailsComponent } from './components/order-list/order-details/order-details.component';
 
 
 @NgModule({
@@ -48,7 +48,8 @@ import { SnackbarComponent } from './components/snackbar/snackbar.component';
     EditSubscriberComponent,
     ConfirmPopupComponent,
     MessageWindowComponent,
-    SnackbarComponent
+    SnackbarComponent,
+    OrderDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -78,8 +79,7 @@ import { SnackbarComponent } from './components/snackbar/snackbar.component';
     MatProgressSpinnerModule,
     MatProgressBarModule,
     MatBadgeModule,
-    InternationalPhoneNumberModule,
-    MatMenuModule
+    MatMenuModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

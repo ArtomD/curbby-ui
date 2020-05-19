@@ -1,18 +1,14 @@
-<div class="input-div"><button class="refreshPage" mat-icon-button color="primary" (click)="refresh()"><span
-      class="material-icons">
-      refresh
-    </span></button>
+<div class="header-div">
+  Message Templates
+  <button class="refreshPage" mat-icon-button color="primary" (click)="refresh()"><span
+          class="material-icons">
+          refresh
+      </span>
+  </button>
+  <button class="foldButton" mat-icon-button [hidden]="someExpanded" (click)="expandAll()"><span class="material-icons">unfold_more</span></button>
+  <button class="foldButton" mat-icon-button [hidden]="!someExpanded" (click)="collapseAll()"><span class="material-icons">unfold_less</span></button>
 </div>
 <div class="input-div">
-  <mat-toolbar>
-    Message Templates
-
-
-    <span class="fill-space"></span>
-
-    <button class="" mat-icon-button [hidden]="someExpanded" (click)="expandAll()"><span class="material-icons">unfold_more</span></button>
-    <button class="" mat-icon-button [hidden]="!someExpanded" (click)="collapseAll()"><span class="material-icons">unfold_less</span></button>
-  </mat-toolbar>
   <mat-accordion [multi]="true" #accordion *ngFor="let template of templates;let index = index;">
     <mat-expansion-panel (opened)="openCheck(template)" (closed)="checkAllClosed(template)" [hidden]="template.name=='Other'" class="example-headers-align">
       <mat-expansion-panel-header>

@@ -2,11 +2,11 @@ import { Component, OnInit, Inject, ViewChild, ElementRef } from '@angular/core'
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { BackendServerService } from 'src/app/services/backend-server.service';
 import { Order } from 'src/app/models/order';
-import { Conversation } from '../../models/conversation';
-import {SMS} from '../../models/sms'
+import { Conversation } from '../../../models/conversation';
+import {SMS} from '../../../models/sms'
 import { Message } from 'src/app/models/message';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { SnackbarComponent } from '../snackbar/snackbar.component';
+import { SnackbarComponent } from '../../snackbar/snackbar.component';
 
 @Component({
   selector: 'app-message-window',
