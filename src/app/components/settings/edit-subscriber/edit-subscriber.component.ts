@@ -62,7 +62,7 @@ export class EditSubscriberComponent implements OnInit {
   }
 
   validatePhone(){
-    this.temp.phone = this.temp.phone?.replace(/[^0-9\.]+/g, "");
+    this.temp.phone = this.temp.phone?.replace(/[^0-9]+/g, "");
     if (this.temp?.phone?.search(phone_regex)==0) {
       this.invalidPhone = false;
     }else{
@@ -71,7 +71,7 @@ export class EditSubscriberComponent implements OnInit {
   }
 
   validateTypingPhone(){
-    this.temp.phone = this.temp.phone?.replace(/[^0-9\.]+/g, "");
+    this.temp.phone = this.temp.phone?.replace(/[^0-9]+/g, "");
     if (this.temp?.phone?.search(phone_regex)==0) {
       this.invalidTempPhone = false;
       this.invalidPhone = false;
