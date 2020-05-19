@@ -21,7 +21,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatBadgeModule } from '@angular/material/badge';
-import { InternationalPhoneNumberModule } from 'ngx-international-phone-number';
+
 
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
@@ -37,6 +37,8 @@ import { ConfirmPopupComponent } from './components/confirm-popup/confirm-popup.
 import { MessageWindowComponent } from './components/message-window/message-window.component';
 import { SnackbarComponent } from './components/snackbar/snackbar.component';
 
+import {PhoneFormatPipe} from '../app/pipes/phone'
+
 
 @NgModule({
   declarations: [
@@ -47,7 +49,8 @@ import { SnackbarComponent } from './components/snackbar/snackbar.component';
     EditSubscriberComponent,
     ConfirmPopupComponent,
     MessageWindowComponent,
-    SnackbarComponent
+    SnackbarComponent,
+    PhoneFormatPipe,
   ],
   imports: [
     BrowserModule,
@@ -77,7 +80,8 @@ import { SnackbarComponent } from './components/snackbar/snackbar.component';
     MatProgressSpinnerModule,
     MatProgressBarModule,
     MatBadgeModule,
-    InternationalPhoneNumberModule,
+
+
   ],
   providers: [],
   bootstrap: [AppComponent]

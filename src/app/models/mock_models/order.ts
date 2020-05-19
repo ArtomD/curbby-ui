@@ -2,7 +2,7 @@ export const mock_order = {
     "orders": [
         {
             "id": "22",
-            "phone": "+16472955958",
+            "phone": "16472955958",
             "shopifyCartToken": "9ee3d35afd8bfc406e53a21563429dc2",
             "shopifyOrderId": "2182056050732",
             "shopifyOrderNumber": "1036",
@@ -64,7 +64,7 @@ export const mock_order = {
                 "verified_email": true,
                 "multipass_identifier": null,
                 "tax_exempt": false,
-                "phone": "+16472955958",
+                "phone": "16472955958",
                 "tags": "",
                 "last_order_name": null,
                 "currency": "CAD",
@@ -96,7 +96,7 @@ export const mock_order = {
                 "shopId": "14",
                 "created": "2020-05-08T02:24:51.857Z",
                 "modified": "2020-05-09T23:12:11.088Z",
-                "phone": "+16472955958",
+                "phone": "16472955958",
                 "lastInbound": "2020-05-09T16:36:19.421Z",
                 "lastOutbound": "2020-05-09T23:12:11.088Z",
                 "lastRead": "2020-05-10T01:50:48.862Z"
@@ -104,7 +104,7 @@ export const mock_order = {
         },
         {
             "id": "21",
-            "phone": "+16472955958",
+            "phone": "16472955958",
             "shopifyCartToken": "b0e12e8b2727cbc2743f5461efecc39c",
             "shopifyOrderId": "2182050512940",
             "shopifyOrderNumber": "1035",
@@ -156,7 +156,7 @@ export const mock_order = {
                 "shopId": "14",
                 "created": "2020-05-08T02:24:51.857Z",
                 "modified": "2020-05-09T23:12:11.088Z",
-                "phone": "+16472955958",
+                "phone": "16472955958",
                 "lastInbound": "2020-05-09T16:36:19.421Z",
                 "lastOutbound": "2020-05-09T23:12:11.088Z",
                 "lastRead": "2020-05-10T01:50:48.862Z"
@@ -164,7 +164,7 @@ export const mock_order = {
         },
         {
             "id": "20",
-            "phone": "+16472955958",
+            "phone": "16472955958",
             "shopifyCartToken": "7173c4356d5fc4fda5a1aa3e38fb9f8e",
             "shopifyOrderId": "2182041206828",
             "shopifyOrderNumber": "1034",
@@ -216,7 +216,7 @@ export const mock_order = {
                 "shopId": "14",
                 "created": "2020-05-08T02:24:51.857Z",
                 "modified": "2020-05-09T23:12:11.088Z",
-                "phone": "+16472955958",
+                "phone": "16472955958",
                 "lastInbound": "2020-05-09T16:36:19.421Z",
                 "lastOutbound": "2020-05-09T23:12:11.088Z",
                 "lastRead": "2020-05-10T01:50:48.862Z"
@@ -224,7 +224,7 @@ export const mock_order = {
         },
         {
             "id": "19",
-            "phone": "+16472955958",
+            "phone": "16472955958",
             "shopifyCartToken": "61ab9c5f25173fdfc82aeade03c752db",
             "shopifyOrderId": "2182032097324",
             "shopifyOrderNumber": "1033",
@@ -276,7 +276,7 @@ export const mock_order = {
                 "shopId": "14",
                 "created": "2020-05-08T02:24:51.857Z",
                 "modified": "2020-05-09T23:12:11.088Z",
-                "phone": "+16472955958",
+                "phone": "16472955958",
                 "lastInbound": "2020-05-09T16:36:19.421Z",
                 "lastOutbound": "2020-05-09T23:12:11.088Z",
                 "lastRead": "2020-05-10T01:50:48.862Z"
@@ -284,7 +284,7 @@ export const mock_order = {
         },
         {
             "id": "17",
-            "phone": "+15197190241",
+            "phone": "15197190241",
             "shopifyCartToken": "da0911bf0807c18d2adaa5e9fb9c7a86",
             "shopifyOrderId": "2180728586284",
             "shopifyOrderNumber": "1032",
@@ -336,7 +336,7 @@ export const mock_order = {
                 "shopId": "14",
                 "created": "2020-05-09T03:35:15.183Z",
                 "modified": "2020-05-09T13:37:31.104Z",
-                "phone": "+15197190241",
+                "phone": "15197190241",
                 "lastInbound": "2020-05-09T03:37:18.585Z",
                 "lastOutbound": "2020-05-09T13:37:31.104Z",
                 "lastRead": "2020-05-09T20:44:41.485Z"
@@ -344,7 +344,7 @@ export const mock_order = {
         },
         {
             "id": "16",
-            "phone": "+16265869621",
+            "phone": "16265869621",
             "shopifyCartToken": "cca4a82efdfd1a9879b8d948f57f6e84",
             "shopifyOrderId": "2180722884652",
             "shopifyOrderNumber": "1031",
@@ -396,7 +396,7 @@ export const mock_order = {
                 "shopId": "14",
                 "created": "2020-05-09T03:31:17.799Z",
                 "modified": "2020-05-09T13:37:31.091Z",
-                "phone": "+16265869621",
+                "phone": "16265869621",
                 "lastInbound": null,
                 "lastOutbound": "2020-05-09T13:37:31.091Z",
                 "lastRead": "2020-05-10T00:12:27.460Z"
@@ -404,7 +404,7 @@ export const mock_order = {
         },
         {
             "id": "15",
-            "phone": "+16265869621",
+            "phone": "16265869621",
             "shopifyCartToken": "2440fb15d4f1f1c3369068861be0c5b2",
             "shopifyOrderId": "2180713185324",
             "shopifyOrderNumber": "1030",
@@ -456,7 +456,7 @@ export const mock_order = {
                 "shopId": "14",
                 "created": "2020-05-09T03:31:17.799Z",
                 "modified": "2020-05-09T13:37:31.091Z",
-                "phone": "+16265869621",
+                "phone": "16265869621",
                 "lastInbound": null,
                 "lastOutbound": "2020-05-09T13:37:31.091Z",
                 "lastRead": "2020-05-10T00:12:27.460Z"
@@ -464,7 +464,7 @@ export const mock_order = {
         },
         {
             "id": "14",
-            "phone": "+16265869621",
+            "phone": "16265869621",
             "shopifyCartToken": "7fdaad039f32aafe6fa939fed4935e79",
             "shopifyOrderId": "2180709842988",
             "shopifyOrderNumber": "1029",
@@ -516,7 +516,7 @@ export const mock_order = {
                 "shopId": "14",
                 "created": "2020-05-09T03:31:17.799Z",
                 "modified": "2020-05-09T13:37:31.091Z",
-                "phone": "+16265869621",
+                "phone": "16265869621",
                 "lastInbound": null,
                 "lastOutbound": "2020-05-09T13:37:31.091Z",
                 "lastRead": "2020-05-10T00:12:27.460Z"
@@ -524,7 +524,7 @@ export const mock_order = {
         },
         {
             "id": "13",
-            "phone": "+16265869621",
+            "phone": "16265869621",
             "shopifyCartToken": "76e4d53ed1f2367be953700405d8c345",
             "shopifyOrderId": "2180707090476",
             "shopifyOrderNumber": "1028",
@@ -576,7 +576,7 @@ export const mock_order = {
                 "shopId": "14",
                 "created": "2020-05-09T03:31:17.799Z",
                 "modified": "2020-05-09T13:37:31.091Z",
-                "phone": "+16265869621",
+                "phone": "16265869621",
                 "lastInbound": null,
                 "lastOutbound": "2020-05-09T13:37:31.091Z",
                 "lastRead": "2020-05-10T00:12:27.460Z"
@@ -584,7 +584,7 @@ export const mock_order = {
         },
         {
             "id": "12",
-            "phone": "+16265869621",
+            "phone": "16265869621",
             "shopifyCartToken": "",
             "shopifyOrderId": "2180700536876",
             "shopifyOrderNumber": "1027",
@@ -636,7 +636,7 @@ export const mock_order = {
                 "shopId": "14",
                 "created": "2020-05-09T03:31:17.799Z",
                 "modified": "2020-05-09T13:37:31.091Z",
-                "phone": "+16265869621",
+                "phone": "16265869621",
                 "lastInbound": null,
                 "lastOutbound": "2020-05-09T13:37:31.091Z",
                 "lastRead": "2020-05-10T00:12:27.460Z"
@@ -644,7 +644,7 @@ export const mock_order = {
         },
         {
             "id": "11",
-            "phone": "+16472955958",
+            "phone": "16472955958",
             "shopifyCartToken": "851a1254c65fc81bb0a7d71ff8d749eb",
             "shopifyOrderId": "2180670095404",
             "shopifyOrderNumber": "1026",
@@ -696,7 +696,7 @@ export const mock_order = {
                 "shopId": "14",
                 "created": "2020-05-08T02:24:51.857Z",
                 "modified": "2020-05-09T23:12:11.088Z",
-                "phone": "+16472955958",
+                "phone": "16472955958",
                 "lastInbound": "2020-05-09T16:36:19.421Z",
                 "lastOutbound": "2020-05-09T23:12:11.088Z",
                 "lastRead": "2020-05-10T01:50:48.862Z"
@@ -704,7 +704,7 @@ export const mock_order = {
         },
         {
             "id": "18",
-            "phone": "+12262249668",
+            "phone": "12262249668",
             "shopifyCartToken": "096a08ad0c67480508725282566247fa",
             "shopifyOrderId": "2176475234348",
             "shopifyOrderNumber": "1025",
@@ -756,7 +756,7 @@ export const mock_order = {
                 "shopId": "14",
                 "created": "2020-05-09T04:19:52.220Z",
                 "modified": "2020-05-09T16:36:20.261Z",
-                "phone": "+12262249668",
+                "phone": "12262249668",
                 "lastInbound": null,
                 "lastOutbound": "2020-05-09T16:36:20.261Z",
                 "lastRead": null
@@ -764,7 +764,7 @@ export const mock_order = {
         },
         {
             "id": "10",
-            "phone": "+16472955958",
+            "phone": "16472955958",
             "shopifyCartToken": "7bd0e161393258a75c44b3257c966268",
             "shopifyOrderId": "2174478975020",
             "shopifyOrderNumber": "1024",
@@ -816,7 +816,7 @@ export const mock_order = {
                 "shopId": "14",
                 "created": "2020-05-08T02:24:51.857Z",
                 "modified": "2020-05-09T23:12:11.088Z",
-                "phone": "+16472955958",
+                "phone": "16472955958",
                 "lastInbound": "2020-05-09T16:36:19.421Z",
                 "lastOutbound": "2020-05-09T23:12:11.088Z",
                 "lastRead": "2020-05-10T01:50:48.862Z"
@@ -824,7 +824,7 @@ export const mock_order = {
         },
         {
             "id": "9",
-            "phone": "+16472955958",
+            "phone": "16472955958",
             "shopifyCartToken": "d5c14a101560819c139ebb05a06383a2",
             "shopifyOrderId": "2174463246380",
             "shopifyOrderNumber": "1023",
@@ -876,7 +876,7 @@ export const mock_order = {
                 "shopId": "14",
                 "created": "2020-05-08T02:24:51.857Z",
                 "modified": "2020-05-09T23:12:11.088Z",
-                "phone": "+16472955958",
+                "phone": "16472955958",
                 "lastInbound": "2020-05-09T16:36:19.421Z",
                 "lastOutbound": "2020-05-09T23:12:11.088Z",
                 "lastRead": "2020-05-10T01:50:48.862Z"
@@ -884,7 +884,7 @@ export const mock_order = {
         },
         {
             "id": "8",
-            "phone": "+16472955958",
+            "phone": "16472955958",
             "shopifyCartToken": "81be3a96c9d570d2d5bf01312dc5f944",
             "shopifyOrderId": "2174456397868",
             "shopifyOrderNumber": "1022",
@@ -936,7 +936,7 @@ export const mock_order = {
                 "shopId": "14",
                 "created": "2020-05-08T02:24:51.857Z",
                 "modified": "2020-05-09T23:12:11.088Z",
-                "phone": "+16472955958",
+                "phone": "16472955958",
                 "lastInbound": "2020-05-09T16:36:19.421Z",
                 "lastOutbound": "2020-05-09T23:12:11.088Z",
                 "lastRead": "2020-05-10T01:50:48.862Z"
@@ -944,7 +944,7 @@ export const mock_order = {
         },
         {
             "id": "7",
-            "phone": "+16472955958",
+            "phone": "16472955958",
             "shopifyCartToken": "c07532c663481aed8a78e7c9f9b4f095",
             "shopifyOrderId": "2174446010412",
             "shopifyOrderNumber": "1021",
@@ -996,7 +996,7 @@ export const mock_order = {
                 "shopId": "14",
                 "created": "2020-05-08T02:24:51.857Z",
                 "modified": "2020-05-09T23:12:11.088Z",
-                "phone": "+16472955958",
+                "phone": "16472955958",
                 "lastInbound": "2020-05-09T16:36:19.421Z",
                 "lastOutbound": "2020-05-09T23:12:11.088Z",
                 "lastRead": "2020-05-10T01:50:48.862Z"
@@ -1004,7 +1004,7 @@ export const mock_order = {
         },
         {
             "id": "6",
-            "phone": "+16265869621",
+            "phone": "16265869621",
             "shopifyCartToken": "298f30a327991aa8c2448f880e92ed26",
             "shopifyOrderId": "2174434476076",
             "shopifyOrderNumber": "1020",
@@ -1056,7 +1056,7 @@ export const mock_order = {
                 "shopId": "14",
                 "created": "2020-05-09T03:31:17.799Z",
                 "modified": "2020-05-09T13:37:31.091Z",
-                "phone": "+16265869621",
+                "phone": "16265869621",
                 "lastInbound": null,
                 "lastOutbound": "2020-05-09T13:37:31.091Z",
                 "lastRead": "2020-05-10T00:12:27.460Z"
@@ -1064,7 +1064,7 @@ export const mock_order = {
         },
         {
             "id": "5",
-            "phone": "+16472955958",
+            "phone": "16472955958",
             "shopifyCartToken": "b5cd7e164c344def4014e0523969cfde",
             "shopifyOrderId": "2174426972204",
             "shopifyOrderNumber": "1019",
@@ -1116,7 +1116,7 @@ export const mock_order = {
                 "shopId": "14",
                 "created": "2020-05-08T02:24:51.857Z",
                 "modified": "2020-05-09T23:12:11.088Z",
-                "phone": "+16472955958",
+                "phone": "16472955958",
                 "lastInbound": "2020-05-09T16:36:19.421Z",
                 "lastOutbound": "2020-05-09T23:12:11.088Z",
                 "lastRead": "2020-05-10T01:50:48.862Z"
@@ -1124,7 +1124,7 @@ export const mock_order = {
         },
         {
             "id": "3",
-            "phone": "+16472955958",
+            "phone": "16472955958",
             "shopifyCartToken": "283cfa81dee9536563b35dc8b74aa0a0",
             "shopifyOrderId": "2166299263020",
             "shopifyOrderNumber": "1017",
@@ -1176,7 +1176,7 @@ export const mock_order = {
                 "shopId": "14",
                 "created": "2020-05-08T02:24:51.857Z",
                 "modified": "2020-05-09T23:12:11.088Z",
-                "phone": "+16472955958",
+                "phone": "16472955958",
                 "lastInbound": "2020-05-09T16:36:19.421Z",
                 "lastOutbound": "2020-05-09T23:12:11.088Z",
                 "lastRead": "2020-05-10T01:50:48.862Z"
@@ -1184,7 +1184,7 @@ export const mock_order = {
         },
         {
             "id": "2",
-            "phone": "+16472955958",
+            "phone": "16472955958",
             "shopifyCartToken": "b042de977a1a4c5c5abe134c416ea91f",
             "shopifyOrderId": "1016",
             "shopifyOrderNumber": null,
@@ -1236,7 +1236,7 @@ export const mock_order = {
                 "shopId": "14",
                 "created": "2020-05-08T02:24:51.857Z",
                 "modified": "2020-05-09T23:12:11.088Z",
-                "phone": "+16472955958",
+                "phone": "16472955958",
                 "lastInbound": "2020-05-09T16:36:19.421Z",
                 "lastOutbound": "2020-05-09T23:12:11.088Z",
                 "lastRead": "2020-05-10T01:50:48.862Z"
@@ -1244,7 +1244,7 @@ export const mock_order = {
         },
         {
             "id": "1",
-            "phone": "+16472955958",
+            "phone": "16472955958",
             "shopifyCartToken": "",
             "shopifyOrderId": "1015",
             "shopifyOrderNumber": null,
@@ -1296,7 +1296,7 @@ export const mock_order = {
                 "shopId": "14",
                 "created": "2020-05-08T02:24:51.857Z",
                 "modified": "2020-05-09T23:12:11.088Z",
-                "phone": "+16472955958",
+                "phone": "16472955958",
                 "lastInbound": "2020-05-09T16:36:19.421Z",
                 "lastOutbound": "2020-05-09T23:12:11.088Z",
                 "lastRead": "2020-05-10T01:50:48.862Z"
