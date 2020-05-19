@@ -19,6 +19,7 @@ import { environment } from '../../../environments/environment'
 import { phone_regex } from '../../models/regex'
 
 import { LIVE_SERVER } from '../../../../settings'
+import { phoneValidator } from '../../validators/phone';
 
 
 @Component({
@@ -48,12 +49,7 @@ export class OrderListComponent implements OnInit {
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
-
-
-  emailFormControl = new FormControl('', [
-    Validators.required,
-    Validators.email,
-  ]);
+ 
 
   constructor(public server: BackendServerService, public dialog: MatDialog, private fb: FormBuilder, private _snackBar: MatSnackBar) {
     this.messageTemplateSelected = 0;
@@ -117,6 +113,14 @@ export class OrderListComponent implements OnInit {
         element.selected = true;
       }
       element.invalidPhone = false;
+
+      if(!element.phoneFormControl){
+        element.phoneFormControl = new FormControl('', [
+          Validators.required,
+          phoneValidator(),
+        ]);
+      }
+
     });
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
@@ -178,6 +182,7 @@ export class OrderListComponent implements OnInit {
   }
 
   autoRefresh() {
+    console.log("REFRESHING");
     this.autoUpdate = true;
     this.server.getOrders();
   }
