@@ -1,5 +1,6 @@
 import { Customer } from './customer';
 import { Conversation } from './conversation';
+import { FormControl } from '@angular/forms';
 
 export interface Order {
     id: number;
@@ -16,4 +17,5 @@ export interface Order {
     conversation: Conversation;
     newMessageAvaliable: boolean;
     invalidPhone: boolean;
+    phoneFormControl: FormControl;
   }
