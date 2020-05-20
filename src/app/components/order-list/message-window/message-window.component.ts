@@ -205,4 +205,8 @@ export class MessageWindowComponent implements OnInit {
   close() {
     this.dialogRef.close();
   }
+
+  openDetails(){
+    this.dialogRef.close("OPEN_DETAIL");
+  }
 }

@@ -2,11 +2,11 @@
     <div id="header">
         <div class="chat-header">
             <p><b>{{order?.customer?.first_name}} {{order?.customer?.last_name}}</b>&nbsp;
-                {{order?.phone}}
+                {{order?.phone | phoneFormat}}
             </p>
 
         </div>
-        <button mat-raised-button color="primary" (click)="close()" style="margin-top: 3px;">Order # 1234</button>
+        <button mat-raised-button color="primary" (click)="openDetails()" style="margin-top: 3px;">Order {{order.shopifyOrderNumber}}</button>
         <button id="closeButton" mat-icon-button color="primary" (click)="close()"><span class="material-icons">
                 close
             </span></button>

@@ -1,11 +1,28 @@
-<div class="message-window">
+<div class="details-window">
     <div id="header">
-        <span class="chat-header">{{order?.id}} {{order?.phone | phoneFormat}}&nbsp;&nbsp;&nbsp;
-            {{order?.phone}}
+        <span class="details-header">{{order?.shopifyOrderNumber}} {{order?.phone | phoneFormat}}
         </span>
-        <button id="closeButton" mat-mini-fab color="warn" (click)="close()"><span class="material-icons">
-                close
-            </span></button>
+        <button class="close-button" id="closeButton" mat-mini-fab color="warn" (click)="close()"><span class="material-icons">
+            close
+        </span></button>
+        <button class="convo-button" mat-raised-button color="primary" (click)="openConversation()">Open Chat</button>       
+    </div>
 
+    <div>
+        <div>
+            ID: {{order?.shopifyOrderNumber}} 
+        </div>
+        <div>
+            Customer Name: {{order?.customer.first_name}} {{order?.customer.last_name}} 
+        </div>        
+    </div>
+    <div>
+        <div>
+            Email: {{order?.email}} 
+        </div>
+        <div>
+            Date Ordered: {{order?.created}}
+        </div>        
+    </div>
 
 </div>
