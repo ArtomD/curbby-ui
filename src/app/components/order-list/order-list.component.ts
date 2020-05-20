@@ -53,7 +53,7 @@ export class OrderListComponent implements OnInit {
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
- 
+
 
   constructor(public server: BackendServerService, public dialog: MatDialog, private fb: FormBuilder, private _snackBar: MatSnackBar) {
     this.messageTemplateSelected = 0;
@@ -118,7 +118,7 @@ export class OrderListComponent implements OnInit {
       }
       element.invalidPhone = false;
 
-      if(!element.phoneFormControl){
+      if (!element.phoneFormControl) {
         element.phoneFormControl = new FormControl('', [
           Validators.required,
           phoneValidator(),
@@ -191,7 +191,7 @@ export class OrderListComponent implements OnInit {
     this.server.getOrders();
   }
 
-  updatePhoneField(element: Order, value: string){
+  updatePhoneField(element: Order, value: string) {
     element.phone = value?.replace(/[^0-9]+/g, "");
   }
 
