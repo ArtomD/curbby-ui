@@ -81,9 +81,10 @@ export class BackendServerService {
   }
 
   updateOrders(order: Order) {
+    console.log(order);
     if (this.live && this.authenticated) {
       return new Promise((resolve) => {
-        this.http.post(SERVER_URL + UPDATE_ORDER_PATH, { shop: this.shop, order_data: order, signature: this.signature }, {
+        this.http.post(SERVER_URL + UPDATE_ORDER_PATH, { shop: this.shop, order_data: { status: order.status, phone: order.phone, id: order.id }, signature: this.signature }, {
           observe: 'response',
           withCredentials: false
         }).subscribe((result) => {
