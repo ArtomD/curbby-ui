@@ -110,8 +110,24 @@
         </mat-dialog-content>
         <mat-form-field class="dialog-select order-form">
             <mat-label>Status</mat-label>
-            <mat-select (selectionChange)="statusUpdate()" [formControl]="statusListFC" multiple>
-                <mat-option *ngFor="let status of statuses"  [(value)]="selectedStatus">{{status.name}}</mat-option>
+            <mat-select #status_select (selectionChange)="statusUpdate()" [(ngModel)]="selectedStatus"
+                [formControl]="statusListFC" multiple>
+                <mat-select-trigger>
+                    <div *ngIf="statusListFC.value.length == statuses.length">
+                        All
+                    </div>
+                    <div *ngIf="statusListFC.value.length >= 4">
+                        <span *ngFor="let selected of statusListFC.value">
+                            {{selected.name}}
+                        </span>
+                    </div>
+                    <div *ngIf="statusListFC.value.length < statuses.length && statusListFC.value.length < 4">
+                        <span *ngFor="let selected of statusListFC.value">
+                            {{selected.name}}
+                        </span>
+                    </div>
+                </mat-select-trigger>
+                <mat-option *ngFor="let status of statuses" [value]="status">{{status.name}}</mat-option>
             </mat-select>
         </mat-form-field>
         <mat-form-field class="dialog-select order-form">

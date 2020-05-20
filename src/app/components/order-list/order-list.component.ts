@@ -51,7 +51,9 @@ export class OrderListComponent implements OnInit {
   autoUpdate: boolean = false;
 
   statuses = STATUS;
-  selectedStatus;
+  selectedStatus = STATUS;
+
+  @ViewChild('status_select') selectStatus;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -141,15 +143,20 @@ export class OrderListComponent implements OnInit {
           textToSearch = textToSearch + data[key];
       }
       textToSearch = textToSearch + this.statuses.filter(x => x.id === data.status)[0]["name"];
-      if (this.filterNewMessages) {
-        if (data.newMessageAvaliable) {
-          return textToSearch.toLowerCase().indexOf(filter) !== -1;
+      if (this.statusListFC.value.find(status => status.id == data.status)) {
+        if (this.filterNewMessages) {
+          if (data.newMessageAvaliable) {
+            return textToSearch.toLowerCase().indexOf(filter) !== -1;
+          } else {
+            return false;
+          }
         } else {
-          return false;
+          return textToSearch.toLowerCase().indexOf(filter) !== -1;
         }
       } else {
-        return textToSearch.toLowerCase().indexOf(filter) !== -1;
+        return false;
       }
+
     };
   }
 
@@ -164,7 +171,6 @@ export class OrderListComponent implements OnInit {
 
 
   filterUnread() {
-
     this.sleep(100).then(() => {
       if (this.filterNewMessages && !this.labelFilterString) {
         this.labelFilterString = ".";
@@ -184,9 +190,9 @@ export class OrderListComponent implements OnInit {
     this.dataSource.filter = this.labelFilterString;
   }
 
-  statusUpdate(){
-    console.log("SELECTED");
-    console.log(this.selectedStatus);
+  statusUpdate() {
+    this.labelFilterString = ".";
+    this.filter();
   }
 
   refresh() {
@@ -333,19 +339,19 @@ export class OrderListComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       this.server.conversations_data = null;
       this.conversationOpen = false;
-      if(result=="OPEN_DETAIL"){
+      if (result == "OPEN_DETAIL") {
         this.openDetails(order);
       }
     });
   }
 
   openDetails(order: Order) {
-    this.currentConversationOrder = order;    
+    this.currentConversationOrder = order;
     const dialogRef = this.dialog.open(OrderDetailsComponent, {
       data: order,
     });
     dialogRef.afterClosed().subscribe(result => {
-      if(result=="OPEN_CONV"){
+      if (result == "OPEN_CONV") {
         this.openConversation(order);
       }
     });

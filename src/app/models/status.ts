@@ -1,1 +1,1 @@
-export const STATUS = [{id:0, name:"Placed"},{id:1, name:"Ready for pickup"}, {id:2, name:"Complete"}, {id:3, name:"Cancelled"}];
+export const STATUS = [{ id: 0, name: "Placed", short: "PL" }, { id: 1, name: "Ready for Pickup", short: "RFP" }, { id: 2, name: "Complete", short: "CMP" }, { id: 3, name: "Cancelled", short: "CL" }, { id: 4, name: "Customer Waiting", short: "CW" }];
