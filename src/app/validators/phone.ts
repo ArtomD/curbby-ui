@@ -3,10 +3,13 @@ import { phone_regex } from '../models/regex';
 
 export function phoneValidator(): ValidatorFn {
     return (control: AbstractControl): {[key: string]: any} | null => {
-        if (control.value.search(phone_regex) == 0) {
-            return null;
+        let temp = control.value.replace(/[^0-9]+/g, "");
+        if (temp.search(phone_regex) == 0) {
+            console.log("PASS");
+            return null;            
         }
-        return {'invalidPhone': {value: control.value}};
+        console.log("FAIL");
+        return {'invalidPhone': {value: temp}};
 
     };
   }
