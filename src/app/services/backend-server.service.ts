@@ -66,7 +66,6 @@ export class BackendServerService {
           observe: 'response',
           withCredentials: false
         }).subscribe((result) => {
-          console.log(result);
           this.order_data = result.body["orders"];
           this.order_dataChange.next(this.order_data);
           resolve();

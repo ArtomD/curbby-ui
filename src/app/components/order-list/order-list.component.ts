@@ -19,6 +19,7 @@ import { environment } from '../../../environments/environment'
 import { phone_regex } from '../../models/regex'
 import { LIVE_SERVER } from '../../../../settings'
 import { phoneValidator } from '../../validators/phone';
+import { OrderDetailsComponent } from './order-details/order-details.component';
 
 
 @Component({
@@ -186,7 +187,6 @@ export class OrderListComponent implements OnInit {
   }
 
   autoRefresh() {
-    console.log("REFRESHING");
     this.autoUpdate = true;
     this.server.getOrders();
   }
@@ -325,6 +325,21 @@ export class OrderListComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       this.server.conversations_data = null;
       this.conversationOpen = false;
+      if(result=="OPEN_DETAIL"){
+        this.openDetails(order);
+      }
+    });
+  }
+
+  openDetails(order: Order) {
+    this.currentConversationOrder = order;    
+    const dialogRef = this.dialog.open(OrderDetailsComponent, {
+      data: order,
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if(result=="OPEN_CONV"){
+        this.openConversation(order);
+      }
     });
   }
 
