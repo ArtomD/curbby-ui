@@ -1,0 +1,1 @@
+export const mock_live_shop = "purple-pencil.myshopify.com";

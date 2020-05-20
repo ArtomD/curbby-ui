@@ -51,6 +51,7 @@ export class OrderListComponent implements OnInit {
   autoUpdate: boolean = false;
 
   statuses = STATUS;
+  selectedStatus;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -100,6 +101,7 @@ export class OrderListComponent implements OnInit {
   }
 
   update() {
+
     let tempOrders: number[] = [];
     this.dataSource?.data?.forEach(element => {
       if (element.selected) {
@@ -107,8 +109,11 @@ export class OrderListComponent implements OnInit {
       }
     });
     this.dataSource = new MatTableDataSource(this.server.order_data);
+    console.log(this.dataSource.data[0]);
+    console.log(this.dataSource.data[0].phone);
     this.dataSource.data.forEach(element => {
-      if (element.conversation.lastInbound >= element.conversation.lastRead) {
+      console.log(element.phone);
+      if (element?.conversation?.lastInbound >= element?.conversation?.lastRead) {
         element.newMessageAvaliable = true;
       } else {
         element.newMessageAvaliable = false;
@@ -118,14 +123,12 @@ export class OrderListComponent implements OnInit {
         element.selected = true;
       }
       element.invalidPhone = false;
-
       if(!element.phoneFormControl){
         element.phoneFormControl = new FormControl('', [
           Validators.required,
           phoneValidator(),
         ]);
       }
-
     });
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
@@ -179,6 +182,11 @@ export class OrderListComponent implements OnInit {
       }
     }
     this.dataSource.filter = this.labelFilterString;
+  }
+
+  statusUpdate(){
+    console.log("SELECTED");
+    console.log(this.selectedStatus);
   }
 
   refresh() {

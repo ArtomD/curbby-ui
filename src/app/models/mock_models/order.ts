@@ -97,7 +97,7 @@ export const mock_order = {
                 "created": "2020-05-08T02:24:51.857Z",
                 "modified": "2020-05-09T23:12:11.088Z",
                 "phone": "16472955958",
-                "lastInbound": "2020-05-09T16:36:19.421Z",
+                "lastInbound": "2020-05-11T16:36:19.421Z",
                 "lastOutbound": "2020-05-09T23:12:11.088Z",
                 "lastRead": "2020-05-10T01:50:48.862Z"
             }

@@ -110,8 +110,8 @@
         </mat-dialog-content>
         <mat-form-field class="dialog-select order-form">
             <mat-label>Status</mat-label>
-            <mat-select [formControl]="statusListFC" multiple>
-                <mat-option *ngFor="let status of statusList" [value]="status">{{status}}</mat-option>
+            <mat-select (selectionChange)="statusUpdate()" [formControl]="statusListFC" multiple>
+                <mat-option *ngFor="let status of statuses"  [(value)]="selectedStatus">{{status.name}}</mat-option>
             </mat-select>
         </mat-form-field>
         <mat-form-field class="dialog-select order-form">
@@ -182,7 +182,7 @@
 
     <ng-container matColumnDef="lastMessage">
         <th mat-header-cell *matHeaderCellDef mat-header> <B>Last Message</B> </th>
-        <td mat-cell *matCellDef="let element"> {{element.conversation.lastInbound | date:'short' }} </td>
+        <td mat-cell *matCellDef="let element"> {{element?.conversation?.lastInbound | date:'short' }} </td>
     </ng-container>
 
     <ng-container matColumnDef="name">

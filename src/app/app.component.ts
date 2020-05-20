@@ -3,7 +3,9 @@ import { ActivatedRoute } from '@angular/router';
 import { BackendServerService } from './services/backend-server.service';
 import {mock_signature} from './models/mock_models/signature'
 import {mock_shop} from './models/mock_models/shop'
-import {FILE_DAM_PATH} from '../../settings'
+import {mock_live_signature} from './models/mock_models/live-signature'
+import {mock_live_shop} from './models/mock_models/live-shop'
+import {FILE_DAM_PATH, DEV} from '../../settings'
 
 @Component({
   selector: 'app-root',
@@ -35,8 +37,13 @@ export class AppComponent {
         }        
       });
     }else{
-      this.server.shop = mock_shop;
-      this.server.signature = mock_signature;
+      if(DEV){
+        this.server.shop = mock_shop;
+        this.server.signature = mock_signature;
+      }else{
+        this.server.shop = mock_live_shop;
+        this.server.signature = mock_live_signature;
+      }
       this.server.getOrders();
       this.server.getTemplates();
       this.server.getSubscribers();
