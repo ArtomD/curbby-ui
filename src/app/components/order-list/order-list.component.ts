@@ -18,6 +18,7 @@ import { timer } from 'rxjs';
 import { environment } from '../../../environments/environment'
 import { phone_regex } from '../../models/regex'
 import { LIVE_SERVER } from '../../../../settings'
+import { phoneValidator } from '../../validators/phone';
 
 
 @Component({
@@ -52,12 +53,7 @@ export class OrderListComponent implements OnInit {
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
-
-
-  emailFormControl = new FormControl('', [
-    Validators.required,
-    Validators.email,
-  ]);
+ 
 
   constructor(public server: BackendServerService, public dialog: MatDialog, private fb: FormBuilder, private _snackBar: MatSnackBar) {
     this.messageTemplateSelected = 0;
@@ -121,6 +117,14 @@ export class OrderListComponent implements OnInit {
         element.selected = true;
       }
       element.invalidPhone = false;
+
+      if(!element.phoneFormControl){
+        element.phoneFormControl = new FormControl('', [
+          Validators.required,
+          phoneValidator(),
+        ]);
+      }
+
     });
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
@@ -182,19 +186,22 @@ export class OrderListComponent implements OnInit {
   }
 
   autoRefresh() {
+    console.log("REFRESHING");
     this.autoUpdate = true;
     this.server.getOrders();
   }
 
+  updatePhoneField(element: Order, value: string){
+    element.phone = value?.replace(/[^0-9]+/g, "");
+  }
+
   onChange(order: Order) {
-    order.phone = order.phone?.replace(/[^0-9\.]+/g, "");
+    order.phone = order.phone?.replace(/[^0-9]+/g, "");
     if (order.phone.search(phone_regex) == 0) {
       this.server.updateOrders(order);
       order.invalidPhone = false;
     } else {
       order.invalidPhone = true;
-      this.openSnackBar("Use 1(555)555-5555 for phone formats.");
-      this.sleep(5000).then(() => this._snackBar.dismiss());
     }
   }
 
@@ -345,46 +352,6 @@ export class OrderListComponent implements OnInit {
 
   cancel(template: Template) {
     template.tempBody = template.body;
-  }
-
-  formatPhone(tel: string){
-    if (!tel) { return ''; }
-
-    var value = tel.toString().trim().replace(/^\+/, '');
-
-    if (value.match(/[^0-9]/)) {
-        return tel;
-    }
-
-    var country, city, number, prefix;
-    if(value.length > 0){
-      prefix = value[0];
-      value = value.slice(1);
-    }
-    switch (value.length) {
-        case 1:
-        case 2:
-        case 3:
-            city = value;
-            break;
-        default:
-            city = value.slice(0, 3);
-            number = value.slice(3);
-    }
-
-    if(number){
-        if(number.length>3){
-            number = number.slice(0, 3) + '-' + number.slice(3,7);
-        }
-        else{
-            number = number;
-        }
-
-        return ("+"+prefix+"(" + city + ") " + number).trim();
-    }
-    else{
-        return "+"+prefix+ "(" + city;
-    };
   }
 
 }

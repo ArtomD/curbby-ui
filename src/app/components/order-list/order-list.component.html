@@ -167,7 +167,15 @@
     <ng-container matColumnDef="phone">
         <th mat-header-cell *matHeaderCellDef mat-header> <B>Phone Number</B> </th>
         <td mat-cell *matCellDef="let element">
-        <input placeholder="+1(555)555-5555" class="phoneInput" [ngModel]="element.phone | phoneFormat" (ngModelChange)="element.phone=$event" (keyup)="validatePhone(element)" (change)="onChange(element)">
+            <mat-form-field>
+                <input matInput maxlength="16"  [formControl]="element.phoneFormControl" [ngModel]="element.phone | phoneFormat" (ngModelChange)="updatePhoneField(element,$event)" (keyup)="validatePhone(element)" (change)="onChange(element)">
+                <mat-error *ngIf="element.phoneFormControl.hasError('invalidPhone')">
+                Please enter a valid phone number
+                </mat-error>
+                <mat-error *ngIf="element.phoneFormControl.hasError('required')">
+                Phone is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
         </td>
     </ng-container>
 

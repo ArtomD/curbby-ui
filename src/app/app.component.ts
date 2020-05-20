@@ -43,5 +43,7 @@ export class AppComponent {
       this.server.getShopDetails();
       this.server.getShopStats();
     }   
+    console.log(this.server.shop_details_data);
+    console.log(this.server.shop_details_data?.hasOwnProperty('id'));
   }
 }
