@@ -116,12 +116,12 @@
                     <div *ngIf="statusListFC.value.length == statuses.length">
                         All
                     </div>
-                    <div *ngIf="statusListFC.value.length >= 4">
+                    <div *ngIf="statusListFC.value.length == 4">
                         <span *ngFor="let selected of statusListFC.value">
-                            {{selected.name}}
+                            {{selected.short}}
                         </span>
                     </div>
-                    <div *ngIf="statusListFC.value.length < statuses.length && statusListFC.value.length < 4">
+                    <div *ngIf="statusListFC.value.length < 4">
                         <span *ngFor="let selected of statusListFC.value">
                             {{selected.name}}
                         </span>

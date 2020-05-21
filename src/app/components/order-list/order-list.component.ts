@@ -191,7 +191,9 @@ export class OrderListComponent implements OnInit {
   }
 
   statusUpdate() {
-    this.labelFilterString = ".";
+    if (this.labelFilterString == "") {
+      this.labelFilterString = ".";
+    }
     this.filter();
   }
 
