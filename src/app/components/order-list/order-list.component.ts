@@ -115,7 +115,7 @@ export class OrderListComponent implements OnInit {
     console.log(this.dataSource.data[0].phone);
     this.dataSource.data.forEach(element => {
       console.log(element.phone);
-      if (element?.conversation?.lastInbound >= element?.conversation?.lastRead) {
+      if (element?.conversation?.lastInbound > element?.conversation?.lastRead) {
         element.newMessageAvaliable = true;
       } else {
         element.newMessageAvaliable = false;
