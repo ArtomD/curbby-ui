@@ -112,10 +112,12 @@
 
     <ng-container matColumnDef="selected">
         <th mat-header-cell *matHeaderCellDef mat-header>
-            <mat-checkbox [indeterminate]="1" (click)="deselectAll()"></mat-checkbox>
+            <mat-checkbox [indeterminate]="someOrdersSelected" [(ngModel)]="allOrdersSelected"
+                (click)="selectAllToggle()">
+            </mat-checkbox>
         </th>
         <td mat-cell *matCellDef="let element">
-            <mat-checkbox [(ngModel)]="element.selected"></mat-checkbox>
+            <mat-checkbox (click)="selectRecord(element)" [(ngModel)]="element.selected"></mat-checkbox>
         </td>
     </ng-container>
 

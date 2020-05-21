@@ -36,9 +36,12 @@ export class OrderListComponent implements OnInit {
   locationListFC = new FormControl();
   locationList: string[] = [];
   selectedLocationList: string[] = [];
+  allOrdersSelected: boolean;
+  someOrdersSelected: boolean;
 
   dataSource;
   loaded = 0;
+  selectedOrders: number[] = [];
   labelFilterString = "";
   filterForm: FormGroup;
   filterNewMessages: boolean = false;
@@ -202,6 +205,30 @@ export class OrderListComponent implements OnInit {
       this.labelFilterString = ".";
     }
     this.filter();
+    let statusFilter = this.server.order_data.filter(value => -1 != this.statusListFC.value.findIndex(status => status.id == value.status));
+    let locationFilter = this.server.order_data.filter(value => this.locationListFC.value.includes(value.pickupLocation.code));
+    let combinedFilter = statusFilter.filter(value => locationFilter.includes(value));
+    this.selectedOrders
+    let missing = false;
+    let someSelected = false;
+
+    for (let i = 0; i < combinedFilter.length; i++) {
+      if (this.selectedOrders.findIndex(s => s == combinedFilter[i].id) == -1) {
+        missing = true;
+      } else {
+        //order seen in set
+        this.allOrdersSelected = true;
+        someSelected = true;
+      }
+    }
+    if (missing && someSelected) {
+      this.someOrdersSelected = true;
+    } else {
+      if (missing) {
+        this.allOrdersSelected = false;
+      }
+      this.someOrdersSelected = false;
+    }
   }
 
 
@@ -282,7 +309,6 @@ export class OrderListComponent implements OnInit {
   }
 
   massMessage() {
-
     let amount: number = 0;
     let sms: SMS[] = [];
     this.dataSource.data.forEach(element => {
@@ -377,11 +403,54 @@ export class OrderListComponent implements OnInit {
     this.filterText = "";
   }
 
-  deselectAll() {
-    this.dataSource.data.forEach(element => {
-      element.selected = false;
+  selectRecord(element: Order) {
+    this.sleep(100).then(() => {
+      if (element.selected) {
+        this.selectedOrders.push(element.id);
+        if (this.selectedOrders.length == this.server.order_data.length) {
+          this.allOrdersSelected = true;
+          this.someOrdersSelected = false;
+        } else {
+          this.someOrdersSelected = true;
+        }
+      } else {
+        this.selectedOrders.splice(this.selectedOrders.findIndex(n => n == element.id), 1);
+        this.allOrdersSelected = false;
+        if (this.selectedOrders.length == 0) {
+          this.someOrdersSelected = false;
+        } else {
+          this.someOrdersSelected = true;
+        }
+      }
+    });
+
+  }
+
+  selectAllToggle() {
+    this.sleep(100).then(() => {
+      if (!this.allOrdersSelected || this.someOrdersSelected) {
+        this.allOrdersSelected = false;
+        this.someOrdersSelected = false;
+        this.server.order_data.forEach(element => {
+          if (this.statusListFC.value.find(s => s.id == element.status) && this.locationListFC.value.find(l => l == element.pickupLocation.code)) {
+            element.selected = false;
+            this.selectedOrders.splice(this.selectedOrders.findIndex(n => n == element.id), 1);
+          }
+        });
+      } else {
+        this.allOrdersSelected = true;
+        this.someOrdersSelected = false;
+        this.selectedOrders.length = 0;
+        this.server.order_data.forEach(element => {
+          if (this.statusListFC.value.find(s => s.id == element.status) && this.locationListFC.value.find(l => l == element.pickupLocation.code)) {
+            element.selected = true;
+            this.selectedOrders.push(element.id);
+          }
+        });
+      }
     });
   }
+
 
   refreshConversation() {
     if (this.conversationOpen) {
