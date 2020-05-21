@@ -66,7 +66,6 @@ export class BackendServerService {
           observe: 'response',
           withCredentials: false
         }).subscribe((result) => {
-          console.log(result.body["orders"]);
           this.order_data = result.body["orders"];
           this.order_dataChange.next(this.order_data);
           resolve();
@@ -81,7 +80,6 @@ export class BackendServerService {
   }
 
   updateOrders(order: Order) {
-    console.log(order);
     if (this.live && this.authenticated) {
       return new Promise((resolve) => {
         this.http.post(SERVER_URL + UPDATE_ORDER_PATH, { shop: this.shop, order_data: { status: order.status, phone: order.phone, id: order.id }, signature: this.signature }, {

@@ -33,9 +33,9 @@ export class OrderListComponent implements OnInit {
 
   displayedColumns: string[] = ['selected', 'shopifyOrderNumber', 'date', 'status', 'phone', 'lastMessage', 'name', 'location', 'messages', 'details'];
   statusListFC = new FormControl();
-  statusList: string[] = ['Cancelled', 'Complete', 'Ready for pickup', 'Placed']
   locationListFC = new FormControl();
-  locationList: string[] = ['Apple', 'test']
+  locationList: string[] = [];
+  selectedLocationList: string[] = [];
 
   dataSource;
   loaded = 0;
@@ -52,8 +52,6 @@ export class OrderListComponent implements OnInit {
 
   statuses = STATUS;
   selectedStatus = STATUS;
-
-  @ViewChild('status_select') selectStatus;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -103,7 +101,6 @@ export class OrderListComponent implements OnInit {
   }
 
   update() {
-
     let tempOrders: number[] = [];
     this.dataSource?.data?.forEach(element => {
       if (element.selected) {
@@ -111,11 +108,15 @@ export class OrderListComponent implements OnInit {
       }
     });
     this.dataSource = new MatTableDataSource(this.server.order_data);
-    console.log(this.dataSource.data[0]);
-    console.log(this.dataSource.data[0].phone);
+    let locationListMax = false;
+    if (!this.locationListFC.value || this.locationListFC?.value?.length == this.locationList.length) {
+      locationListMax = true;
+    }
     this.dataSource.data.forEach(element => {
-      console.log(element.phone);
-      if (element?.conversation?.lastInbound >= element?.conversation?.lastRead) {
+      if (!this.locationList.find(l => l == element.pickupLocation.code)) {
+        this.locationList.push(element.pickupLocation.code);
+      }
+      if (element?.conversation?.lastInbound > element?.conversation?.lastRead) {
         element.newMessageAvaliable = true;
       } else {
         element.newMessageAvaliable = false;
@@ -132,6 +133,12 @@ export class OrderListComponent implements OnInit {
         ]);
       }
     });
+    if (locationListMax) {
+      this.selectedLocationList.length = 0;
+      this.locationList.forEach(element => {
+        this.selectedLocationList.push(element);
+      });
+    }
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     this.loaded = 1;
@@ -142,8 +149,8 @@ export class OrderListComponent implements OnInit {
         if (data[key] != null)
           textToSearch = textToSearch + data[key];
       }
-      textToSearch = textToSearch + this.statuses.filter(x => x.id === data.status)[0]["name"];
-      if (this.statusListFC.value.find(status => status.id == data.status)) {
+      textToSearch = textToSearch + this.statuses.filter(x => x.id === data.status)[0]["name"] + data?.customer?.first_name + data?.customer?.last_name + data.conversation?.lastInbound;
+      if (this.statusListFC.value.find(status => status.id == data.status) && this.locationListFC.value.find(location => location == data.pickupLocation.code)) {
         if (this.filterNewMessages) {
           if (data.newMessageAvaliable) {
             return textToSearch.toLowerCase().indexOf(filter) !== -1;
@@ -190,12 +197,13 @@ export class OrderListComponent implements OnInit {
     this.dataSource.filter = this.labelFilterString;
   }
 
-  statusUpdate() {
+  filterManualUpdate() {
     if (this.labelFilterString == "") {
       this.labelFilterString = ".";
     }
     this.filter();
   }
+
 
   refresh() {
     this.server.getOrders();

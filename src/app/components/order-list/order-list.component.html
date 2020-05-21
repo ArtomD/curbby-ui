@@ -6,45 +6,6 @@
     </button>
 </div>
 
-<div>
-    <mat-accordion>
-        <mat-expansion-panel id="filter" (opened)="panelOpenState = true" (closed)="panelOpenState = false"
-            #mep="matExpansionPanel">
-            <mat-expansion-panel-header>
-                <mat-panel-title>
-                    <b>Filter options</b>
-
-                </mat-panel-title>
-
-                <mat-panel-description>
-                    <span *ngIf="labelFilterString.length > 0 && labelFilterString!='.'"><b>Contains</b>
-                        {{labelFilterString}} &nbsp;</span>
-                </mat-panel-description>
-            </mat-expansion-panel-header>
-
-            <mat-dialog-content [formGroup]="filterForm">
-                <div class="section-header">
-                    <p>
-                        You may filter on any column using the field below. This includes order #, status, customer
-                        phone
-                        number, etc.
-                    </p>
-                </div>
-
-                <mat-form-field class="dialog-input">
-                    <input matInput placeholder="Filter on order content" (keyup)="applyFilter($event)"
-                        [(ngModel)]="filterText" formControlName="label">
-                </mat-form-field>
-                <button class="mat-button filter-button" (click)="clearSearch()">Clear</button>
-                <button class="mat-button filter-button" (click)="panelOpenState = false"
-                    (click)="mep.expanded = false;">Close</button>
-            </mat-dialog-content>
-        </mat-expansion-panel>
-    </mat-accordion>
-
-
-
-</div>
 <div class="input-div">
     <div id="buttons">
         <button [ngClass]="openMassMessage ? 'opened' : 'closed'" mat-flat-button color="primary"
@@ -66,7 +27,7 @@
             </span> &nbsp;&nbsp; Cancelled</button>
     </div>
     <mat-card id="messages" [hidden]="!openMassMessage">
-        <mat-tab-group *ngIf="openMassMessage" animationDuration="0ms" class="example-headers-align"
+        <mat-tab-group [hidden]="!openMassMessage" animationDuration="0ms" class="example-headers-align"
             [(selectedIndex)]="messageTemplateSelected">
             <mat-tab label="{{template.name}}" *ngFor="let template of templates;let index = index;">
                 <textarea [(ngModel)]="templates[index].tempBody"></textarea>
@@ -86,19 +47,6 @@
         </mat-tab-group>
     </mat-card>
     <div class="section-header">
-        <button class="buttonDeselectAll" mat-flat-button color="primary" (click)="deselectAll()">Deselect All</button>
-        <!--p class="tableDesc">
-            Select records below to perform batch sends or status updates.
-            <br>
-            Changes made in the table are saved in real time.
-        </p-->
-        <mat-slide-toggle [(ngModel)]="filterNewMessages" (click)="filterUnread()" class="configToggle">
-        </mat-slide-toggle>
-        <p>
-            Show only unread messages
-        </p>
-    </div>
-    <div class="section-header">
         <mat-dialog-content [formGroup]="filterForm" class="search-field order-form">
             <mat-form-field class="dialog-input">
                 <mat-label>Type here to start filtering</mat-label>
@@ -110,18 +58,18 @@
         </mat-dialog-content>
         <mat-form-field class="dialog-select order-form">
             <mat-label>Status</mat-label>
-            <mat-select #status_select (selectionChange)="statusUpdate()" [(ngModel)]="selectedStatus"
+            <mat-select (selectionChange)="filterManualUpdate()" [(ngModel)]="selectedStatus"
                 [formControl]="statusListFC" multiple>
                 <mat-select-trigger>
-                    <div *ngIf="statusListFC.value.length == statuses.length">
+                    <div [hidden]="statusListFC.value.length != statuses.length">
                         All
                     </div>
-                    <div *ngIf="statusListFC.value.length == 4">
+                    <div [hidden]="statusListFC.value.length != 4">
                         <span *ngFor="let selected of statusListFC.value">
                             {{selected.short}}
                         </span>
                     </div>
-                    <div *ngIf="statusListFC.value.length < 4">
+                    <div [hidden]="statusListFC.value.length >= 4">
                         <span *ngFor="let selected of statusListFC.value">
                             {{selected.name}}
                         </span>
@@ -132,7 +80,18 @@
         </mat-form-field>
         <mat-form-field class="dialog-select order-form">
             <mat-label>Location</mat-label>
-            <mat-select [formControl]="locationListFC" multiple>
+            <mat-select (selectionChange)="filterManualUpdate()" [(ngModel)]="selectedLocationList"
+                [formControl]="locationListFC" multiple>
+                <mat-select-trigger>
+                    <div [hidden]="locationListFC.value.length != locationList.length">
+                        All
+                    </div>
+                    <div [hidden]="locationListFC.value.length >= locationList.length">
+                        <span *ngFor="let location of locationListFC.value">
+                            {{location}}
+                        </span>
+                    </div>
+                </mat-select-trigger>
                 <mat-option *ngFor="let location of locationList" [value]="location">{{location}}</mat-option>
             </mat-select>
         </mat-form-field>
@@ -183,13 +142,14 @@
         <th mat-header-cell *matHeaderCellDef mat-header> <B>Phone Number</B> </th>
         <td mat-cell *matCellDef="let element" class="phoneInput">
             <mat-form-field>
-                <input matInput maxlength="16" [formControl]="element.phoneFormControl"
+                <input matInput maxlength="16" [formControl]="element?.phoneFormControl"
                     [ngModel]="element.phone | phoneFormat" (ngModelChange)="updatePhoneField(element,$event)"
                     (keyup)="validatePhone(element)" (change)="onChange(element)">
-                <mat-error *ngIf="element.phoneFormControl.hasError('invalidPhone')">
+                <mat-error
+                    [hidden]="!element?.phoneFormControl?.hasError('invalidPhone') || element?.phoneFormControl?.hasError('required')">
                     Please enter a valid phone number
                 </mat-error>
-                <mat-error *ngIf="element.phoneFormControl.hasError('required')">
+                <mat-error [hidden]="!element?.phoneFormControl?.hasError('required')">
                     Phone is <strong>required</strong>
                 </mat-error>
             </mat-form-field>
