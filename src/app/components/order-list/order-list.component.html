@@ -54,6 +54,10 @@
                         search
                     </span> &nbsp;</span>
                 <input matInput (keyup)="applyFilter($event)" [(ngModel)]="filterText" formControlName="label">
+                <button mat-button class="close-button" *ngIf="filterText" matSuffix mat-icon-button aria-label="Clear"
+                    (click)="clearSearch()">
+                    <mat-icon>close</mat-icon>
+                </button>
             </mat-form-field>
         </mat-dialog-content>
         <mat-form-field class="dialog-select order-form">
@@ -77,7 +81,12 @@
                 </mat-select-trigger>
                 <mat-option *ngFor="let status of statuses" [value]="status">{{status.name}}</mat-option>
             </mat-select>
+
         </mat-form-field>
+        <button mat-button class="close-button" [hidden]="statusListFC.value.length == statuses.length" matSuffix
+            mat-icon-button aria-label="Clear" (click)="clearStatus()">
+            <mat-icon>close</mat-icon>
+        </button>
         <mat-form-field class="dialog-select order-form">
             <mat-label>Location</mat-label>
             <mat-select (selectionChange)="filterManualUpdate()" [(ngModel)]="selectedLocationList"
@@ -94,7 +103,12 @@
                 </mat-select-trigger>
                 <mat-option *ngFor="let location of locationList" [value]="location">{{location}}</mat-option>
             </mat-select>
+
         </mat-form-field>
+        <button mat-button class="close-button" [hidden]="locationListFC.value.length == locationList.length" matSuffix
+            mat-icon-button aria-label="Clear" (click)="clearLocation()">
+            <mat-icon>close</mat-icon>
+        </button>
         <span class="example-spacer"></span>
 
         <mat-slide-toggle [(ngModel)]="filterNewMessages" (click)="filterUnread()" class="configToggle order-form">

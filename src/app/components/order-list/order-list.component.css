@@ -205,3 +205,7 @@ textarea{
     width: 40px;
     height: 20px;
 }
+
+.close-button{
+    margin:0px;
+}

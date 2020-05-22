@@ -395,13 +395,23 @@ export class OrderListComponent implements OnInit {
   }
 
   clearSearch() {
-    if (this.filterNewMessages) {
+    if (this.filterNewMessages || this.statusListFC.value.length < this.statuses.length || this.locationListFC.value.length < this.locationList) {
       this.labelFilterString = ".";
     } else {
       this.labelFilterString = "";
     }
     this.runFilter();
     this.filterText = "";
+  }
+
+  clearStatus() {
+    this.statusListFC.setValue(this.statuses);
+    this.runFilter();
+  }
+
+  clearLocation() {
+    this.locationListFC.setValue(this.locationList);
+    this.runFilter();
   }
 
   selectRecord(element: Order) {
