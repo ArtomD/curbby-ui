@@ -36,6 +36,7 @@ export class OrderListComponent implements OnInit {
   locationListFC = new FormControl();
   locationList: string[] = [];
   selectedLocationList: string[] = [];
+  filteredOrders: Order[] = [];
   allOrdersSelected: boolean;
   someOrdersSelected: boolean;
 
@@ -104,13 +105,15 @@ export class OrderListComponent implements OnInit {
   }
 
   update() {
+
     let tempOrders: number[] = [];
     this.dataSource?.data?.forEach(element => {
-      if (element.selected) {
-        tempOrders.push(element.id);
+      if (this.selectedOrders.findIndex(id => id == element.id) != -1) {
+        element.selected = true;
       }
     });
     this.dataSource = new MatTableDataSource(this.server.order_data);
+
     let locationListMax = false;
     if (!this.locationListFC.value || this.locationListFC?.value?.length == this.locationList.length) {
       locationListMax = true;
@@ -153,29 +156,34 @@ export class OrderListComponent implements OnInit {
           textToSearch = textToSearch + data[key];
       }
       textToSearch = textToSearch + this.statuses.filter(x => x.id === data.status)[0]["name"] + data?.customer?.first_name + data?.customer?.last_name + data.conversation?.lastInbound;
-      if (this.statusListFC.value.find(status => status.id == data.status) && this.locationListFC.value.find(location => location == data.pickupLocation.code)) {
+      if (this.statusListFC.value?.find(status => status.id == data.status) && this.locationListFC.value?.find(location => location == data.pickupLocation.code)) {
         if (this.filterNewMessages) {
           if (data.newMessageAvaliable) {
-            return textToSearch.toLowerCase().indexOf(filter) !== -1;
+            let result = textToSearch.toLowerCase().indexOf(filter) !== -1;
+            if (result) {
+              this.filteredOrders.push(data);
+            }
+            return result;
           } else {
             return false;
           }
         } else {
-          return textToSearch.toLowerCase().indexOf(filter) !== -1;
+          let result = textToSearch.toLowerCase().indexOf(filter) !== -1;
+          if (result) {
+            this.filteredOrders.push(data);
+          }
+          return result;
         }
       } else {
         return false;
       }
-
     };
   }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.labelFilterString = filterValue.trim().toLowerCase();
-    this.dataSource.data.forEach(element => {
-      element.selected = false;
-    });
+
     this.filter();
   }
 
@@ -197,6 +205,11 @@ export class OrderListComponent implements OnInit {
         this.dataSource.paginator.firstPage();
       }
     }
+    this.runFilter();
+  }
+
+  runFilter() {
+    this.filteredOrders.length = 0;
     this.dataSource.filter = this.labelFilterString;
   }
 
@@ -205,22 +218,20 @@ export class OrderListComponent implements OnInit {
       this.labelFilterString = ".";
     }
     this.filter();
-    let statusFilter = this.server.order_data.filter(value => -1 != this.statusListFC.value.findIndex(status => status.id == value.status));
-    let locationFilter = this.server.order_data.filter(value => this.locationListFC.value.includes(value.pickupLocation.code));
-    let combinedFilter = statusFilter.filter(value => locationFilter.includes(value));
-    this.selectedOrders
+
     let missing = false;
     let someSelected = false;
 
-    for (let i = 0; i < combinedFilter.length; i++) {
-      if (this.selectedOrders.findIndex(s => s == combinedFilter[i].id) == -1) {
+    this.filteredOrders.forEach(element => {
+      if (this.selectedOrders.findIndex(s => s == element.id) == -1) {
         missing = true;
       } else {
         //order seen in set
         this.allOrdersSelected = true;
         someSelected = true;
       }
-    }
+    })
+
     if (missing && someSelected) {
       this.someOrdersSelected = true;
     } else {
@@ -266,26 +277,18 @@ export class OrderListComponent implements OnInit {
 
   changeStatus(status: number) {
 
-    let amount: number = 0;
-    this.dataSource.data.forEach(element => {
-      if (element.selected) {
-        amount++;
-      }
-    });
-
-    if (amount > 0) {
+    if (this.selectedOrders.length > 0) {
       const dialogRef = this.dialog.open(ConfirmPopupComponent, {
-        data: "You are changing " + amount + " orders to " + STATUS[status].name + ".",
+        data: "You are changing " + this.selectedOrders.length + " orders to " + STATUS[status].name + ".",
       });
 
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
           let orders: Order[] = [];
-          this.dataSource.data.forEach(element => {
-            if (element.selected) {
-              element["status"] = status;
-              orders.push(element);
-            }
+          this.selectedOrders.forEach(element => {
+            let order = this.dataSource.data.find(o => o.id == element);
+            order["status"] = status;
+            orders.push(order);
           });
           this.openSnackBar("Uploading Data");
           if (LIVE_SERVER) {
@@ -311,21 +314,19 @@ export class OrderListComponent implements OnInit {
   massMessage() {
     let amount: number = 0;
     let sms: SMS[] = [];
-    this.dataSource.data.forEach(element => {
-      if (element.selected) {
-        let found = false;
-        sms.forEach(inner => {
-          if (inner.phone == element.phone) {
-            found = true;
-          }
-        });
-        if (!found) {
-          amount++;
-          sms.push(<SMS>{ message: this.server.template_data[this.messageTemplateSelected]["body"], phone: element.phone, subject: "" })
+    this.selectedOrders.forEach(element => {
+      let order = this.dataSource.data.find(o => o.id == element);
+      let found = false;
+      sms.forEach(inner => {
+        if (inner.phone == order.phone) {
+          found = true;
         }
+      });
+      if (!found) {
+        amount++;
+        sms.push(<SMS>{ message: this.server.template_data[this.messageTemplateSelected]["body"], phone: order.phone, subject: "" })
       }
-    });
-
+    })
     if (amount > 0) {
       const dialogRef = this.dialog.open(ConfirmPopupComponent, {
         data: "You are sending a message to " + amount + " customers.",
@@ -399,7 +400,7 @@ export class OrderListComponent implements OnInit {
     } else {
       this.labelFilterString = "";
     }
-    this.dataSource.filter = this.labelFilterString;
+    this.runFilter();
     this.filterText = "";
   }
 
@@ -407,7 +408,13 @@ export class OrderListComponent implements OnInit {
     this.sleep(100).then(() => {
       if (element.selected) {
         this.selectedOrders.push(element.id);
-        if (this.selectedOrders.length == this.server.order_data.length) {
+        let allSelected = true;
+        this.selectedOrders.forEach(element => {
+          if (this.filteredOrders.findIndex(o => o.id == element) == -1) {
+            allSelected = false;
+          }
+        });
+        if (allSelected) {
           this.allOrdersSelected = true;
           this.someOrdersSelected = false;
         } else {
@@ -427,12 +434,17 @@ export class OrderListComponent implements OnInit {
   }
 
   selectAllToggle() {
+    if (this.dataSource.filter == "") {
+      this.dataSource.data.forEach(element => {
+        this.filteredOrders.push(element);
+      });
+    }
     this.sleep(100).then(() => {
       if (!this.allOrdersSelected || this.someOrdersSelected) {
         this.allOrdersSelected = false;
         this.someOrdersSelected = false;
-        this.server.order_data.forEach(element => {
-          if (this.statusListFC.value.find(s => s.id == element.status) && this.locationListFC.value.find(l => l == element.pickupLocation.code)) {
+        this.filteredOrders.forEach(element => {
+          if (this.selectedOrders.find(s => s == element.id)) {
             element.selected = false;
             this.selectedOrders.splice(this.selectedOrders.findIndex(n => n == element.id), 1);
           }
@@ -440,12 +452,13 @@ export class OrderListComponent implements OnInit {
       } else {
         this.allOrdersSelected = true;
         this.someOrdersSelected = false;
-        this.selectedOrders.length = 0;
-        this.server.order_data.forEach(element => {
-          if (this.statusListFC.value.find(s => s.id == element.status) && this.locationListFC.value.find(l => l == element.pickupLocation.code)) {
-            element.selected = true;
+        //this.selectedOrders.length = 0;
+        this.filteredOrders.forEach(element => {
+          element.selected = true;
+          if (this.selectedOrders.findIndex(o => o == element.id) == -1) {
             this.selectedOrders.push(element.id);
           }
+
         });
       }
     });
