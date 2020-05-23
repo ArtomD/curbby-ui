@@ -36,6 +36,7 @@ export class AppComponent {
           this.server.getSubscribers();
           this.server.getShopDetails();
           this.server.getShopStats();
+          this.server.authenticated = true;
         }
       });
     } else {
