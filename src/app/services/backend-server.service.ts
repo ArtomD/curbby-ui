@@ -85,7 +85,7 @@ export class BackendServerService {
     console.log(SERVER_URL + UPDATE_ORDER_PATH)
     console.log(this.live)
     console.log(this.authenticated)
-
+    console.log(this.signature)
     if (this.live && this.authenticated) {
       return new Promise((resolve) => {
         this.http.post(SERVER_URL + UPDATE_ORDER_PATH, { shop: this.shop, order_data: { status: order.status, phone: order.phone, id: order.id }, signature: this.signature }, {
