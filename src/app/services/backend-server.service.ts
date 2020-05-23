@@ -21,6 +21,7 @@ import { ShopDetails } from '../models/shop-details';
 import { Order } from '../models/order';
 import { Conversation } from '../models/conversation';
 import { SMS } from '../models/sms';
+import { dataPoints } from '../models/graph-data';
 
 @Injectable({
   providedIn: 'root'
@@ -82,6 +83,9 @@ export class BackendServerService {
 
   updateOrders(order: Order) {
     console.log(order);
+    console.log(SERVER_URL + UPDATE_ORDER_PATH)
+    console.log(this.live)
+    console.log(this.authenticated)
     if (this.live && this.authenticated) {
       return new Promise((resolve) => {
         this.http.post(SERVER_URL + UPDATE_ORDER_PATH, { shop: this.shop, order_data: { status: order.status, phone: order.phone, id: order.id }, signature: this.signature }, {
@@ -98,8 +102,12 @@ export class BackendServerService {
   }
 
   updateBatchOrders(orders: Order[]) {
+    let data = []
+    orders.forEach(element => {
+      data.push({ status: element.status, phone: element.phone, id: element.id })
+    });
     if (this.live && this.authenticated) {
-      return this.http.post(SERVER_URL + UPDATE_BATCH_ORDER_PATH, { shop: this.shop, order_data: orders, signature: this.signature }, {
+      return this.http.post(SERVER_URL + UPDATE_BATCH_ORDER_PATH, { shop: this.shop, order_data: data, signature: this.signature }, {
         observe: 'response',
         withCredentials: false
       });
