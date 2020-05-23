@@ -53,7 +53,7 @@ export class BackendServerService {
 
   public signature: any;
   public shop: any;
-  public authenticated: boolean = false;
+  public authenticated: boolean = true;
 
   constructor(private http: HttpClient) {
 
