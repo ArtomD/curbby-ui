@@ -29,15 +29,14 @@ export class AppComponent {
         this.server.shop = params["shop"];
         this.server.signature = params;
         if (!(this.server.shop?.length > 0)) {
-          console.log("DEACTIVATED");
           this.server.authenticated = false;
         } else {
-          console.log("GETTING DATA");
           this.server.getOrders();
           this.server.getTemplates();
           this.server.getSubscribers();
           this.server.getShopDetails();
           this.server.getShopStats();
+          this.server.authenticated = true;
         }
       });
     } else {

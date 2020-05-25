@@ -21,6 +21,7 @@ import { ShopDetails } from '../models/shop-details';
 import { Order } from '../models/order';
 import { Conversation } from '../models/conversation';
 import { SMS } from '../models/sms';
+import { dataPoints } from '../models/graph-data';
 
 @Injectable({
   providedIn: 'root'
@@ -52,7 +53,7 @@ export class BackendServerService {
 
   public signature: any;
   public shop: any;
-  public authenticated: boolean = false;
+  public authenticated: boolean = true;
 
   constructor(private http: HttpClient) {
 
@@ -72,7 +73,7 @@ export class BackendServerService {
         }, error => {
         })
       });
-    } else {
+    } else if (!this.live && this.authenticated) {
       this.order_data = mock_order.orders;
       this.order_dataChange.next(this.order_data);
       return mock_order;
@@ -90,18 +91,22 @@ export class BackendServerService {
         }, error => {
         })
       });
-    } else {
+    } else if (!this.live && this.authenticated) {
       return mock_order;
     }
   }
 
   updateBatchOrders(orders: Order[]) {
+    let data = []
+    orders.forEach(element => {
+      data.push({ status: element.status, phone: element.phone, id: element.id })
+    });
     if (this.live && this.authenticated) {
-      return this.http.post(SERVER_URL + UPDATE_BATCH_ORDER_PATH, { shop: this.shop, order_data: orders, signature: this.signature }, {
+      return this.http.post(SERVER_URL + UPDATE_BATCH_ORDER_PATH, { shop: this.shop, order_data: data, signature: this.signature }, {
         observe: 'response',
         withCredentials: false
       });
-    } else {
+    } else if (!this.live && this.authenticated) {
       //return mock_order;
     }
   }
@@ -119,7 +124,7 @@ export class BackendServerService {
         }, error => {
         })
       });
-    } else {
+    } else if (!this.live && this.authenticated) {
       this.template_data = mock_template.templates;
       this.template_dataChange.next(this.template_data);
       return mock_template;
@@ -139,7 +144,7 @@ export class BackendServerService {
         }, error => {
         })
       });
-    } else {
+    } else if (!this.live && this.authenticated) {
       this.template_data.filter(x => x.id === id)[0]["body"] = body;
       this.template_dataChange.next(this.template_data);
       return mock_template;
@@ -159,7 +164,7 @@ export class BackendServerService {
         }, error => {
         })
       });
-    } else {
+    } else if (!this.live && this.authenticated) {
       this.subscriber_data = mock_subscriber.subscriber;
       this.subscriber_dataChange.next(this.subscriber_data);
       return mock_subscriber;
@@ -177,7 +182,7 @@ export class BackendServerService {
         }, error => {
         })
       });
-    } else {
+    } else if (!this.live && this.authenticated) {
     }
   }
 
@@ -192,7 +197,7 @@ export class BackendServerService {
         }, error => {
         })
       });
-    } else {
+    } else if (!this.live && this.authenticated) {
     }
   }
 
@@ -207,7 +212,7 @@ export class BackendServerService {
         }, error => {
         })
       });
-    } else {
+    } else if (!this.live && this.authenticated) {
     }
   }
 
@@ -224,7 +229,7 @@ export class BackendServerService {
         }, error => {
         })
       });
-    } else {
+    } else if (!this.live && this.authenticated) {
       this.shop_details_data = mock_shop_details.shop;
       this.shop_details_dataChange.next(this.shop_details_data);
       return mock_shop_details;
@@ -244,7 +249,7 @@ export class BackendServerService {
         }, error => {
         })
       });
-    } else {
+    } else if (!this.live && this.authenticated) {
       this.shop_details_data = mock_shop_details.shop;
       this.shop_details_dataChange.next(this.shop_details_data);
       return mock_shop_details;
@@ -265,7 +270,7 @@ export class BackendServerService {
         }, error => {
         })
       });
-    } else {
+    } else if (!this.live && this.authenticated) {
       this.conversations_data = mock_conversation.result;
       this.conversations_dataChange.next(this.conversations_data);
       return mock_conversation;
@@ -278,7 +283,7 @@ export class BackendServerService {
         observe: 'response',
         withCredentials: false
       });
-    } else {
+    } else if (!this.live && this.authenticated) {
 
     }
   }
@@ -290,7 +295,7 @@ export class BackendServerService {
         observe: 'response',
         withCredentials: false
       });
-    } else {
+    } else if (!this.live && this.authenticated) {
     }
   }
 
@@ -307,7 +312,7 @@ export class BackendServerService {
         }, error => {
         })
       });
-    } else {
+    } else if (!this.live && this.authenticated) {
       this.stats_data = mock_stats.result;
       this.stats_dataChange.next(this.stats_data);
       return mock_stats;
