@@ -53,9 +53,9 @@
                 <span matPrefix><span class="material-icons ">
                         search
                     </span> &nbsp;</span>
-                <input matInput (keyup)="applyFilter($event)" [(ngModel)]="filterText" formControlName="label">
-                <button mat-button class="close-button" *ngIf="filterText" matSuffix mat-icon-button aria-label="Clear"
-                    (click)="clearSearch()">
+                <input matInput (keyup)="applyFilter($event)" formControlName="label">
+                <button mat-button class="close-button" *ngIf="filterForm.value" matSuffix mat-icon-button
+                    aria-label="Clear" (click)="clearSearch()">
                     <mat-icon>close</mat-icon>
                 </button>
             </mat-form-field>

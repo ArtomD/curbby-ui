@@ -20,15 +20,19 @@ export class AppComponent {
   ) { }
 
   ngOnInit() {
+    console.log("INIT APP");
     this.server.authenticated = true;
     if (this.server.useShop) {
+      console.log("USE SHOP");
       this.route.queryParams.subscribe(params => {
         console.log(params);
         this.server.shop = params["shop"];
         this.server.signature = params;
         if (!(this.server.shop?.length > 0)) {
+          console.log("DEACTIVATED");
           this.server.authenticated = false;
         } else {
+          console.log("GETTING DATA");
           this.server.getOrders();
           this.server.getTemplates();
           this.server.getSubscribers();

@@ -6,6 +6,4 @@ export const environment = {
   DETAILS_REFRESH_RATE: 30000,
   STATS_REFRESH_RATE: 60000,
   CONVERSATION_REFRESH_RATE: 15000,
-  LIVE_SERVER: false,
-  LIVE_SHOP: true
 };

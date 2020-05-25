@@ -107,7 +107,7 @@ export class OrderListComponent implements OnInit {
   update() {
 
     let tempOrders: number[] = [];
-    this.dataSource?.data?.forEach(element => {
+    this.server.order_data.forEach(element => {
       if (this.selectedOrders.findIndex(id => id == element.id) != -1) {
         element.selected = true;
       }
@@ -183,7 +183,6 @@ export class OrderListComponent implements OnInit {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.labelFilterString = filterValue.trim().toLowerCase();
-
     this.filter();
   }
 
@@ -401,7 +400,9 @@ export class OrderListComponent implements OnInit {
       this.labelFilterString = "";
     }
     this.runFilter();
-    this.filterText = "";
+    let tmp = this.filterForm.value;
+    tmp.label = "";
+    this.filterForm.setValue(tmp)
   }
 
   clearStatus() {
