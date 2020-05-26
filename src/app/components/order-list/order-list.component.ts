@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
+import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Order } from '../../models/order';
 import { FormControl, Validators } from '@angular/forms';
@@ -41,6 +41,7 @@ export class OrderListComponent implements OnInit {
   someOrdersSelected: boolean;
 
   dataSource;
+  sortedData: Order[];
   loaded = 0;
   selectedOrders: number[] = [];
   labelFilterString = "";
@@ -58,7 +59,8 @@ export class OrderListComponent implements OnInit {
   selectedStatus = STATUS;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  //@ViewChild(MatSort, { static: false }) sort: MatSort;
+  sort: MatSort;
 
 
   constructor(public server: BackendServerService, public dialog: MatDialog, private fb: FormBuilder, private _snackBar: MatSnackBar) {
@@ -241,6 +243,29 @@ export class OrderListComponent implements OnInit {
     }
   }
 
+  sortOrderTable(sort: Sort) {
+    if (!sort.active || sort.direction === '') {
+      return;
+    }
+    const data = this.server.order_data.slice();
+    this.dataSource.data = data.sort((a, b) => {
+      const isAsc = sort.direction === 'asc';
+      switch (sort.active) {
+        case 'orderNumber': return this.compare(a.shopifyOrderNumber, b.shopifyOrderNumber, isAsc);
+        case 'created': return this.compare(a.created, b.created, isAsc);
+        case 'status': return this.compare(a.status, b.status, isAsc);
+        case 'lastMessage': return this.compare(a.conversation?.lastInbound, b.conversation?.lastInbound, isAsc);
+        case 'customerName': return this.compare(a.customer?.first_name + a.customer?.last_name, b.customer?.first_name + b.customer?.last_name, isAsc);
+        case 'location': return this.compare(a.pickupLocation.code, b.pickupLocation.code, isAsc);
+        default: return 0;
+      }
+    });
+  }
+
+  compare(a: number | string | Date, b: number | string, isAsc: boolean) {
+    console.log(a.toString() + b.toString());
+    return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+  }
 
   refresh() {
     this.server.getOrders();

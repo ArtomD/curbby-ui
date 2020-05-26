@@ -118,8 +118,8 @@
     </div>
 </div>
 
-<table mat-table [dataSource]="dataSource" *ngIf="server.order_data?.length > 0"
-    class="mat-elevation-z8 example-container curbby-table">
+<table mat-table matSort (matSortChange)="sortOrderTable($event)" [dataSource]="dataSource"
+    *ngIf="server.order_data?.length > 0" class="mat-elevation-z8 example-container curbby-table">
 
     <!--- Note that these columns can be defined in any order.
           The actual rendered columns are set as a property on the row definition" -->
@@ -136,17 +136,17 @@
     </ng-container>
 
     <ng-container matColumnDef="shopifyOrderNumber">
-        <th mat-header-cell *matHeaderCellDef mat-header> <B>Order #</B> </th>
+        <th mat-sort-header="orderNumber" mat-header-cell *matHeaderCellDef mat-header> <B>Order #</B> </th>
         <td mat-cell *matCellDef="let element"> {{element.shopifyOrderNumber}} </td>
     </ng-container>
 
     <ng-container matColumnDef="date">
-        <th mat-header-cell *matHeaderCellDef mat-header> <B>Order Date</B> </th>
+        <th mat-sort-header="created" mat-header-cell *matHeaderCellDef mat-header> <B>Order Date</B> </th>
         <td mat-cell *matCellDef="let element"> {{element.created | date:'short' }} </td>
     </ng-container>
 
     <ng-container matColumnDef="status">
-        <th mat-header-cell *matHeaderCellDef mat-header> <B>Status</B> </th>
+        <th mat-sort-header="status" mat-header-cell *matHeaderCellDef mat-header> <B>Status</B> </th>
         <td mat-cell *matCellDef="let element">
             <mat-select [(value)]="element.status" (selectionChange)="onChange(element)" class="statusSelect">
                 <mat-option *ngFor="let status of statuses" [value]="status.id">{{status.name}}</mat-option>
@@ -173,17 +173,17 @@
     </ng-container>
 
     <ng-container matColumnDef="lastMessage">
-        <th mat-header-cell *matHeaderCellDef mat-header> <B>Last Message</B> </th>
+        <th mat-sort-header="lastMessage" mat-header-cell *matHeaderCellDef mat-header> <B>Last Message</B> </th>
         <td mat-cell *matCellDef="let element"> {{element?.conversation?.lastInbound | date:'short' }} </td>
     </ng-container>
 
     <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef mat-header> <B>Customer Name</B> </th>
+        <th mat-sort-header="customerName" mat-header-cell *matHeaderCellDef mat-header> <B>Customer Name</B> </th>
         <td mat-cell *matCellDef="let element"> {{element.customer?.first_name}} {{element.customer?.last_name}} </td>
     </ng-container>
 
     <ng-container matColumnDef="location">
-        <th mat-header-cell *matHeaderCellDef mat-header> <B>Pickup Location</B> </th>
+        <th mat-sort-header="location" mat-header-cell *matHeaderCellDef mat-header> <B>Pickup Location</B> </th>
         <td mat-cell *matCellDef="let element"> {{element.pickupLocation.code}} </td>
     </ng-container>
 
