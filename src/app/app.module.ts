@@ -40,7 +40,8 @@ import { SnackbarComponent } from './components/snackbar/snackbar.component';
 import { OrderDetailsComponent } from './components/order-list/order-details/order-details.component';
 
 import {PhoneFormatPipe} from '../app/pipes/phone'
-import {OrderIsReadPipe} from '../app/pipes/order-status'
+import {OrderIsReadPipe} from '../app/pipes/order-status';
+import { BillingComponent } from './components/billing/billing.component'
 
 
 @NgModule({
@@ -56,6 +57,7 @@ import {OrderIsReadPipe} from '../app/pipes/order-status'
     OrderDetailsComponent,
     PhoneFormatPipe,
     OrderIsReadPipe,
+    BillingComponent,
   ],
   imports: [
     BrowserModule,
