@@ -20,23 +20,20 @@ export class AppComponent {
   ) { }
 
   ngOnInit() {
-    console.log("INIT APP");
     this.server.authenticated = true;
     if (this.server.useShop) {
-      console.log("USE SHOP");
       this.route.queryParams.subscribe(params => {
-        console.log(params);
         this.server.shop = params["shop"];
         this.server.signature = params;
         if (!(this.server.shop?.length > 0)) {
           this.server.authenticated = false;
         } else {
+          this.server.authenticated = true;
           this.server.getOrders();
           this.server.getTemplates();
           this.server.getSubscribers();
           this.server.getShopDetails();
           this.server.getShopStats();
-          this.server.authenticated = true;
         }
       });
     } else {
