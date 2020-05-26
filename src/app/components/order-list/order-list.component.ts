@@ -20,6 +20,7 @@ import { phone_regex } from '../../models/regex'
 import { LIVE_SERVER } from '../../../../settings'
 import { phoneValidator } from '../../validators/phone';
 import { OrderDetailsComponent } from './order-details/order-details.component';
+import { PhoneFormatPipe } from 'src/app/pipes/phone';
 
 
 @Component({
@@ -54,13 +55,14 @@ export class OrderListComponent implements OnInit {
   currentConversationOrder: Order;
   conversationOpen: boolean = false;
   autoUpdate: boolean = false;
+  allowUpdate: boolean = true;
 
   statuses = STATUS;
   selectedStatus = STATUS;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   //@ViewChild(MatSort, { static: false }) sort: MatSort;
-  sort: MatSort;
+  sort: Sort;
 
 
   constructor(public server: BackendServerService, public dialog: MatDialog, private fb: FormBuilder, private _snackBar: MatSnackBar) {
@@ -115,7 +117,9 @@ export class OrderListComponent implements OnInit {
       }
     });
     this.dataSource = new MatTableDataSource(this.server.order_data);
-
+    if (this?.sort?.active) {
+      this.sortOrderTable(this.sort);
+    }
     let locationListMax = false;
     if (!this.locationListFC.value || this.locationListFC?.value?.length == this.locationList.length) {
       locationListMax = true;
@@ -134,6 +138,7 @@ export class OrderListComponent implements OnInit {
         element.selected = true;
       }
       element.invalidPhone = false;
+
       if (!element.phoneFormControl) {
         element.phoneFormControl = new FormControl('', [
           Validators.required,
@@ -148,7 +153,6 @@ export class OrderListComponent implements OnInit {
       });
     }
     this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
     this.loaded = 1;
 
     this.dataSource.filterPredicate = (data, filter) => {
@@ -247,6 +251,7 @@ export class OrderListComponent implements OnInit {
     if (!sort.active || sort.direction === '') {
       return;
     }
+    this.sort = sort;
     const data = this.server.order_data.slice();
     this.dataSource.data = data.sort((a, b) => {
       const isAsc = sort.direction === 'asc';
@@ -263,7 +268,6 @@ export class OrderListComponent implements OnInit {
   }
 
   compare(a: number | string | Date, b: number | string, isAsc: boolean) {
-    console.log(a.toString() + b.toString());
     return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
   }
 
@@ -273,15 +277,25 @@ export class OrderListComponent implements OnInit {
   }
 
   autoRefresh() {
-    this.autoUpdate = true;
-    this.server.getOrders();
+    if (this.allowUpdate) {
+      this.autoUpdate = true;
+      this.server.getOrders();
+    }
+  }
+
+  tableIsFocused() {
+    this.allowUpdate = false;
+  }
+  tableIsNotFocused() {
+    this.allowUpdate = true;
   }
 
   updatePhoneField(element: Order, value: string) {
-    element.phone = value?.replace(/[^0-9]+/g, "");
+    //Add cursor move here
   }
 
   onChange(order: Order) {
+    this.allowUpdate = true;
     order.phone = order.phone?.replace(/[^0-9]+/g, "");
     if (order.phone.search(phone_regex) == 0) {
       this.server.updateOrders(order);
@@ -291,12 +305,14 @@ export class OrderListComponent implements OnInit {
     }
   }
 
-  validatePhone(order: Order) {
-    // if (order.phone.toString().search(phone_regex)==0) {
-    //   order.invalidPhone = false;
-    // }else{
-    //   order.invalidPhone = true;
-    // }
+  validatePhone(order: Order, event) {
+    let pos = event.target.selectionStart;
+    order.phone = event.target.value?.replace(/[^0-9]+/g, "");
+    this.sleep(0).then(() => {
+      event.target.selectionStart = pos;
+      event.target.selectionEnd = pos;
+    });
+
   }
 
   changeStatus(status: number) {
@@ -499,7 +515,6 @@ export class OrderListComponent implements OnInit {
       }
     });
   }
-
 
   refreshConversation() {
     if (this.conversationOpen) {

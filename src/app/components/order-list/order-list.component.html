@@ -148,7 +148,8 @@
     <ng-container matColumnDef="status">
         <th mat-sort-header="status" mat-header-cell *matHeaderCellDef mat-header> <B>Status</B> </th>
         <td mat-cell *matCellDef="let element">
-            <mat-select [(value)]="element.status" (selectionChange)="onChange(element)" class="statusSelect">
+            <mat-select (click)="tableIsFocused()" (focusout)="tableIsNotFocused()" [(value)]=" element.status"
+                (selectionChange)="onChange(element)" class="statusSelect">
                 <mat-option *ngFor="let status of statuses" [value]="status.id">{{status.name}}</mat-option>
             </mat-select>
         </td>
@@ -158,9 +159,10 @@
         <th mat-header-cell *matHeaderCellDef mat-header> <B>Phone Number</B> </th>
         <td mat-cell *matCellDef="let element" class="phoneInput">
             <mat-form-field>
-                <input matInput maxlength="16" [formControl]="element?.phoneFormControl"
-                    [ngModel]="element.phone | phoneFormat" (ngModelChange)="updatePhoneField(element,$event)"
-                    (keyup)="validatePhone(element)" (change)="onChange(element)">
+                <input (focus)="tableIsFocused()" (focusout)="tableIsNotFocused()" matInput maxlength=" 16"
+                    [formControl]="element?.phoneFormControl" [ngModel]="element.phone | phoneFormat"
+                    (ngModelChange)="updatePhoneField(element,$event)" (keyup)="validatePhone(element,$event)"
+                    (change)="onChange(element)">
                 <mat-error
                     [hidden]="!element?.phoneFormControl?.hasError('invalidPhone') || element?.phoneFormControl?.hasError('required')">
                     Please enter a valid phone number
