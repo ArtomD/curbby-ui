@@ -23,6 +23,7 @@ import { OrderDetailsComponent } from './order-details/order-details.component';
 import { PhoneFormatPipe } from 'src/app/pipes/phone';
 
 
+
 @Component({
   selector: 'app-order-list',
   templateUrl: './order-list.component.html',
@@ -43,6 +44,7 @@ export class OrderListComponent implements OnInit {
 
   dataSource;
   sortedData: Order[];
+  lastOrderChangedStatus: number;
   loaded = 0;
   selectedOrders: number[] = [];
   labelFilterString = "";
@@ -146,12 +148,14 @@ export class OrderListComponent implements OnInit {
         ]);
       }
     });
+
     if (locationListMax) {
       this.selectedLocationList.length = 0;
       this.locationList.forEach(element => {
         this.selectedLocationList.push(element);
       });
     }
+
     this.dataSource.paginator = this.paginator;
     this.loaded = 1;
 
@@ -283,11 +287,33 @@ export class OrderListComponent implements OnInit {
     }
   }
 
+  statusClicked(order: Order) {
+    this.tableIsFocused();
+    this.lastOrderChangedStatus = order.status;
+  }
+
   tableIsFocused() {
     this.allowUpdate = false;
   }
   tableIsNotFocused() {
     this.allowUpdate = true;
+  }
+
+  statusChanged(order: Order) {
+    if (order.status == 1 && this.server.shop_details_data.autoReadyForPickup) {
+      const dialogRef = this.dialog.open(ConfirmPopupComponent, {
+        data: "Message will be sent to customer.",
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          this.onChange(order);
+        } else {
+          order.status = this.lastOrderChangedStatus;
+        }
+      });
+    } else {
+      this.onChange(order);
+    }
   }
 
   updatePhoneField(element: Order, value: string) {
@@ -318,8 +344,12 @@ export class OrderListComponent implements OnInit {
   changeStatus(status: number) {
 
     if (this.selectedOrders.length > 0) {
+      let msg = "You are changing " + this.selectedOrders.length + " orders to " + STATUS[status].name + ".";
+      if (status == 1 && this.server.shop_details_data.autoReadyForPickup) {
+        msg += "\nA message will be sent to each customer."
+      }
       const dialogRef = this.dialog.open(ConfirmPopupComponent, {
-        data: "You are changing " + this.selectedOrders.length + " orders to " + STATUS[status].name + ".",
+        data: msg,
       });
 
       dialogRef.afterClosed().subscribe(result => {
@@ -435,7 +465,7 @@ export class OrderListComponent implements OnInit {
   }
 
   clearSearch() {
-    if (this.filterNewMessages || this.statusListFC.value.length < this.statuses.length || this.locationListFC.value.length < this.locationList) {
+    if (this.filterNewMessages || this.statusListFC.value.length < this.statuses.length || this.locationListFC.value.length < this.locationList.length) {
       this.labelFilterString = ".";
     } else {
       this.labelFilterString = "";
