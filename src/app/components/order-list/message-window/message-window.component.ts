@@ -3,7 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { BackendServerService } from 'src/app/services/backend-server.service';
 import { Order } from 'src/app/models/order';
 import { Conversation } from '../../../models/conversation';
-import {SMS} from '../../../models/sms'
+import { SMS } from '../../../models/sms'
 import { Message } from 'src/app/models/message';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SnackbarComponent } from '../../snackbar/snackbar.component';
@@ -43,6 +43,10 @@ export class MessageWindowComponent implements OnInit {
 
   synchConversationObject() {
     this.conversation = this.server.conversations_data;
+    this.conversation.messages.forEach(m => {
+      let count = 0;
+
+    })
     var messageWindowSeconds = 60;
     var lastTimeStamp = null;
     var lastType = -99;
@@ -52,7 +56,7 @@ export class MessageWindowComponent implements OnInit {
         i--;
       }
     }
-    
+
     //inserts timestamp under message (to move it above message change offset below to 0)
     let offset = 1;
     for (let i = 0; i < this.conversation.messages.length; i++) {
@@ -175,21 +179,29 @@ export class MessageWindowComponent implements OnInit {
   }
 
   async send() {
-    let sms: SMS = { message: this.text, phone: this.order.phone.toString(), subject: "" };
-    let tempMsg: Message = this.customMessage(PENDING_MSG_ORIGIN, new Date, this.text);
-    this.conversation.messages.push(tempMsg);
-    this.server.conversations_data = this.conversation;
-    this.manualRefresh = true;
-    this.server.conversations_dataChange.next(this.server.conversations_data);
-    this.text = "";
-    this.sleep(100).then(() => this.scrollToBottom());
-    this.server.sendSMS(sms).subscribe((value) => {
-      if (value.status != 200) {
-        this.openSnackBar("Message failed to send");
-        this.sleep(3000).then(() => this._snackBar.dismiss());
-      }
-      this.sleep(3000).then(() => this.server.getConversation(this.order.phone));
-    });
+    if (this.text.length > 0) {
+      let sms: SMS = { message: this.text, phone: this.order.phone.toString(), subject: "" };
+      let tempMsg: Message = this.customMessage(PENDING_MSG_ORIGIN, new Date, this.text);
+      this.conversation.messages.push(tempMsg);
+      this.server.conversations_data = this.conversation;
+      this.manualRefresh = true;
+      this.server.conversations_dataChange.next(this.server.conversations_data);
+      this.text = "";
+      this.sleep(100).then(() => this.scrollToBottom());
+      this.server.sendSMS(sms).subscribe((value) => {
+        if (value.status != 200) {
+          this.openSnackBar("Message failed to send");
+          this.sleep(3000).then(() => this._snackBar.dismiss());
+        }
+        this.sleep(3000).then(() => this.server.getConversation(this.order.phone));
+      });
+    }
+  }
+
+  readInputKey(event) {
+    if (event.code == "Enter") {
+      this.send();
+    }
   }
 
   openSnackBar(message: string) {
@@ -206,7 +218,7 @@ export class MessageWindowComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  openDetails(){
+  openDetails() {
     this.dialogRef.close("OPEN_DETAIL");
   }
 }

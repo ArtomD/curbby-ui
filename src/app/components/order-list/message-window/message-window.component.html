@@ -6,7 +6,8 @@
             </p>
 
         </div>
-        <button mat-raised-button color="primary" (click)="openDetails()" style="margin-top: 3px;">Order {{order.shopifyOrderNumber}}</button>
+        <button mat-raised-button color="primary" (click)="openDetails()" style="margin-top: 3px;">Order
+            {{order.shopifyOrderNumber}}</button>
         <button id="closeButton" mat-icon-button color="primary" (click)="close()"><span class="material-icons">
                 close
             </span></button>
@@ -28,7 +29,8 @@
     </div>
 
     <div id="replyArea">
-        <textarea matInput cdkTextareaAutosize id="reply" [(ngModel)]="text" #autosize="cdkTextareaAutosize"></textarea>
+        <textarea matInput cdkTextareaAutosize id="reply" (keyup)="readInputKey($event)" [(ngModel)]="text"
+            #autosize="cdkTextareaAutosize"></textarea>
         <!--textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
             cdkAutosizeMaxRows="3" [(ngModel)]="text" class="reply-area"></textarea-->
 

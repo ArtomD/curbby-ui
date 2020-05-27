@@ -158,7 +158,8 @@ padding-left:0px;
     padding: 5px 15px 5px 15px;
     font-size: 13px;
     clear: both;    
-    
+    overflow-wrap: break-word;
+    word-wrap: break-word;
     border-radius: 20px 20px 20px 20px;
     border:0px;
 }
