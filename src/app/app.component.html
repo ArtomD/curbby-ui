@@ -1,6 +1,6 @@
 <mat-card style="max-width: 1200px; margin:auto">
   <div>
-    <img src="{{imgSrc}}images/logo-curbby.png" width="250px;">
+    <img src="{{imgSrc}}images/logo-sms-dispatch.png" width="250px;">
     <span class="example-spacer"></span>
     <div dir="rtl" class="icon">
       <span [matMenuTriggerFor]="menu" class="material-icons icon" aria-hidden="false" aria-label="Example delete icon"
@@ -113,6 +113,15 @@
   <img class="splash-image" src="{{imgSrc}}images/undraw_fast_loading_0lbh.svg">
   <h4>Hang on while we fetch your data...</h4>
   <!--img src="assets/img/rocket.png" width="500px">
+  <h4>Hang on while we prepare for blastoff...</h4-->
+  <mat-progress-bar mode="buffer"></mat-progress-bar>
+</div>
+
+<div class="loading-image"
+  [hidden]="!server.shop_details_data?.hasOwnProperty('active') || server.shop_details_data?.active">
+  <img class="splash-image" src="{{imgSrc}}images/undraw_fast_loading_0lbh.svg">
+  <h4>The app is not active on this account</h4>
+  <!--img src="ass  ets/img/rocket.png" width="500px">
   <h4>Hang on while we prepare for blastoff...</h4-->
   <mat-progress-bar mode="buffer"></mat-progress-bar>
 </div>

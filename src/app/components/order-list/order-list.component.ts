@@ -53,6 +53,7 @@ export class OrderListComponent implements OnInit {
   filterText: string;
   templates: Template[] = [];
 
+  latestConversations: Order[] = [];
   openMassMessage: boolean = false;
   currentConversationOrder: Order;
   conversationOpen: boolean = false;
@@ -78,8 +79,8 @@ export class OrderListComponent implements OnInit {
       this.synchTemplateObject();
     })
 
-    const sourceOrder = timer(environment.ORDER_REFRESH_RATE, environment.ORDER_REFRESH_RATE);
-    sourceOrder.subscribe(val => { this.autoRefresh(); });
+    //const sourceOrder = timer(environment.ORDER_REFRESH_RATE, environment.ORDER_REFRESH_RATE);
+    //sourceOrder.subscribe(val => { this.autoRefresh(); });
 
     const sourceConv = timer(environment.CONVERSATION_REFRESH_RATE, environment.CONVERSATION_REFRESH_RATE);
     sourceConv.subscribe(val => { this.refreshConversation(); });
@@ -113,11 +114,26 @@ export class OrderListComponent implements OnInit {
   update() {
 
     let tempOrders: number[] = [];
+    this.latestConversations.length = 0;
     this.server.order_data.forEach(element => {
       if (this.selectedOrders.findIndex(id => id == element.id) != -1) {
         element.selected = true;
       }
+      this.latestConversations.push(element);
     });
+    this.latestConversations.sort((a, b) => {
+      if (!a)
+        return -1;
+      if (!b)
+        return 1;
+      if (a.conversation.lastInbound < b.conversation.lastInbound)
+        return 1;
+      if (a.conversation.lastInbound > b.conversation.lastInbound)
+        return -1;
+      return 0;
+    });
+    this.latestConversations.splice(15);
+    console.log(this.latestConversations);
     this.dataSource = new MatTableDataSource(this.server.order_data);
     if (this?.sort?.active) {
       this.sortOrderTable(this.sort);
