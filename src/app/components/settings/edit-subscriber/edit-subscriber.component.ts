@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { Subscriber } from '../../../models/subscriber'
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { BackendServerService } from 'src/app/services/backend-server.service';
-import {phone_regex} from '../../../models/regex'
+import { phone_regex } from '../../../models/regex'
 
 @Component({
   selector: 'app-edit-subscriber',
@@ -13,10 +13,10 @@ export class EditSubscriberComponent implements OnInit {
 
   selected: Subscriber;
   temp: Subscriber = <Subscriber>{};
-  invalidPhone:boolean = false;
-  invalidTempPhone:boolean = false;
-  invalidName:boolean = false;
-  invalidTempName:boolean = false;
+  invalidPhone: boolean = false;
+  invalidTempPhone: boolean = false;
+  invalidName: boolean = false;
+  invalidTempName: boolean = false;
 
   constructor(
     public dialogRef: MatDialogRef<EditSubscriberComponent>,
@@ -49,52 +49,69 @@ export class EditSubscriberComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  validateOnStart(){
-    if(!this.temp.phone){
+  validateOnStart() {
+    if (!this.temp.phone) {
       this.invalidTempPhone = true;
     }
-    if(!this.temp.name){
+    if (!this.temp.name) {
       this.invalidTempName = true;
-    } 
-    this.validateTypingPhone();
+    }
+    this.validateTypingPhone(null);
     this.validateTypingName();
-    
   }
 
-  validatePhone(){
+  validatePhone() {
     this.temp.phone = this.temp.phone?.replace(/[^0-9]+/g, "");
-    if (this.temp?.phone?.search(phone_regex)==0) {
+    if (this.temp?.phone?.search(phone_regex) == 0) {
       this.invalidPhone = false;
-    }else{
+    } else {
       this.invalidPhone = true;
     }
   }
 
-  validateTypingPhone(){
-    this.temp.phone = this.temp.phone?.replace(/[^0-9]+/g, "");
-    if (this.temp?.phone?.search(phone_regex)==0) {
-      this.invalidTempPhone = false;
-      this.invalidPhone = false;
-    }else{
-      this.invalidTempPhone = true;
+  validateTypingPhone(event) {
+    if (event && (!(event?.key == "ArrowLeft") && !(event?.key == "ArrowRight"))) {
+      let pos = event.target.selectionStart;
+      if (pos == 1) {
+        pos += 2;
+      } else if (pos == 7) {
+        pos += 2;
+      } else if (pos == 12) {
+        pos += 1;
+      }
+      this.temp.phone = this.temp.phone?.replace(/[^0-9]+/g, "");
+      this.sleep(0).then(() => {
+        event.target.selectionStart = pos;
+        event.target.selectionEnd = pos;
+      });
+      if (this.temp?.phone?.search(phone_regex) == 0) {
+        this.invalidTempPhone = false;
+        this.invalidPhone = false;
+      } else {
+        this.invalidTempPhone = true;
+      }
     }
   }
 
-  validateName(){
-    if (this.temp?.name?.length>0) {
+  validateName() {
+    if (this.temp?.name?.length > 0) {
       this.invalidName = false;
-    }else{
+    } else {
       this.invalidName = true;
     }
   }
 
-  validateTypingName(){
-    if (this.temp?.name?.length>0) {
+  validateTypingName() {
+    if (this.temp?.name?.length > 0) {
       this.invalidTempName = false;
       this.invalidName = false;
-    }else{
+    } else {
       this.invalidTempName = true;
     }
+  }
+
+  sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
   }
 
 

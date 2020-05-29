@@ -9,11 +9,14 @@
     </div>
     <mat-form-field class="example-full-width">
         <mat-label>Name</mat-label>
-        <input matInput [ngClass]="invalidName? 'invalidInput' : 'validInput'" (change)="validateName()" (keyup)="validateTypingName()" [(ngModel)]="temp.name" name="name">
+        <input matInput [ngClass]="invalidName? 'invalidInput' : 'validInput'" (change)="validateName()"
+            (keyup)="validateTypingName()" [(ngModel)]="temp.name" name="name">
     </mat-form-field>
     <mat-form-field class="example-full-width">
         <mat-label>Phone</mat-label>
-        <input matInput placeholder="+1(555)555-5555" name="phone" [ngClass]="invalidPhone ? 'invalidPhoneInput' : 'validInput'" [ngModel]="temp.phone | phoneFormat" (ngModelChange)="temp.phone=$event" (change)="validatePhone()" (keyup)="validateTypingPhone()">
+        <input matInput placeholder="+1(555)555-5555" name="phone" maxlength=" 16"
+            [ngClass]="invalidPhone ? 'invalidPhoneInput' : 'validInput'" [ngModel]="temp.phone | phoneFormat"
+            (ngModelChange)="temp.phone=$event" (change)="validatePhone()" (keyup)="validateTypingPhone($event)">
     </mat-form-field>
 </form>
 <button mat-flat-button color="warn" (click)="cancel()">Cancel</button>

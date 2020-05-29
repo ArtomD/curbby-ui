@@ -6,7 +6,6 @@ import { mock_shop } from './models/mock_models/shop'
 import { mock_live_signature } from './models/mock_models/live-signature'
 import { mock_live_shop } from './models/mock_models/live-shop'
 import { FILE_DAM_PATH, DEV } from '../../settings'
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -15,9 +14,12 @@ import { FILE_DAM_PATH, DEV } from '../../settings'
 export class AppComponent {
   title = 'angular-shopify-app';
   imgSrc = FILE_DAM_PATH;
+
   constructor(
     private route: ActivatedRoute, public server: BackendServerService
-  ) { }
+  ) {
+
+  }
 
   ngOnInit() {
     this.server.authenticated = true;
@@ -52,4 +54,5 @@ export class AppComponent {
       this.server.getShopStats();
     }
   }
+
 }

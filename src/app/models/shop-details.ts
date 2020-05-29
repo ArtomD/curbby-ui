@@ -1,5 +1,5 @@
 export interface ShopDetails {
-    id: number;
+    id: string;
     name: string;
     created: Date;
     modified: Date;
@@ -11,8 +11,10 @@ export interface ShopDetails {
     shopifyName: string;
     shopifyCountry: string;
     activated: Date;
-    billingPlanId: BillingPlan;
+    billingPlanId: string;
+    billing_plan: BillingPlan;
     billing: Billing;
+    billingPeriodStart: Date;
 }
 
 interface BillingPlan {

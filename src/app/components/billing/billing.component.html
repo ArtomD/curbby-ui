@@ -1,1 +1,8 @@
-<p>billing works!</p>
+<div *ngIf="details.hasOwnProperty('id')">
+    <p>Billing Plan : {{details.billing_plan.name}}</p>
+    <p>Billing period start : {{details.billingPeriodStart | date:'long'}}</p>
+    <p *ngIf="endDate">Billing period end : {{endDate | date:'long'}}</p>
+    <p>Total Credits : {{details.billing_plan.credits}}</p>
+    <p>Total Credits Used : {{details.billing.usage}}</p>
+    <p>Total Credits Avaliable : {{details.billing_plan.credits - details.billing.usage}}</p>
+</div>

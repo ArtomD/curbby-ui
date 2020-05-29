@@ -39,9 +39,10 @@ import { MessageWindowComponent } from './components/order-list/message-window/m
 import { SnackbarComponent } from './components/snackbar/snackbar.component';
 import { OrderDetailsComponent } from './components/order-list/order-details/order-details.component';
 
-import {PhoneFormatPipe} from '../app/pipes/phone'
-import {OrderIsReadPipe} from '../app/pipes/order-status';
-import { BillingComponent } from './components/billing/billing.component'
+import { PhoneFormatPipe } from '../app/pipes/phone'
+import { OrderIsReadPipe } from '../app/pipes/order-status';
+import { BillingComponent } from './components/billing/billing.component';
+import { MessageMenuComponent } from './components/message-menu/message-menu.component'
 
 
 @NgModule({
@@ -58,6 +59,7 @@ import { BillingComponent } from './components/billing/billing.component'
     PhoneFormatPipe,
     OrderIsReadPipe,
     BillingComponent,
+    MessageMenuComponent,
   ],
   imports: [
     BrowserModule,

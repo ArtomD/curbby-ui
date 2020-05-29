@@ -1,17 +1,3 @@
-<div class="icon">
-    <span [matMenuTriggerFor]="menu" class="material-icons icon" aria-hidden="false" aria-label="Example delete icon"
-        matBadge="!" matBadgePosition="after" matBadgeColor="accent">
-        message
-    </span>
-    <mat-menu #menu="matMenu" class="notification-menu">
-        <mat-card *ngFor="let conversation of latestConversations" onClick="console.log('here')"
-            [ngClass]="conversation.newMessageAvaliable ? 'notification-card new-message' : 'notification-card'">
-            <p>{{conversation.phone | phoneFormat}}<b> @ </b>{{conversation?.conversation?.lastInbound |  date:'short'}}
-            </p>
-            <p><b>Last message: </b>Message goes here</p>
-        </mat-card>
-    </mat-menu>
-</div>
 <div class="header-div">
     Order Communications
     <button class="refreshPage" mat-icon-button color="primary" (click)="refresh()"><span class="material-icons">

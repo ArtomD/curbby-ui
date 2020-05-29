@@ -8,8 +8,7 @@ import {
   GET_SHOP_DETAILS_PATH, UPDATE_SHOP_DETAILS_PATH,
   GET_CONVERSATION_PATH, SEND_SMS_PATH, SEND_BATCH_SMS_PATH, GET_SHOP_STATS_PATH,
 } from '../shared/config'
-import { environment } from '../../environments/environment'
-import { timer, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { mock_order } from '../models/mock_models/order'
 import { mock_template } from '../models/mock_models/template'
 import { mock_subscriber } from '../models/mock_models/subscriber'
@@ -19,9 +18,7 @@ import { mock_stats } from '../models/mock_models/stats'
 import { Subscriber } from '../models/subscriber';
 import { ShopDetails } from '../models/shop-details';
 import { Order } from '../models/order';
-import { Conversation } from '../models/conversation';
 import { SMS } from '../models/sms';
-import { dataPoints } from '../models/graph-data';
 
 @Injectable({
   providedIn: 'root'

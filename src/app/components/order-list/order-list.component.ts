@@ -21,6 +21,7 @@ import { LIVE_SERVER } from '../../../../settings'
 import { phoneValidator } from '../../validators/phone';
 import { OrderDetailsComponent } from './order-details/order-details.component';
 import { PhoneFormatPipe } from 'src/app/pipes/phone';
+import { MessageUpdateService } from 'src/app/services/message-update.service';
 
 
 
@@ -55,8 +56,6 @@ export class OrderListComponent implements OnInit {
 
   latestConversations: Order[] = [];
   openMassMessage: boolean = false;
-  currentConversationOrder: Order;
-  conversationOpen: boolean = false;
   autoUpdate: boolean = false;
   allowUpdate: boolean = true;
 
@@ -68,7 +67,7 @@ export class OrderListComponent implements OnInit {
   sort: Sort;
 
 
-  constructor(public server: BackendServerService, public dialog: MatDialog, private fb: FormBuilder, private _snackBar: MatSnackBar) {
+  constructor(public server: BackendServerService, public messageUpdateService: MessageUpdateService, public dialog: MatDialog, private fb: FormBuilder, private _snackBar: MatSnackBar) {
     this.messageTemplateSelected = 0;
     this.server.order_dataChange.subscribe(value => {
       this.update();
@@ -79,8 +78,8 @@ export class OrderListComponent implements OnInit {
       this.synchTemplateObject();
     })
 
-    //const sourceOrder = timer(environment.ORDER_REFRESH_RATE, environment.ORDER_REFRESH_RATE);
-    //sourceOrder.subscribe(val => { this.autoRefresh(); });
+    const sourceOrder = timer(environment.ORDER_REFRESH_RATE, environment.ORDER_REFRESH_RATE);
+    sourceOrder.subscribe(val => { this.autoRefresh(); });
 
     const sourceConv = timer(environment.CONVERSATION_REFRESH_RATE, environment.CONVERSATION_REFRESH_RATE);
     sourceConv.subscribe(val => { this.refreshConversation(); });
@@ -119,7 +118,10 @@ export class OrderListComponent implements OnInit {
       if (this.selectedOrders.findIndex(id => id == element.id) != -1) {
         element.selected = true;
       }
-      this.latestConversations.push(element);
+      if (element.conversation.lastInboundMessage) {
+        this.latestConversations.push(element);
+      }
+
     });
     this.latestConversations.sort((a, b) => {
       if (!a.conversation)
@@ -133,7 +135,7 @@ export class OrderListComponent implements OnInit {
       return 0;
     });
     this.latestConversations.splice(15);
-    console.log(this.latestConversations);
+    this.messageUpdateService.updateMessages(this.latestConversations);
     this.dataSource = new MatTableDataSource(this.server.order_data);
     if (this?.sort?.active) {
       this.sortOrderTable(this.sort);
@@ -348,13 +350,22 @@ export class OrderListComponent implements OnInit {
   }
 
   validatePhone(order: Order, event) {
-    let pos = event.target.selectionStart;
-    order.phone = event.target.value?.replace(/[^0-9]+/g, "");
-    this.sleep(0).then(() => {
-      event.target.selectionStart = pos;
-      event.target.selectionEnd = pos;
-    });
-
+    if (!(event.key == "ArrowLeft") && !(event.key == "ArrowRight")) {
+      let pos = event.target.selectionStart;
+      if (pos == 1) {
+        pos += 2;
+      } else if (pos == 7) {
+        pos += 2;
+      } else if (pos == 12) {
+        pos += 1;
+      }
+      console.log(pos);
+      order.phone = event.target.value?.replace(/[^0-9]+/g, "");
+      this.sleep(0).then(() => {
+        event.target.selectionStart = pos;
+        event.target.selectionEnd = pos;
+      });
+    }
   }
 
   changeStatus(status: number) {
@@ -454,30 +465,11 @@ export class OrderListComponent implements OnInit {
 
 
   openConversation(order: Order) {
-    this.currentConversationOrder = order;
-    this.conversationOpen = true;
-    const dialogRef = this.dialog.open(MessageWindowComponent, {
-      data: order,
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      this.server.conversations_data = null;
-      this.conversationOpen = false;
-      if (result == "OPEN_DETAIL") {
-        this.openDetails(order);
-      }
-    });
+    this.messageUpdateService.openConversation(order);
   }
 
   openDetails(order: Order) {
-    this.currentConversationOrder = order;
-    const dialogRef = this.dialog.open(OrderDetailsComponent, {
-      data: order,
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      if (result == "OPEN_CONV") {
-        this.openConversation(order);
-      }
-    });
+    this.messageUpdateService.openDetails(order);
   }
 
   clearSearch() {
@@ -563,8 +555,8 @@ export class OrderListComponent implements OnInit {
   }
 
   refreshConversation() {
-    if (this.conversationOpen) {
-      this.server.getConversation(this.currentConversationOrder.phone)
+    if (this.messageUpdateService.conversationOpen) {
+      this.server.getConversation(this.messageUpdateService.currentConversationOrder.phone)
     }
   }
 
