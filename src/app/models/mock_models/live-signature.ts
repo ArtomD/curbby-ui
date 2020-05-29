@@ -1,7 +1,7 @@
 export const mock_live_signature = {
-    "hmac": "28a0c35ba73bc893172537e2e392f70af425606a562d9365fe15d3e4507528ee",
-        "locale": "en",
-        "session": "17752846312170a1d44c58f261e40b8f58ac326170fdd168fa1b5a146ca5e534",
-        "shop" : "purple-pencil.myshopify.com",
-        "timestamp": "1588637302"
-  };
+    "hmac": "b30a96aa3fc91f0e8bbe08dec727cd90bcc388d2573324a552b4a884e11a022d",
+    "locale": "en",
+    "session": "614af89c695fd360372b245429309a3b52d645b4f675233a7d33447f6e758e62",
+    "shop": "purple-pencil.myshopify.com",
+    "timestamp": "1590712304",
+};

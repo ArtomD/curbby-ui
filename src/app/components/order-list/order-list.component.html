@@ -6,7 +6,7 @@
     <mat-menu #menu="matMenu" class="notification-menu">
         <mat-card *ngFor="let conversation of latestConversations" onClick="console.log('here')"
             [ngClass]="conversation.newMessageAvaliable ? 'notification-card new-message' : 'notification-card'">
-            <p>{{conversation.phone | phoneFormat}}<b> @ </b>{{conversation.conversation.lastInbound |  date:'short'}}
+            <p>{{conversation.phone | phoneFormat}}<b> @ </b>{{conversation?.conversation?.lastInbound |  date:'short'}}
             </p>
             <p><b>Last message: </b>Message goes here</p>
         </mat-card>
