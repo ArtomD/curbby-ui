@@ -122,9 +122,9 @@ export class OrderListComponent implements OnInit {
       this.latestConversations.push(element);
     });
     this.latestConversations.sort((a, b) => {
-      if (!a)
+      if (!a.conversation)
         return -1;
-      if (!b)
+      if (!b.conversation)
         return 1;
       if (a.conversation.lastInbound < b.conversation.lastInbound)
         return 1;
