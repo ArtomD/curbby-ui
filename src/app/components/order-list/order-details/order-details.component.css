@@ -1,6 +1,6 @@
 .details-window{
     width:550px;
-    height:400px;
+    height:750px;
 }
 
 .details-header{
@@ -14,7 +14,22 @@
 .convo-button{
     margin:5px;
 }
-.close-button{
+
+
+#closeButton{
     float:right;
-    margin:5px;
+}
+
+#closeButton span{
+padding-top:0px;
+padding-left:0px;
+}
+
+.order-detail-value{
+    float:right;
+    
+}
+
+.order-detail-row{
+    padding: 10px;
 }

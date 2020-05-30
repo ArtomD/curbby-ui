@@ -1,28 +1,77 @@
 <div class="details-window">
     <div id="header">
-        <span class="details-header">{{order?.shopifyOrderNumber}} {{order?.phone | phoneFormat}}
-        </span>
-        <button class="close-button" id="closeButton" mat-mini-fab color="warn" (click)="close()"><span class="material-icons">
-            close
-        </span></button>
-        <button class="convo-button" mat-raised-button color="primary" (click)="openConversation()">Open Chat</button>       
+
+
+        <button id="closeButton" mat-icon-button color="primary" (click)="close()"><span class="material-icons">
+                close
+            </span></button>
+        <button class="convo-button" mat-raised-button color="primary" (click)="openConversation()">Open Chat</button>
+    </div>
+    <mat-toolbar>Order Details</mat-toolbar>
+    <div class="order-detail-row">
+        <span class="order-detail-label">Shopify order number:</span> <span
+            class="order-detail-value">{{order?.shopifyOrderNumber}}</span>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="order-detail-row">
+        <span class="order-detail-label">Order amount:</span> <span
+            class="order-detail-value">${{order?.webhook_datum.data.total_price_set.shop_money.amount}}
+            {{order?.webhook_datum.data.total_price_set.shop_money.currency_code}}</span>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="order-detail-row">
+        <span class="order-detail-label">Note:</span> <span
+            class="order-detail-value">{{order?.webhook_datum.data.note}}</span>
     </div>
 
-    <div>
-        <div>
-            ID: {{order?.shopifyOrderNumber}} 
-        </div>
-        <div>
-            Customer Name: {{order?.customer.first_name}} {{order?.customer.last_name}} 
-        </div>        
+    <mat-toolbar>Customer</mat-toolbar>
+    <div class="order-detail-row">
+        <span class="order-detail-label"> Name:</span> <span class="order-detail-value">{{order?.customer.first_name}}
+            {{order?.customer.last_name}}</span>
     </div>
-    <div>
-        <div>
-            Email: {{order?.email}} 
-        </div>
-        <div>
-            Date Ordered: {{order?.created}}
-        </div>        
+    <mat-divider></mat-divider>
+    <div class="order-detail-row">
+        <span class="order-detail-label"> Email:</span> <span
+            class="order-detail-value">{{order?.customer.email}}</span>
     </div>
 
+    <mat-divider></mat-divider>
+    <div class="order-detail-row">
+        <span class="order-detail-label"> Phone:</span> <span
+            class="order-detail-value">{{order?.webhook_datum.data.phone | phoneFormat}}</span>
+    </div>
+
+
+    <mat-toolbar>Address</mat-toolbar>
+    <div class="order-detail-row">
+        <span class="order-detail-label"> Name:</span> <span
+            class="order-detail-value">{{order?.customer.default_address.name}}</span>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="order-detail-row">
+        <span class="order-detail-label"> Address1:</span> <span
+            class="order-detail-value">{{order?.customer.default_address.address1}}</span>
+    </div>
+
+    <mat-divider></mat-divider>
+    <div class="order-detail-row">
+        <span class="order-detail-label"> Address2:</span> <span
+            class="order-detail-value">{{order?.customer.default_address.address2}}</span>
+    </div>
+
+    <mat-divider></mat-divider>
+    <div class="order-detail-row">
+        <span class="order-detail-label"> City:</span> <span
+            class="order-detail-value">{{order?.customer.default_address.city}}</span>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="order-detail-row">
+        <span class="order-detail-label"> Province:</span> <span
+            class="order-detail-value">{{order?.customer.default_address.province}}</span>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="order-detail-row">
+        <span class="order-detail-label"> Zip/Province:</span> <span
+            class="order-detail-value">{{order?.customer.default_address.zip}}</span>
+    </div>
 </div>

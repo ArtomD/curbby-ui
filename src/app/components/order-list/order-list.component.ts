@@ -111,7 +111,7 @@ export class OrderListComponent implements OnInit {
   }
 
   update() {
-
+    console.log(this.server.order_data)
     let tempOrders: number[] = [];
     this.latestConversations.length = 0;
     this.server.order_data.forEach(element => {
