@@ -320,7 +320,7 @@ export class OrderListComponent implements OnInit {
   statusChanged(order: Order) {
     if (order.status == 1 && this.server.shop_details_data.autoReadyForPickup) {
       const dialogRef = this.dialog.open(ConfirmPopupComponent, {
-        data: "Message will be sent to customer.",
+        data: "This change will trigger a message to the customer. Are you sure?",
       });
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
