@@ -13,6 +13,7 @@ export const GET_CONVERSATION_PATH = "data/get/conversation";
 export const SEND_SMS_PATH = "send/sms";
 export const SEND_BATCH_SMS_PATH = "send/batch/sms";
 export const GET_SHOP_STATS_PATH = "data/stats/shop";
+export const GET_AVAILABLE_UPGRADES_PATH = "data/get/plans";
 
 export const PENDING_MSG_ORIGIN = -1;
 export const MSG_TIMESTAMP_ORIGIN = -2;

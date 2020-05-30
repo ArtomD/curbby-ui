@@ -1,10 +1,10 @@
-<mat-toolbar>Current Plan: {{details.billing_plan.name}} </mat-toolbar>
-<div *ngIf="details.hasOwnProperty('id')">
-    <p style="float:left">Billing period: {{details.billingPeriodStart | date:'MMMM dd'}} to
+<mat-toolbar>Current Plan: {{details?.billing_plan?.name}} </mat-toolbar>
+<div *ngIf="details?.hasOwnProperty('id')">
+    <p style="float:left">Billing period: {{details?.billingPeriodStart | date:'MMMM dd'}} to
         {{endDate | date:'MMMM dd'}}</p>
-    <p style="float:right">You have used <b>{{details.billing.usage}}</b> of <b>{{details.billing_plan.credits}}</b>
+    <p style="float:right">You have used <b>{{details?.billing?.usage}}</b> of <b>{{details?.billing_plan?.credits}}</b>
         messages for the period </p>
-    <mat-progress-bar mode="determinate" value="{{ (details.billing.usage / details.billing_plan.credits) * 100 }}">
+    <mat-progress-bar mode="determinate" value="{{ (details?.billing?.usage / details?.billing_plan?.credits) * 100 }}">
 
 
     </mat-progress-bar>

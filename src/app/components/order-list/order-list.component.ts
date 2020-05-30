@@ -111,14 +111,14 @@ export class OrderListComponent implements OnInit {
   }
 
   update() {
-    console.log(this.server.order_data)
+
     let tempOrders: number[] = [];
     this.latestConversations.length = 0;
     this.server.order_data.forEach(element => {
       if (this.selectedOrders.findIndex(id => id == element.id) != -1) {
         element.selected = true;
       }
-      if (element?.conversation?.lastInboundMessage) {
+      if (element?.conversation?.lastInboundMessage && (this.latestConversations.findIndex(o => o.id == element.id) == -1)) {
         this.latestConversations.push(element);
       }
 
