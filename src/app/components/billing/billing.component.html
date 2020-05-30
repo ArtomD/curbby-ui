@@ -1,8 +1,66 @@
+<mat-toolbar>Current Plan: {{details.billing_plan.name}} </mat-toolbar>
 <div *ngIf="details.hasOwnProperty('id')">
-    <p>Billing Plan : {{details.billing_plan.name}}</p>
-    <p>Billing period start : {{details.billingPeriodStart | date:'long'}}</p>
-    <p *ngIf="endDate">Billing period end : {{endDate | date:'long'}}</p>
-    <p>Total Credits : {{details.billing_plan.credits}}</p>
-    <p>Total Credits Used : {{details.billing.usage}}</p>
-    <p>Total Credits Avaliable : {{details.billing_plan.credits - details.billing.usage}}</p>
+    <p style="float:left">Billing period: {{details.billingPeriodStart | date:'MMMM dd'}} to
+        {{endDate | date:'MMMM dd'}}</p>
+    <p style="float:right">You have used <b>{{details.billing.usage}}</b> of <b>{{details.billing_plan.credits}}</b>
+        messages for the period </p>
+    <mat-progress-bar mode="determinate" value="{{ (details.billing.usage / details.billing_plan.credits) * 100 }}">
+
+
+    </mat-progress-bar>
+
+    <br />
+    <div class='description'>
+        <b>Click one of the plans upgrade options below to increase your monthly threshold</b>
+
+    </div>
+    <br />
+    <div>
+        <mat-divider></mat-divider>
+        <button mat-stroked-button class="upgrade-button" color="primary">Upgrade to BASIC and get 100 messages per
+            month
+            for
+            $4.99</button>
+        <mat-divider></mat-divider>
+        <button mat-stroked-button class="upgrade-button" color="primary">Upgrade to STANDARD and get 300 messages per
+            month
+            for
+            $9.99</button>
+        <mat-divider></mat-divider>
+        <button mat-stroked-button class="upgrade-button" color="primary">Upgrade to PROFESSIONAL and get 900 messages
+            per
+            month for
+            $24.99</button>
+        <mat-divider></mat-divider>
+        <button mat-stroked-button class="upgrade-button" color="primary">Upgrade to PREMIUM and get 2500 messages per
+            month
+            for
+            $59.99</button>
+
+        <br />
+        <mat-divider></mat-divider>
+    </div>
+
+    <br />
+    <div class='description'>
+        <b>How billing works</b>
+        <p>
+            Your plan tier dictates how many messages you can send to customers or forward to employees per billing
+            period.
+            Once you have have reached your limit for the month you will no longer be able to send messages and the
+            system will stop fowrading
+            to your your subscribers. You can either wait for the next billing period or upgrade to the next tier.
+            <br />
+            <br />
+            <u>Don't worry, even if you exhausted your allocated volume we will continue to recieve and
+                record
+                any
+                and
+                all messages sent to you by customers so you should never miss their communications.</u>
+
+
+        </p>
+    </div>
+
+
 </div>

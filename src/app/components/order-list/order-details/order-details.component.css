@@ -9,6 +9,11 @@
 
 .header{
     width:100%;
+    
+}
+
+#header{
+    height: 65px;
 }
 
 .convo-button{
