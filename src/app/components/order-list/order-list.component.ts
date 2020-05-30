@@ -118,7 +118,7 @@ export class OrderListComponent implements OnInit {
       if (this.selectedOrders.findIndex(id => id == element.id) != -1) {
         element.selected = true;
       }
-      if (element.conversation.lastInboundMessage) {
+      if (element?.conversation?.lastInboundMessage) {
         this.latestConversations.push(element);
       }
 
