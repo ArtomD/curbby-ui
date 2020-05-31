@@ -38,7 +38,7 @@ export class BillingComponent implements OnInit {
 
   synchBillingObject() {
     this.details = this.server.shop_details_data;
-    if (this?.details?.billing_plan?.id == 1) {
+    if (this?.details?.billing_plan?.id != 1) {
       this.endDate = new Date(new Date(this?.details?.billingPeriodStart).getTime() + (1000 * 60 * 60 * 24 * 30));
     }
   }

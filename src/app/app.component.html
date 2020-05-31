@@ -1,7 +1,12 @@
-<app-banner [hidden]="selectedIndex==3" (switchTab)="goToTab($event)" class="banner"></app-banner>
+<mat-card style="max-width: 1200px; margin:auto" class="banner">
+  You are currently on the <b>{{server.shop_details_data.billing_plan.name}}</b> plan
+</mat-card>
+<mat-card [hidden]="selectedIndex==3" style="max-width: 1200px; margin:auto" class="banner">
+  <app-banner (switchTab)="goToTab($event)"></app-banner>
+</mat-card>
 <mat-card style="max-width: 1200px; margin:auto">
   <div>
-    <img src="{{imgSrc}}images/logo-sms-dispatch.png" width="250px;">
+    <img src="{{imgSrc}}images/logo-sms-dispatch.png" width="180px;">
     <span class="example-spacer"></span>
     <app-message-menu></app-message-menu>
   </div>

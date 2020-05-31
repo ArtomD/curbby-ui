@@ -448,9 +448,16 @@ export class OrderListComponent implements OnInit {
           }
         });
       } else {
-        const dialogRef = this.dialog.open(ConfirmPopupComponent, {
-          data: { msg: "You do not have enough credits. Please upgrade your account.", type: 1 },
-        });
+        if (this.server.shop_details_data.billing_plan?.name == 'TRIAL') {
+          const dialogRef = this.dialog.open(ConfirmPopupComponent, {
+            data: { msg: "Your trial does not have enough messages left to complete this transaction. Upgrade to a full version to send more messages.", type: 1 },
+          });
+        } else {
+          const dialogRef = this.dialog.open(ConfirmPopupComponent, {
+            data: { msg: "You have used up all allocated messages for the period. Upgrade your plan or wait until the end of this billing cycle.", type: 1 },
+          });
+        }
+
       }
     } else {
       this.openSnackBar("No orders selected.");

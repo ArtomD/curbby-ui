@@ -1,5 +1,22 @@
-<div *ngIf="details.hasOwnProperty('id')">
-    Your current plan is {{details.billing_plan.name}} with
-    {{details.billing.usageMax - details.billing.usage}} credits remaining.
-    <button id="confirmButton" mat-flat-button color="primary" (click)="goToBilling()">Upgrade</button>
+<div *ngIf="details.hasOwnProperty('id')" class="plan-banner">
+
+    <div>
+        <p *ngIf="details?.billing_plan?.name != 'TRIAL'" style="float:left">Billing period:
+            {{details?.billingPeriodStart | date:'MMMM dd'}} to
+            {{details?.billing.periodEnd | date:'MMMM dd'}}</p>
+
+        <p style="float:right;">You have used <b>{{details?.billing?.usage}}</b> of
+            <b>{{details?.billing_plan?.credits}}</b>
+            messages <span *ngIf="details?.billing_plan?.name != 'TRIAL'">for this period</span> </p>
+        <mat-progress-bar mode="determinate"
+            value="{{ (details?.billing?.usage / details?.billing_plan?.credits) * 100 }}">
+        </mat-progress-bar>
+        <button id="confirmButton" mat-flat-button color="accent" (click)="goToBilling()"
+            *ngIf="(details?.billing?.usage / details?.billing_plan?.credits) * 100 > 80 && details?.billing_plan?.name != 'TRIAL'">Upgrade
+            plan to increase
+            limit</button>
+        <button id="confirmButton" mat-flat-button color="accent" (click)="goToBilling()"
+            *ngIf="details?.billing_plan?.name == 'TRIAL'">Upgrade
+            to full version</button>
+    </div>
 </div>

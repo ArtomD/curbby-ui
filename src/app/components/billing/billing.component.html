@@ -1,9 +1,15 @@
 <mat-toolbar>Current Plan: {{details?.billing_plan?.name}} </mat-toolbar>
 <div *ngIf="details?.hasOwnProperty('id')">
-    <p style="float:left">Billing period: {{details?.billingPeriodStart | date:'MMMM dd'}} to
-        {{endDate | date:'MMMM dd'}}</p>
+
+
+    <p *ngIf="details?.billing_plan?.name != 'TRIAL'" style="float:left">Billing period:
+        {{details?.billingPeriodStart | date:'MMMM dd'}} to
+        {{details?.billing.periodEnd | date:'MMMM dd'}}</p>
+    <p *ngIf="details?.billing_plan?.name != 'TRIAL'" style="float:left"> &nbsp; -
+        <b>${{details?.billing_plan?.fee}}/month </b>
+    </p>
     <p style="float:right">You have used <b>{{details?.billing?.usage}}</b> of <b>{{details?.billing_plan?.credits}}</b>
-        messages for the period </p>
+        messages <span *ngIf="details?.billing_plan?.name != 'TRIAL'">for this period</span> </p>
     <mat-progress-bar mode="determinate" value="{{ (details?.billing?.usage / details?.billing_plan?.credits) * 100 }}">
 
 
@@ -34,11 +40,11 @@
             Your plan tier dictates how many messages you can send to customers or forward to employees per billing
             period.
             Once you have have reached your limit for the month you will no longer be able to send messages and the
-            system will stop fowrading
-            to your your subscribers. You can either wait for the next billing period or upgrade to the next tier.
+            system will stop forwarding
+            to your subscribers. You can either wait for the next billing period or upgrade to the next tier.
             <br />
             <br />
-            <u>Don't worry, even if you exhausted your allocated volume we will continue to recieve and
+            <u>Don't worry, even if you exhausted your allocated volume we will continue to receive and
                 record
                 any
                 and
