@@ -1,53 +1,9 @@
-<div class="header-div">
-  Shop Statistics - {{shop_stats.month}}
-  <button class="refreshPage" mat-icon-button color="primary" (click)="refreshShopDetails()"><span
-          class="material-icons">
-          refresh
-      </span>
-  </button>
-</div>
-<div class="input-div" *ngIf="shop_stats.currentBillingPeriod">
-  <table class="statsTable mat-table cdk-table mat-sort mat-elevation-z8 example-container ng-star-inserted">
-    <tr>
-      <th class="mat-header-row cdk-header-row ng-star-inserted"></th>
-      <th
-        class="stat-row-one mat-sort-header  cdk-header-cell ng-tns-c179-43 cdk-column-name mat-column-name ng-star-inserted">
-        <b _ngcontent-bkn-c189="" class="ng-tns-c179-45">This Month</b></th>
-      <th
-        class="stat-row-one mat-sort-header  cdk-header-cell ng-tns-c179-43 cdk-column-name mat-column-name ng-star-inserted">
-        <b _ngcontent-bkn-c189="" class="ng-tns-c179-45">Last Month</b></th>
-    </tr>
-
-    <tr class="  mat-sort-header  cdk-header-cell ng-tns-c179-44 cdk-column-status mat-column-status ng-star-inserted">
-      <td class="stat-row-one">Outbound Customer Messages</td>
-      <td class="stat-row">{{shop_stats.current.outboundCustomerMessages}}</td>
-      <td class="stat-row">{{shop_stats.previous.outboundCustomerMessages}}</td>
-    </tr>
-    <tr class=" mat-sort-header  cdk-header-cell ng-tns-c179-44 cdk-column-status mat-column-status ng-star-inserted">
-      <td class="stat-row-one">Inbound Customer Messages</td>
-      <td class="stat-row">{{shop_stats.current.inboundCustomerMessages}}</td>
-      <td class="stat-row">{{shop_stats.previous.inboundCustomerMessages}}</td>
-    </tr>
-    <tr class="  mat-sort-header  cdk-header-cell ng-tns-c179-44 cdk-column-status mat-column-status ng-star-inserted">
-      <td class="stat-row-one">Forwarded Messages</td>
-      <td class="stat-row">{{shop_stats.current.forwardedMessages}}</td>
-      <td class="stat-row">{{shop_stats.previous.forwardedMessages}}</td>
-    </tr>
-    <tr class=" mat-sort-header  cdk-header-cell ng-tns-c179-44 cdk-column-status mat-column-status ng-star-inserted">
-      <td class="stat-row-one">Orders Managed</td>
-      <td class="stat-row">{{shop_stats.current.ordersManaged}}</td>
-      <td class="stat-row">{{shop_stats.previous.ordersManaged}}</td>
-    </tr>
-  </table>
-
-</div>
 <div id="divider"></div>
 <div class="header-div">
   Automated Notifications
-  <button class="refreshPage" mat-icon-button color="primary" (click)="refreshTemplates()"><span
-          class="material-icons">
-          refresh
-      </span>
+  <button class="refreshPage" mat-icon-button color="primary" (click)="refreshTemplates()"><span class="material-icons">
+      refresh
+    </span>
   </button>
 </div>
 <div class="input-div">
@@ -70,7 +26,7 @@
 
     </div>
   </div>
-</div>  
+</div>
 <div class="input-div">
   <mat-slide-toggle [(ngModel)]="shop_details.autoReadyForPickup" (click)="updateShopDetails()" *ngIf="shop_details"
     class="configToggle">
@@ -93,9 +49,9 @@
 <div class="header-div">
   Subscriber Management
   <button class="refreshPage" mat-icon-button color="primary" (click)="refreshSubscribers()"><span
-          class="material-icons">
-          refresh
-      </span>
+      class="material-icons">
+      refresh
+    </span>
   </button>
 </div>
 <div class="input-div">

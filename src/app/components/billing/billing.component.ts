@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { UpgradePlanWindowComponent } from './upgrade-plan-window/upgrade-plan-window.component';
 import { timer } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { Stats } from 'src/app/models/stats';
 
 @Component({
   selector: 'app-billing',
@@ -18,6 +19,9 @@ export class BillingComponent implements OnInit {
   plans;
   endDate;
 
+  displayedColumns: string[] = ['outboundCustomerMessages', 'inboundCustomerMessages', 'forwardedMessages', 'ordersManaged'];
+  shop_stats: Stats;
+
   constructor(public server: BackendServerService, public dialog: MatDialog) {
 
     this.synchBillingObject();
@@ -29,11 +33,22 @@ export class BillingComponent implements OnInit {
       this.synchPlanObject();
     });
 
+    this.synchShopStatsObject();
+    this.server.stats_dataChange.subscribe(value => {
+      this.synchShopStatsObject();
+    })
+
     const sourceConv = timer(environment.SHOP_DETAILS_REFRESH_RATE, environment.SHOP_DETAILS_REFRESH_RATE);
     sourceConv.subscribe(val => { this.refreshBilling(); });
   }
 
   ngOnInit(): void {
+  }
+
+
+  synchShopStatsObject() {
+    this.shop_stats = this.server.stats_data;
+    this.shop_stats.month = new Date(this.shop_stats.currentBillingPeriod?.to).toLocaleString('default', { month: 'long' });
   }
 
   synchBillingObject() {
@@ -50,7 +65,12 @@ export class BillingComponent implements OnInit {
   update() {
 
   }
+
   refreshBilling() {
+    this.server.getShopDetails();
+  }
+
+  refreshShopDetails() {
     this.server.getShopDetails();
   }
 

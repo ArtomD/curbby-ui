@@ -1,4 +1,4 @@
-<mat-card style="max-width: 1200px; margin:auto" class="banner">
+<mat-card *ngIf="server.shop_details_data.hasOwnProperty('id')" style="max-width: 1200px; margin:auto" class="banner">
   You are currently on the <b>{{server.shop_details_data.billing_plan.name}}</b> plan
 </mat-card>
 <mat-card [hidden]="selectedIndex==3" style="max-width: 1200px; margin:auto" class="banner">

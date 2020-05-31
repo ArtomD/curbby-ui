@@ -17,8 +17,7 @@ import { Stats } from 'src/app/models/stats';
 })
 export class SettingsComponent implements OnInit {
 
-  displayedColumns: string[] = ['outboundCustomerMessages', 'inboundCustomerMessages', 'forwardedMessages', 'ordersManaged'];
-  shop_stats: Stats;
+
   templates: Template[] = [];
   orderConfirm: Template = { id: 0, shopId: 0, created: new Date(), modified: new Date(), body: "", tempBody: "", name: "", type: "", isOpen: false };
   orderRdy: Template = { id: 0, shopId: 0, created: new Date(), modified: new Date(), body: "", tempBody: "", name: "", type: "", isOpen: false };
@@ -45,19 +44,12 @@ export class SettingsComponent implements OnInit {
     this.server.shop_details_dataChange.subscribe(value => {
       this.synchShopDetailsObject();
     })
-    this.synchShopStatsObject();
-    this.server.stats_dataChange.subscribe(value => {
-      this.synchShopStatsObject();
-    })
+
 
   }
 
   ngOnInit(): void {
 
-  }
-
-  refreshShopDetails() {
-    this.server.getShopDetails();
   }
 
   refreshTemplates() {
@@ -75,11 +67,6 @@ export class SettingsComponent implements OnInit {
   synchSubscriberObject() {
     this.subscribers = this.server.subscriber_data;
     this.dataSourceSubs.data = this.subscribers;
-  }
-
-  synchShopStatsObject() {
-    this.shop_stats = this.server.stats_data;
-    this.shop_stats.month = new Date(this.shop_stats.currentBillingPeriod?.to).toLocaleString('default', { month: 'long' });
   }
 
   synchTemplateObject() {
