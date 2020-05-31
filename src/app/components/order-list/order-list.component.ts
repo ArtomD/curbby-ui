@@ -439,7 +439,11 @@ export class OrderListComponent implements OnInit {
                 this.openSnackBar("Messages Sent");
                 this.sleep(2000).then(() => this._snackBar.dismiss());
                 this.server.shop_details_data.billing.usage += amount;
-              });
+              },
+                error => {
+                  this.displayNotEnoughMsgError();
+                  this._snackBar.dismiss();
+                });
             } else {
               this.sleep(1800).then(() => {
                 this.openSnackBar("Messages Sent");
@@ -450,25 +454,29 @@ export class OrderListComponent implements OnInit {
           }
         });
       } else {
-        let msg;
-        if (this.server.shop_details_data.billing_plan?.name == 'TRIAL') {
-          msg = "Your trial does not have enough messages left to complete this transaction.\nUpgrade to a full version to send more messages.";
-        } else {
-          msg = "You have used up all allocated messages for the period.\nUpgrade your plan or wait until the end of this billing cycle.";
-        }
-        const dialogRef = this.dialog.open(ConfirmPopupComponent, {
-          data: { msg: msg, type: 1 },
-        });
-        dialogRef.afterClosed().subscribe(result => {
-          if (result) {
-            this.goToBilling();
-          }
-        });
+        this.displayNotEnoughMsgError();
       }
     } else {
       this.openSnackBar("No orders selected.");
       this.sleep(2000).then(() => this._snackBar.dismiss());
     }
+  }
+
+  displayNotEnoughMsgError() {
+    let msg;
+    if (this.server.shop_details_data.billing_plan?.name == 'TRIAL') {
+      msg = "Your trial does not have enough messages left to complete this transaction.\nUpgrade to a full version to send more messages.";
+    } else {
+      msg = "You have used up all allocated messages for the period.\nUpgrade your plan or wait until the end of this billing cycle.";
+    }
+    const dialogRef = this.dialog.open(ConfirmPopupComponent, {
+      data: { msg: msg, type: 1 },
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.goToBilling();
+      }
+    });
   }
 
   openSnackBar(message: string) {
