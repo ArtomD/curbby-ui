@@ -28,7 +28,6 @@ export class UpgradePlanWindowComponent implements OnInit {
     this.confirmUpgrade = true;
     this.server.upgradePlan(this.plan).subscribe(value => {
       this.planUpgrade = value.body;
-      console.log(this.planUpgrade);
     });
   }
 

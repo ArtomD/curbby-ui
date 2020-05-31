@@ -32,7 +32,6 @@ export class AppComponent {
     this.server.authenticated = true;
     if (this.server.useShop) {
       this.route.queryParams.subscribe(params => {
-        console.log(params);
         this.server.shop = params["shop"];
         this.server.signature = params;
         if (!(this.server.shop?.length > 0)) {

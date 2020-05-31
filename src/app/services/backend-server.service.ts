@@ -330,7 +330,6 @@ export class BackendServerService {
           observe: 'response',
           withCredentials: false
         }).subscribe((result) => {
-          console.log(result);
           this.plan_data = result.body["plans"];
           this.plan_dataChange.next(this.plan_data);
           resolve();

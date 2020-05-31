@@ -359,7 +359,6 @@ export class OrderListComponent implements OnInit {
       } else if (pos == 12) {
         pos += 1;
       }
-      console.log(pos);
       order.phone = event.target.value?.replace(/[^0-9]+/g, "");
       this.sleep(0).then(() => {
         event.target.selectionStart = pos;
@@ -437,6 +436,7 @@ export class OrderListComponent implements OnInit {
               this.server.sendBatchSMS(sms).subscribe(value => {
                 this.openSnackBar("Messages Sent");
                 this.sleep(2000).then(() => this._snackBar.dismiss());
+                this.server.shop_details_data.billing.usage += amount;
               });
             } else {
               this.sleep(1800).then(() => {

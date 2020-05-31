@@ -193,6 +193,7 @@ export class MessageWindowComponent implements OnInit {
           this.openSnackBar("Message failed to send");
           this.sleep(3000).then(() => this._snackBar.dismiss());
         }
+        this.server.shop_details_data.billing.usage++;
         this.sleep(3000).then(() => this.server.getConversation(this.order.phone));
       });
     }

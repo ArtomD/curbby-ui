@@ -45,7 +45,6 @@ export class BillingComponent implements OnInit {
 
   synchPlanObject() {
     this.plans = this.server.plan_data;
-    console.log(this.plans);
   }
 
   update() {

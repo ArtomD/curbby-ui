@@ -31,9 +31,6 @@ export class MessageMenuComponent implements OnInit {
     this.messageUpdateService?.messages_data.forEach(element => {
       this.messages.push(element);
     });
-    //this.sleep(0).then(() => this.showMessage = true);
-    //console.log(this.messages);
-    //this.changeDetection.detectChanges();
   }
   sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
