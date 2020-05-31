@@ -6,7 +6,7 @@ import {
   GET_TEMPLATE_PATH, UPDATE_TEMPLATE_PATH,
   GET_SUBSCRIBERS_PATH, UPDATE_SUBSCRIBERS_PATH, CREATE_SUBSCRIBERS_PATH, DELETE_SUBSCRIBERS_PATH,
   GET_SHOP_DETAILS_PATH, UPDATE_SHOP_DETAILS_PATH,
-  GET_CONVERSATION_PATH, SEND_SMS_PATH, SEND_BATCH_SMS_PATH, GET_SHOP_STATS_PATH,
+  GET_CONVERSATION_PATH, SEND_SMS_PATH, SEND_BATCH_SMS_PATH, GET_SHOP_STATS_PATH, GET_AVAILABLE_UPGRADES_PATH, UPGRADE_PLAN_PATH
 } from '../shared/config'
 import { Subject } from 'rxjs';
 import { mock_order } from '../models/mock_models/order'
@@ -15,10 +15,13 @@ import { mock_subscriber } from '../models/mock_models/subscriber'
 import { mock_shop_details } from '../models/mock_models/shop-details'
 import { mock_conversation } from '../models/mock_models/conversation'
 import { mock_stats } from '../models/mock_models/stats'
+import { mock_plans } from '../models/mock_models/plans'
+import { mock_plan_upgrade } from '../models/mock_models/plan-upgrade'
 import { Subscriber } from '../models/subscriber';
 import { ShopDetails } from '../models/shop-details';
 import { Order } from '../models/order';
 import { SMS } from '../models/sms';
+import { Plan } from '../models/plan';
 
 @Injectable({
   providedIn: 'root'
@@ -46,6 +49,10 @@ export class BackendServerService {
 
   public stats_data: any = {};
   public stats_dataChange: Subject<any> = new Subject<any>();
+
+  public plan_data: any = {};
+  public plan_dataChange: Subject<any> = new Subject<any>();
+
 
 
   public signature: any;
@@ -316,5 +323,36 @@ export class BackendServerService {
     }
   }
 
+  getPlans() {
+    if (this.live && this.authenticated) {
+      return new Promise((resolve) => {
+        this.http.post(SERVER_URL + GET_AVAILABLE_UPGRADES_PATH, { shop: this.shop, signature: this.signature }, {
+          observe: 'response',
+          withCredentials: false
+        }).subscribe((result) => {
+          console.log(result);
+          this.plan_data = result.body["plans"];
+          this.plan_dataChange.next(this.plan_data);
+          resolve();
+        }, error => {
+        })
+      });
+    } else if (!this.live && this.authenticated) {
+      this.plan_data = mock_plans.plan;
+      this.plan_dataChange.next(this.plan_data);
+      return mock_plans;
+    }
+  }
+
+  upgradePlan(plan: Plan) {
+    if (this.live && this.authenticated) {
+      return this.http.post(SERVER_URL + UPGRADE_PLAN_PATH, { shop: this.shop, plan_data: { id: plan.id }, signature: this.signature }, {
+        observe: 'response',
+        withCredentials: false
+      });
+    } else if (!this.live && this.authenticated) {
+      //return mock_plan_upgrade;
+    }
+  }
 }
 

@@ -42,7 +42,9 @@ import { OrderDetailsComponent } from './components/order-list/order-details/ord
 import { PhoneFormatPipe } from '../app/pipes/phone'
 import { OrderIsReadPipe } from '../app/pipes/order-status';
 import { BillingComponent } from './components/billing/billing.component';
-import { MessageMenuComponent } from './components/message-menu/message-menu.component'
+import { MessageMenuComponent } from './components/message-menu/message-menu.component';
+import { UpgradePlanWindowComponent } from './components/billing/upgrade-plan-window/upgrade-plan-window.component';
+import { BannerComponent } from './components/banner/banner.component'
 
 
 @NgModule({
@@ -60,6 +62,8 @@ import { MessageMenuComponent } from './components/message-menu/message-menu.com
     OrderIsReadPipe,
     BillingComponent,
     MessageMenuComponent,
+    UpgradePlanWindowComponent,
+    BannerComponent,
   ],
   imports: [
     BrowserModule,

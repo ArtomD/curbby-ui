@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { BackendServerService } from 'src/app/services/backend-server.service';
 import { ShopDetails } from 'src/app/models/shop-details';
+import { Plan } from 'src/app/models/plan';
+import { MatDialog } from '@angular/material/dialog';
+import { UpgradePlanWindowComponent } from './upgrade-plan-window/upgrade-plan-window.component';
+import { timer } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-billing',
@@ -10,16 +15,22 @@ import { ShopDetails } from 'src/app/models/shop-details';
 export class BillingComponent implements OnInit {
 
   details: ShopDetails;
+  plans;
   endDate;
 
-  constructor(public server: BackendServerService) {
-    this.server.order_dataChange.subscribe(value => {
-      this.update();
-    });
+  constructor(public server: BackendServerService, public dialog: MatDialog) {
+
     this.synchBillingObject();
     this.server.shop_details_dataChange.subscribe(value => {
       this.synchBillingObject();
-    })
+    });
+
+    this.server.plan_dataChange.subscribe(value => {
+      this.synchPlanObject();
+    });
+
+    const sourceConv = timer(environment.SHOP_DETAILS_REFRESH_RATE, environment.SHOP_DETAILS_REFRESH_RATE);
+    sourceConv.subscribe(val => { this.refreshBilling(); });
   }
 
   ngOnInit(): void {
@@ -32,8 +43,23 @@ export class BillingComponent implements OnInit {
     }
   }
 
+  synchPlanObject() {
+    this.plans = this.server.plan_data;
+    console.log(this.plans);
+  }
+
   update() {
 
   }
+  refreshBilling() {
+    this.server.getShopDetails();
+  }
+
+  async upgradePlan(plan: Plan) {
+    const dialogRef = this.dialog.open(UpgradePlanWindowComponent, {
+      data: plan,
+    });
+  }
+
 
 }

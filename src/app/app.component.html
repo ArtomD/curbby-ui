@@ -1,10 +1,11 @@
+<app-banner [hidden]="selectedIndex==3" (switchTab)="goToTab($event)" class="banner"></app-banner>
 <mat-card style="max-width: 1200px; margin:auto">
   <div>
     <img src="{{imgSrc}}images/logo-sms-dispatch.png" width="250px;">
     <span class="example-spacer"></span>
     <app-message-menu></app-message-menu>
   </div>
-  <mat-tab-group [hidden]="!server.shop_details_data?.hasOwnProperty('id')">
+  <mat-tab-group #tabs (click)="tabSelected()" [hidden]="!server.shop_details_data?.hasOwnProperty('id')">
     <mat-tab label="Order Communications">
       <app-order-list></app-order-list>
     </mat-tab>
@@ -18,8 +19,6 @@
       <app-billing></app-billing>
     </mat-tab>
     <mat-icon aria-hidden="false" aria-label="Example home icon">home</mat-icon>
-
-
   </mat-tab-group>
 </mat-card>
 

@@ -1,0 +1,5 @@
+<div *ngIf="details.hasOwnProperty('id')">
+    Your current plan is {{details.billing_plan.name}} with
+    {{details.billing.usageMax - details.billing.usage}} credits remaining.
+    <button id="confirmButton" mat-flat-button color="primary" (click)="goToBilling()">Upgrade</button>
+</div>

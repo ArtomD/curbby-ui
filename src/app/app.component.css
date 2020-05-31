@@ -48,3 +48,10 @@
     background-color: #673ab7;
     cursor: pointer;
 }
+
+.banner{
+    position: fixed;
+    z-index: 10;
+    text-align: center;
+    width: 100%;
+}

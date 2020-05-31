@@ -1,5 +1,9 @@
-<div id="text" *ngIf="popupText">
-{{popupText}}
+<div id="text" *ngIf="content">
+    {{content.msg}}
 </div>
-<button id="cancelButton" mat-flat-button color="warn" [mat-dialog-close]="false">Cancel</button>
-<button id="confirmButton" mat-flat-button color="primary" [mat-dialog-close]="true">Confirm</button>
+<button id="cancelButton" [hidden]="content.type==1" mat-flat-button color="warn"
+    [mat-dialog-close]="false">Cancel</button>
+<button id="confirmButton" [hidden]="content.type==1" mat-flat-button color="primary"
+    [mat-dialog-close]="true">Confirm</button>
+<button id="confirmButton" [hidden]="content.type==0" mat-flat-button color="primary"
+    [mat-dialog-close]="true">Ok</button>

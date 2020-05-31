@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BackendServerService } from './services/backend-server.service';
 import { mock_signature } from './models/mock_models/signature'
@@ -6,6 +6,7 @@ import { mock_shop } from './models/mock_models/shop'
 import { mock_live_signature } from './models/mock_models/live-signature'
 import { mock_live_shop } from './models/mock_models/live-shop'
 import { FILE_DAM_PATH, DEV } from '../../settings'
+import { MatTabsModule } from '@angular/material/tabs';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -14,11 +15,17 @@ import { FILE_DAM_PATH, DEV } from '../../settings'
 export class AppComponent {
   title = 'angular-shopify-app';
   imgSrc = FILE_DAM_PATH;
+  selectedIndex = 0;
+
+  @ViewChild('tabs') tabs;
 
   constructor(
     private route: ActivatedRoute, public server: BackendServerService
   ) {
 
+  }
+  ngAfterViewInit() {
+    this.tabs._indexToSelect = 0;
   }
 
   ngOnInit() {
@@ -37,6 +44,7 @@ export class AppComponent {
           this.server.getSubscribers();
           this.server.getShopDetails();
           this.server.getShopStats();
+          this.server.getPlans();
         }
       });
     } else {
@@ -52,7 +60,17 @@ export class AppComponent {
       this.server.getSubscribers();
       this.server.getShopDetails();
       this.server.getShopStats();
+      this.server.getPlans();
     }
+  }
+
+  tabSelected() {
+    this.selectedIndex = this.tabs._selectedIndex;
+  }
+
+  goToTab(index) {
+    this.tabs._indexToSelect = index;
+    this.selectedIndex = index;
   }
 
 }

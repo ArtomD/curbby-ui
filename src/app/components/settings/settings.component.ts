@@ -19,9 +19,9 @@ export class SettingsComponent implements OnInit {
 
   displayedColumns: string[] = ['outboundCustomerMessages', 'inboundCustomerMessages', 'forwardedMessages', 'ordersManaged'];
   shop_stats: Stats;
-  templates :Template[] = [];
-  orderConfirm : Template = {id:0,shopId:0,created:new Date(), modified:new Date(), body:"",tempBody:"",name:"",type:"", isOpen:false};
-  orderRdy : Template = {id:0,shopId:0,created:new Date(), modified:new Date(), body:"",tempBody:"",name:"",type:"", isOpen:false};
+  templates: Template[] = [];
+  orderConfirm: Template = { id: 0, shopId: 0, created: new Date(), modified: new Date(), body: "", tempBody: "", name: "", type: "", isOpen: false };
+  orderRdy: Template = { id: 0, shopId: 0, created: new Date(), modified: new Date(), body: "", tempBody: "", name: "", type: "", isOpen: false };
 
   shop_details: ShopDetails;
 
@@ -31,7 +31,7 @@ export class SettingsComponent implements OnInit {
   dataSourceSubs = new MatTableDataSource<Subscriber>();
 
 
-  constructor(public server: BackendServerService, public dialog: MatDialog,private changeDetectorRefs: ChangeDetectorRef) { 
+  constructor(public server: BackendServerService, public dialog: MatDialog, private changeDetectorRefs: ChangeDetectorRef) {
 
     this.synchTemplateObject();
     this.server.template_dataChange.subscribe(value => {
@@ -74,7 +74,7 @@ export class SettingsComponent implements OnInit {
 
   synchSubscriberObject() {
     this.subscribers = this.server.subscriber_data;
-    this.dataSourceSubs.data =  this.subscribers;
+    this.dataSourceSubs.data = this.subscribers;
   }
 
   synchShopStatsObject() {
@@ -134,7 +134,7 @@ export class SettingsComponent implements OnInit {
   delete(element: Subscriber) {
 
     const dialogRef = this.dialog.open(ConfirmPopupComponent, {
-      data: "Delete subscriber " + element.name + "?",
+      data: { msg: "Delete subscriber " + element.name + "?", type: 0 },
     });
 
     dialogRef.afterClosed().subscribe(result => {

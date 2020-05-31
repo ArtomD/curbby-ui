@@ -320,7 +320,7 @@ export class OrderListComponent implements OnInit {
   statusChanged(order: Order) {
     if (order.status == 1 && this.server.shop_details_data.autoReadyForPickup) {
       const dialogRef = this.dialog.open(ConfirmPopupComponent, {
-        data: "This change will trigger a message to the customer. Are you sure?",
+        data: { msg: "This change will trigger a message to the customer. Are you sure?", type: 0 },
       });
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
@@ -376,7 +376,7 @@ export class OrderListComponent implements OnInit {
         msg += "\nA message will be sent to each customer."
       }
       const dialogRef = this.dialog.open(ConfirmPopupComponent, {
-        data: msg,
+        data: { msg: msg, type: 0 },
       });
 
       dialogRef.afterClosed().subscribe(result => {
@@ -425,27 +425,33 @@ export class OrderListComponent implements OnInit {
       }
     })
     if (amount > 0) {
-      const dialogRef = this.dialog.open(ConfirmPopupComponent, {
-        data: "You are sending a message to " + amount + " customers.",
-      });
+      if (this.server.shop_details_data.billing.usageMax - this.server.shop_details_data.billing.usage >= amount) {
+        const dialogRef = this.dialog.open(ConfirmPopupComponent, {
+          data: { msg: "You are sending a message to " + amount + " customers.", type: 0 },
+        });
 
-      dialogRef.afterClosed().subscribe(result => {
-        if (result) {
-          this.openSnackBar("Sending SMS");
-          if (LIVE_SERVER) {
-            this.server.sendBatchSMS(sms).subscribe(value => {
-              this.openSnackBar("Messages Sent");
-              this.sleep(2000).then(() => this._snackBar.dismiss());
-            });
-          } else {
-            this.sleep(1800).then(() => {
-              this.openSnackBar("Messages Sent");
-              this.sleep(2000).then(() => this._snackBar.dismiss());
-            });
+        dialogRef.afterClosed().subscribe(result => {
+          if (result) {
+            this.openSnackBar("Sending SMS");
+            if (LIVE_SERVER) {
+              this.server.sendBatchSMS(sms).subscribe(value => {
+                this.openSnackBar("Messages Sent");
+                this.sleep(2000).then(() => this._snackBar.dismiss());
+              });
+            } else {
+              this.sleep(1800).then(() => {
+                this.openSnackBar("Messages Sent");
+                this.sleep(2000).then(() => this._snackBar.dismiss());
+              });
 
+            }
           }
-        }
-      });
+        });
+      } else {
+        const dialogRef = this.dialog.open(ConfirmPopupComponent, {
+          data: { msg: "You do not have enough credits. Please upgrade your account.", type: 1 },
+        });
+      }
     } else {
       this.openSnackBar("No orders selected.");
       this.sleep(2000).then(() => this._snackBar.dismiss());

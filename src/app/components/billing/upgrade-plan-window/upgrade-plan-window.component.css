@@ -1,0 +1,11 @@
+#cancel-button{
+float: left;
+}
+
+#confirmButton{
+    float: right;
+}
+
+.confirm-dialogue{
+    margin:20px;
+}

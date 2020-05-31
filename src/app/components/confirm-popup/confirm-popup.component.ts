@@ -8,13 +8,13 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class ConfirmPopupComponent implements OnInit {
 
-  popupText;
+  content;
 
   constructor(
     public dialogRef: MatDialogRef<ConfirmPopupComponent>,
     @Inject(MAT_DIALOG_DATA) public data) {
-      this.popupText = data;
-    }
+    this.content = data;
+  }
 
   ngOnInit(): void {
   }
