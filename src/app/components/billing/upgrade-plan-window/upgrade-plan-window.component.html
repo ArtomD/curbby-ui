@@ -1,8 +1,23 @@
-You are upgrading to {{plan.name}}. This will cost ${{plan.fee}} per month.
-<div [hidden]="confirmUpgrade" class="confirm-dialogue">
-    <button id="cancelButton" mat-flat-button color="warn" (click)="closeDialogue()">Cancel</button>
-    <button id="confirmButton" mat-flat-button color="primary" (click)="upgrade()">Confirm</button>
+<div>
+    <div class="model-header">
+        <p>Plan Upgrade</p>
+    </div>
+    <mat-divider></mat-divider>
+    <p>You are currently on the <b>{{server.shop_details_data.billing_plan.name}} </b> and upgrading to the
+        <b>{{plan.name}}</b></p>
+
+    <p>This will increase your monthly cost from <b>${{server.shop_details_data.billing_plan.fee}} </b> to
+        <b>${{plan.fee}}</b> per month</p>
+    <p>Your new monthly message threashold will increase to <b>{{plan.credits}}</b> per month</p>
+
+    <div [hidden]="confirmUpgrade" class="confirm-dialogue">
+        <button id="cancelButton" mat-flat-button color="warn" (click)="closeDialogue()">Cancel</button>
+        <button id="confirmButton" mat-flat-button color="accent" (click)="upgrade()">Upgrade</button>
+    </div>
+
 </div>
+
+
 
 <div [hidden]="!confirmUpgrade">
     Please click on the link below to finilaze your new subscription.
