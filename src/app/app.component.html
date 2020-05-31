@@ -12,7 +12,7 @@
   </div>
   <mat-tab-group #tabs (click)="tabSelected()" [hidden]="!server.shop_details_data?.hasOwnProperty('id')">
     <mat-tab label="Order Communications">
-      <app-order-list></app-order-list>
+      <app-order-list (switchTab)="goToTab($event)"></app-order-list>
     </mat-tab>
     <mat-tab label="Message Templates">
       <app-templates></app-templates>

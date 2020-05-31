@@ -1,5 +1,7 @@
-<span [matMenuTriggerFor]="menu" class="material-icons icon" aria-hidden="false" aria-label="Example delete icon"
-    matBadge="!" matBadgePosition="after" matBadgeColor="accent">
+<span [matMenuTriggerFor]="menu"
+    [ngClass]="messageUpdateService.unreadMessages ? 'newMessage material-icons icon' : 'oldMessage material-icons icon'"
+    aria-hidden="false" matBadge="!" [matBadgeHidden]="!messageUpdateService.unreadMessages" matBadgePosition="after"
+    matBadgeColor="accent">
     message
 </span>
 <mat-menu #menu="matMenu" class="notification-menu">

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -10,7 +10,6 @@ import { Template } from 'src/app/models/template';
 import { STATUS } from '../../models/status'
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmPopupComponent } from '../confirm-popup/confirm-popup.component';
-import { MessageWindowComponent } from './message-window/message-window.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SnackbarComponent } from '../snackbar/snackbar.component';
 import { SMS } from 'src/app/models/sms';
@@ -19,8 +18,6 @@ import { environment } from '../../../environments/environment'
 import { phone_regex } from '../../models/regex'
 import { LIVE_SERVER } from '../../../../settings'
 import { phoneValidator } from '../../validators/phone';
-import { OrderDetailsComponent } from './order-details/order-details.component';
-import { PhoneFormatPipe } from 'src/app/pipes/phone';
 import { MessageUpdateService } from 'src/app/services/message-update.service';
 
 
@@ -61,6 +58,9 @@ export class OrderListComponent implements OnInit {
 
   statuses = STATUS;
   selectedStatus = STATUS;
+
+  @Output()
+  switchTab = new EventEmitter<number>();
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   //@ViewChild(MatSort, { static: false }) sort: MatSort;
@@ -118,7 +118,7 @@ export class OrderListComponent implements OnInit {
       if (this.selectedOrders.findIndex(id => id == element.id) != -1) {
         element.selected = true;
       }
-      if (element?.conversation?.lastInboundMessage && (this.latestConversations.findIndex(o => o.id == element.id) == -1)) {
+      if (element?.conversation?.lastInboundMessage && (this.latestConversations.findIndex(o => o.id == element.id) == -1) && (this.latestConversations.findIndex(o => o.phone == element.phone) == -1)) {
         this.latestConversations.push(element);
       }
 
@@ -144,12 +144,14 @@ export class OrderListComponent implements OnInit {
     if (!this.locationListFC.value || this.locationListFC?.value?.length == this.locationList.length) {
       locationListMax = true;
     }
+    this.messageUpdateService.unreadMessages = false;
     this.dataSource.data.forEach(element => {
       if (!this.locationList.find(l => l == element.pickupLocation.code)) {
         this.locationList.push(element.pickupLocation.code);
       }
       if (element?.conversation?.lastInbound > element?.conversation?.lastRead) {
         element.newMessageAvaliable = true;
+        this.messageUpdateService.unreadMessages = true;
       } else {
         element.newMessageAvaliable = false;
       }
@@ -448,16 +450,20 @@ export class OrderListComponent implements OnInit {
           }
         });
       } else {
+        let msg;
         if (this.server.shop_details_data.billing_plan?.name == 'TRIAL') {
-          const dialogRef = this.dialog.open(ConfirmPopupComponent, {
-            data: { msg: "Your trial does not have enough messages left to complete this transaction. Upgrade to a full version to send more messages.", type: 1 },
-          });
+          msg = "Your trial does not have enough messages left to complete this transaction.\nUpgrade to a full version to send more messages.";
         } else {
-          const dialogRef = this.dialog.open(ConfirmPopupComponent, {
-            data: { msg: "You have used up all allocated messages for the period. Upgrade your plan or wait until the end of this billing cycle.", type: 1 },
-          });
+          msg = "You have used up all allocated messages for the period.\nUpgrade your plan or wait until the end of this billing cycle.";
         }
-
+        const dialogRef = this.dialog.open(ConfirmPopupComponent, {
+          data: { msg: msg, type: 1 },
+        });
+        dialogRef.afterClosed().subscribe(result => {
+          if (result) {
+            this.goToBilling();
+          }
+        });
       }
     } else {
       this.openSnackBar("No orders selected.");
@@ -575,6 +581,10 @@ export class OrderListComponent implements OnInit {
 
   cancel(template: Template) {
     template.tempBody = template.body;
+  }
+
+  goToBilling() {
+    this.switchTab.emit(3);
   }
 
 }

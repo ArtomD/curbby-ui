@@ -16,6 +16,7 @@ export class MessageUpdateService {
 
   currentConversationOrder: Order;
   conversationOpen: boolean = false;
+  unreadMessages: boolean = false;
 
 
   constructor(public dialog: MatDialog, public server: BackendServerService) { }

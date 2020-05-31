@@ -44,3 +44,17 @@
     background-color: #673ab7;
     cursor: pointer;
 }
+
+.newMessage{
+    background: white;
+    color:#673ab7;
+}
+
+.oldMessage{
+    background: white;
+    color:darkgray;
+}
+
+.icon{
+    font-size: 40px;
+}
