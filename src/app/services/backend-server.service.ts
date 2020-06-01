@@ -247,6 +247,7 @@ export class BackendServerService {
           observe: 'response',
           withCredentials: false
         }).subscribe((result) => {
+
           this.shop_details_data = result.body["shop"];
           this.shop_details_dataChange.next(this.shop_details_data);
           resolve();

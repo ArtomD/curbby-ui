@@ -70,6 +70,7 @@ export class AppComponent {
   goToTab(index) {
     this.tabs._indexToSelect = index;
     this.selectedIndex = index;
+
   }
 
 }

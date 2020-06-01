@@ -4,7 +4,7 @@
     matBadgeColor="accent">
     message
 </span>
-<mat-menu #menu="matMenu" class="notification-menu">
+<mat-menu #menu="matMenu" xPosition="before" class="notification-menu">
     <mat-card *ngFor="let conversation of messages" (click)="openChat(conversation)"
         [ngClass]="conversation.newMessageAvaliable ? 'notification-card new-message' : 'notification-card'">
         <p>{{conversation.phone | phoneFormat}}<b> @ </b>{{conversation?.conversation?.lastInbound |  date:'short'}}
