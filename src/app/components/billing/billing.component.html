@@ -1,5 +1,5 @@
 <div class="header-div">
-    Shop Statistics - {{shop_stats.month}}
+    Current Plan: {{details?.billing_plan?.name}}
     <button class="refreshPage" mat-icon-button color="primary" (click)="refreshShopDetails()"><span
             class="material-icons">
             refresh
@@ -12,10 +12,10 @@
             <th class="mat-header-row cdk-header-row ng-star-inserted"></th>
             <th
                 class="stat-row-one mat-sort-header  cdk-header-cell ng-tns-c179-43 cdk-column-name mat-column-name ng-star-inserted">
-                <b _ngcontent-bkn-c189="" class="ng-tns-c179-45">This Month</b></th>
+                <b _ngcontent-bkn-c189="" class="ng-tns-c179-45">This Period</b></th>
             <th
                 class="stat-row-one mat-sort-header  cdk-header-cell ng-tns-c179-43 cdk-column-name mat-column-name ng-star-inserted">
-                <b _ngcontent-bkn-c189="" class="ng-tns-c179-45">Last Month</b></th>
+                <b _ngcontent-bkn-c189="" class="ng-tns-c179-45">Last Period</b></th>
         </tr>
 
         <tr
@@ -45,7 +45,6 @@
     </table>
 
 </div>
-<mat-toolbar>Current Plan: {{details?.billing_plan?.name}} </mat-toolbar>
 <div *ngIf="details?.hasOwnProperty('id')">
 
 
