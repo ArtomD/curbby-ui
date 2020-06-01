@@ -28,6 +28,12 @@ export class UpgradePlanWindowComponent implements OnInit {
     this.confirmUpgrade = true;
     this.server.upgradePlan(this.plan).subscribe(value => {
       this.planUpgrade = value.body;
+      var win = window.open(this.planUpgrade.shopifyRegistrationUrl);
+      if (win) {
+        win.focus();
+      } else {
+        alert('Please allow popups for this website');
+      }
     });
   }
 
