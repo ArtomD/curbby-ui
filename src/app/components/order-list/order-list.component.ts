@@ -526,8 +526,8 @@ export class OrderListComponent implements OnInit {
       if (element.selected) {
         this.selectedOrders.push(element.id);
         let allSelected = true;
-        this.selectedOrders.forEach(element => {
-          if (this.filteredOrders.findIndex(o => o.id == element) == -1) {
+        this.filteredOrders.forEach(element => {
+          if (this.selectedOrders.findIndex(o => o == element.id) == -1) {
             allSelected = false;
           }
         });
@@ -535,6 +535,7 @@ export class OrderListComponent implements OnInit {
           this.allOrdersSelected = true;
           this.someOrdersSelected = false;
         } else {
+          this.allOrdersSelected = false;
           this.someOrdersSelected = true;
         }
       } else {
