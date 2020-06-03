@@ -1,0 +1,18 @@
+.sidebar-content{
+    height:100%;
+    width:200px;
+}
+.sidebar-button{
+    height:100%;
+    width: 16px;
+    background-color: lightslategray;
+}
+
+.sidebar{
+    height:100%;
+}
+.page-button{
+    width:100%;
+    margin-top: 60px;
+    margin-bottom: 0px;
+}

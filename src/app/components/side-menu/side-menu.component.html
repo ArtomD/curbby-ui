@@ -1,0 +1,13 @@
+<mat-drawer-container class="sidebar">
+    <!-- menu contents -->
+    <mat-drawer #drawer class="sidebar-content" mode="side">
+        <button class="page-button" mat-flat-button color="primary" (click)="goToPage(0)">Order
+            Communications</button>
+        <button class="page-button" mat-flat-button color="primary" (click)="goToPage(1)">Message Templates</button>
+        <button class="page-button" mat-flat-button color="primary" (click)="goToPage(2)">Settings</button>
+        <button class="page-button" mat-flat-button color="primary" (click)="goToPage(3)">Billing</button>
+    </mat-drawer>
+    <!-- button to open/close menu -->
+    <div class="sidebar-button" (click)="drawer.toggle()">
+    </div>
+</mat-drawer-container>

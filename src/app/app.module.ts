@@ -44,7 +44,9 @@ import { OrderIsReadPipe } from '../app/pipes/order-status';
 import { BillingComponent } from './components/billing/billing.component';
 import { MessageMenuComponent } from './components/message-menu/message-menu.component';
 import { UpgradePlanWindowComponent } from './components/billing/upgrade-plan-window/upgrade-plan-window.component';
-import { BannerComponent } from './components/banner/banner.component'
+import { BannerComponent } from './components/banner/banner.component';
+import { SideMenuComponent } from './components/side-menu/side-menu.component'
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 
 @NgModule({
@@ -64,6 +66,7 @@ import { BannerComponent } from './components/banner/banner.component'
     MessageMenuComponent,
     UpgradePlanWindowComponent,
     BannerComponent,
+    SideMenuComponent,
   ],
   imports: [
     BrowserModule,
@@ -94,6 +97,7 @@ import { BannerComponent } from './components/banner/banner.component'
     MatProgressBarModule,
     MatBadgeModule,
     MatMenuModule,
+    MatSidenavModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

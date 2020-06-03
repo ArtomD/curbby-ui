@@ -17,15 +17,15 @@ export class AppComponent {
   imgSrc = FILE_DAM_PATH;
   selectedIndex = 0;
 
-  @ViewChild('tabs') tabs;
+  orders: boolean = false;
+  templates: boolean = false;
+  settings: boolean = false;
+  billing: boolean = false;
 
   constructor(
     private route: ActivatedRoute, public server: BackendServerService
   ) {
-
-  }
-  ngAfterViewInit() {
-    this.tabs._indexToSelect = 0;
+    this.orders = true;
   }
 
   ngOnInit() {
@@ -63,14 +63,17 @@ export class AppComponent {
     }
   }
 
-  tabSelected() {
-    this.selectedIndex = this.tabs._selectedIndex;
-  }
-
-  goToTab(index) {
-    this.tabs._indexToSelect = index;
-    this.selectedIndex = index;
-
+  goToPage(index) {
+    console.log(index);
+    if (index == 0) {
+      this.orders = true; this.templates = false; this.settings = false; this.billing = false;
+    } else if (index == 1) {
+      this.orders = false; this.templates = true; this.settings = false; this.billing = false;
+    } else if (index == 2) {
+      this.orders = false; this.templates = false; this.settings = true; this.billing = false;
+    } else if (index == 3) {
+      this.orders = false; this.templates = false; this.settings = false; this.billing = true;
+    }
   }
 
 }

@@ -1,8 +1,9 @@
+<app-side-menu (pageNav)="goToPage($event)" fxFlex="1 1 auto" class="side-menu"></app-side-menu>
 <mat-card *ngIf="server.shop_details_data.hasOwnProperty('id')" style="max-width: 1200px; margin:auto" class="banner">
   You are currently on the <b>{{server.shop_details_data.billing_plan.name}}</b> plan
 </mat-card>
 <mat-card [hidden]="selectedIndex==3" style="max-width: 1200px; margin:auto" class="banner">
-  <app-banner (switchTab)="goToTab($event)"></app-banner>
+  <app-banner (switchTab)="goToPage($event)"></app-banner>
 </mat-card>
 <mat-card style="max-width: 1200px; margin:auto">
   <div>
@@ -10,21 +11,10 @@
     <span class="example-spacer"></span>
     <app-message-menu></app-message-menu>
   </div>
-  <mat-tab-group #tabs (click)="tabSelected()" [hidden]="!server.shop_details_data?.hasOwnProperty('id')">
-    <mat-tab label="Order Communications">
-      <app-order-list (switchTab)="goToTab($event)"></app-order-list>
-    </mat-tab>
-    <mat-tab label="Message Templates">
-      <app-templates></app-templates>
-    </mat-tab>
-    <mat-tab label="Settings">
-      <app-settings></app-settings>
-    </mat-tab>
-    <mat-tab label="Billing">
-      <app-billing></app-billing>
-    </mat-tab>
-    <mat-icon aria-hidden="false" aria-label="Example home icon">home</mat-icon>
-  </mat-tab-group>
+  <app-order-list [hidden]="!orders" (switchTab)="goToPage($event)"></app-order-list>
+  <app-templates [hidden]="!templates"></app-templates>
+  <app-settings [hidden]="!settings"></app-settings>
+  <app-billing [hidden]="!billing"></app-billing>
 </mat-card>
 
 <div class="loading-image" [hidden]="server.authenticated">

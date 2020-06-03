@@ -56,3 +56,11 @@
     text-align: center;
     width: 100%;
 }
+
+.side-menu{
+    position: fixed;
+    z-index: 11;
+    top: 0;
+    left: 0;
+    height: 100%;
+}
