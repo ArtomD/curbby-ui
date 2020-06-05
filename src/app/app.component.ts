@@ -17,10 +17,12 @@ export class AppComponent {
   imgSrc = FILE_DAM_PATH;
   selectedIndex = 0;
 
+
   orders: boolean = false;
   templates: boolean = false;
   settings: boolean = false;
   billing: boolean = false;
+  login: boolean = false;
 
   constructor(
     private route: ActivatedRoute, public server: BackendServerService
@@ -66,13 +68,15 @@ export class AppComponent {
   goToPage(index) {
     console.log(index);
     if (index == 0) {
-      this.orders = true; this.templates = false; this.settings = false; this.billing = false;
+      this.orders = true; this.templates = false; this.settings = false; this.billing = false; this.login = false;
     } else if (index == 1) {
-      this.orders = false; this.templates = true; this.settings = false; this.billing = false;
+      this.orders = false; this.templates = true; this.settings = false; this.billing = false; this.login = false;
     } else if (index == 2) {
-      this.orders = false; this.templates = false; this.settings = true; this.billing = false;
+      this.orders = false; this.templates = false; this.settings = true; this.billing = false; this.login = false;
     } else if (index == 3) {
-      this.orders = false; this.templates = false; this.settings = false; this.billing = true;
+      this.orders = false; this.templates = false; this.settings = false; this.billing = true; this.login = false;
+    } else if (index == 4) {
+      this.orders = false; this.templates = false; this.settings = false; this.billing = false; this.login = true;
     }
   }
 

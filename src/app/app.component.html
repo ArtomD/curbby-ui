@@ -11,10 +11,12 @@
     <span class="example-spacer"></span>
     <app-message-menu></app-message-menu>
   </div>
+
   <app-order-list [hidden]="!orders" (switchTab)="goToPage($event)"></app-order-list>
   <app-templates [hidden]="!templates"></app-templates>
   <app-settings [hidden]="!settings"></app-settings>
   <app-billing [hidden]="!billing"></app-billing>
+  <app-login [hidden]="!login" (switchTab)="goToPage($event)"></app-login>
 </mat-card>
 
 <div class="loading-image" [hidden]="server.authenticated">

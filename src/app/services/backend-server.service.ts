@@ -354,5 +354,13 @@ export class BackendServerService {
       //return mock_plan_upgrade;
     }
   }
+
+  login() {
+    return new Promise(() => true);
+  }
+
+  register() {
+    return new Promise(() => true);
+  }
 }
 

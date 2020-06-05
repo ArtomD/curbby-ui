@@ -47,6 +47,7 @@ import { UpgradePlanWindowComponent } from './components/billing/upgrade-plan-wi
 import { BannerComponent } from './components/banner/banner.component';
 import { SideMenuComponent } from './components/side-menu/side-menu.component'
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { LoginComponent } from './components/login/login.component';
 
 
 @NgModule({
@@ -67,6 +68,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     UpgradePlanWindowComponent,
     BannerComponent,
     SideMenuComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
