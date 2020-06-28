@@ -6,7 +6,7 @@ import {
   GET_TEMPLATE_PATH, UPDATE_TEMPLATE_PATH,
   GET_SUBSCRIBERS_PATH, UPDATE_SUBSCRIBERS_PATH, CREATE_SUBSCRIBERS_PATH, DELETE_SUBSCRIBERS_PATH,
   GET_SHOP_DETAILS_PATH, UPDATE_SHOP_DETAILS_PATH,
-  GET_CONVERSATION_PATH, SEND_SMS_PATH, SEND_BATCH_SMS_PATH, GET_SHOP_STATS_PATH, GET_AVAILABLE_UPGRADES_PATH, UPGRADE_PLAN_PATH
+  GET_CONVERSATION_PATH, SEND_SMS_PATH, SEND_BATCH_SMS_PATH, GET_SHOP_STATS_PATH, GET_AVAILABLE_UPGRADES_PATH, UPGRADE_PLAN_PATH, DOWNGRADE_PLAN_PATH
 } from '../shared/config'
 import { Subject } from 'rxjs';
 import { mock_order } from '../models/mock_models/order'
@@ -347,6 +347,17 @@ export class BackendServerService {
   upgradePlan(plan: Plan) {
     if (this.live && this.authenticated) {
       return this.http.post(SERVER_URL + UPGRADE_PLAN_PATH, { shop: this.shop, plan_data: { id: plan.id }, signature: this.signature }, {
+        observe: 'response',
+        withCredentials: false
+      });
+    } else if (!this.live && this.authenticated) {
+      //return mock_plan_upgrade;
+    }
+  }
+
+  downgradePlan(plan: Plan) {
+    if (this.live && this.authenticated) {
+      return this.http.post(SERVER_URL + DOWNGRADE_PLAN_PATH, { shop: this.shop, plan_data: { id: plan.id }, signature: this.signature }, {
         observe: 'response',
         withCredentials: false
       });
