@@ -192,7 +192,7 @@
     <ng-container matColumnDef="messages">
         <th mat-header-cell *matHeaderCellDef mat-header> </th>
         <td mat-cell *matCellDef="let element">
-            <button [hidden]="element.phone.length==0"
+            <button [hidden]="element?.phone?.length==0"
                 [ngClass]="element.newMessageAvaliable ? 'newMessage' : 'oldMessage'" mat-flat-button color="primary"
                 (click)="openConversation(element)" matBadge="!" matBadgePosition="after" matBadgeColor="accent"
                 [matBadgeHidden]="!element.newMessageAvaliable" class="row-button" MatBadgeSize='small'>
