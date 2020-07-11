@@ -75,8 +75,11 @@ export class BillingComponent implements OnInit {
   }
 
   async upgradePlan(plan: Plan) {
+    let sentData: any = {};
+    sentData.plan = plan;
+    sentData.upgrade = plan.fee > this.details.billing_plan.fee;
     const dialogRef = this.dialog.open(UpgradePlanWindowComponent, {
-      data: plan,
+      data: sentData
     });
   }
 

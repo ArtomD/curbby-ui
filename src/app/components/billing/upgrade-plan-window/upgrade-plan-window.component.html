@@ -1,18 +1,22 @@
 <div>
     <div class="model-header">
-        <p>Plan Upgrade</p>
+        <p>Plan {{isUpgrade? 'Upgrade':'Downgrade'}}</p>
     </div>
     <mat-divider></mat-divider>
-    <p>You are currently on the <b>{{server.shop_details_data.billing_plan.name}} </b> and upgrading to the
-        <b>{{plan.name}}</b></p>
+    <p>You are currently on the <b>{{server.shop_details_data.billing_plan.name}} </b> plan and
+        {{isUpgrade? 'upgrading':'downgrading'}} to the
+        <b>{{plan.name}}</b> plan</p>
 
-    <p>This will increase your monthly cost from <b>${{server.shop_details_data.billing_plan.fee}} </b> to
+    <p>This will {{isUpgrade? 'increase':'decrease'}} your monthly cost from
+        <b>${{server.shop_details_data.billing_plan.fee}} </b> to
         <b>${{plan.fee}}</b> per month</p>
-    <p>Your new monthly message threshold will increase to <b>{{plan.credits}}</b> per month</p>
+    <p>Your new monthly message threshold will {{isUpgrade? 'increase':'decrease'}} to <b>{{plan.credits}}</b> per month
+    </p>
 
     <div [hidden]="confirmUpgrade" class="confirm-dialogue">
         <button id="cancelButton" mat-flat-button color="warn" (click)="closeDialogue()">Cancel</button>
-        <button id="confirmButton" mat-flat-button color="accent" (click)="upgrade()">Upgrade</button>
+        <button id="confirmButton" mat-flat-button color="accent"
+            (click)="upgrade()">{{isUpgrade? 'Upgrade':'Downgrade'}}</button>
     </div>
 
 </div>
@@ -21,5 +25,5 @@
 
 <div [hidden]="!confirmUpgrade">
     <br>
-    Thank you for upgrading. You will be redirected shortly.
+    Thank you for {{isUpgrade? 'upgrading':'downgrading'}}. You will be redirected shortly.
 </div>

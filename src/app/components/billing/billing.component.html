@@ -69,7 +69,9 @@
     <br />
     <div *ngIf="plans">
         <div *ngFor="let plan of plans">
-            <button mat-stroked-button class="upgrade-button" color="primary" (click)="upgradePlan(plan)">Upgrade to
+            <button mat-flat-button class="upgrade-button"
+                color="{{plan.fee > details.billing_plan.fee? 'accent':'warn'}}"
+                (click)="upgradePlan(plan)">{{plan.fee > details.billing_plan.fee? 'Upgrade':'Downgrade'}} to
                 {{plan.name}} and get
                 {{plan.credits}} messages per
                 month

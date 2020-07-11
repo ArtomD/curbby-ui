@@ -14,11 +14,13 @@ export class UpgradePlanWindowComponent implements OnInit {
   planUpgrade: any;
   registerURL: string;
   confirmUpgrade: boolean = false;
+  isUpgrade: boolean;
 
   constructor(public server: BackendServerService,
     public dialogRef: MatDialogRef<UpgradePlanWindowComponent>,
     @Inject(MAT_DIALOG_DATA) public data) {
-    this.plan = data;
+    this.plan = data.plan,
+      this.isUpgrade = data.upgrade
   }
 
   ngOnInit(): void {
@@ -26,15 +28,29 @@ export class UpgradePlanWindowComponent implements OnInit {
 
   upgrade() {
     this.confirmUpgrade = true;
-    this.server.upgradePlan(this.plan).subscribe(value => {
-      this.planUpgrade = value.body;
-      var win = window.open(this.planUpgrade.shopifyRegistrationUrl);
-      if (win) {
-        win.focus();
-      } else {
-        alert('Please allow popups for this website');
-      }
-    });
+
+    if (this.isUpgrade) {
+      this.server.upgradePlan(this.plan).subscribe(value => {
+        this.planUpgrade = value.body;
+        var win = window.open(this.planUpgrade.shopifyRegistrationUrl);
+        if (win) {
+          win.focus();
+        } else {
+          alert('Please allow popups for this website');
+        }
+      });
+    } else {
+      this.server.downgradePlan(this.plan).subscribe(value => {
+        this.planUpgrade = value.body;
+        var win = window.open(this.planUpgrade.shopifyRegistrationUrl);
+        if (win) {
+          win.focus();
+        } else {
+          alert('Please allow popups for this website');
+        }
+      });
+    }
+
   }
 
   closeDialogue() {
