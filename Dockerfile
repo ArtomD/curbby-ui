@@ -20,5 +20,4 @@ RUN npm install
 COPY . /app
 
 # start app
-CMD ngcc --properties es2015 browser module main --async false
-CMD ng serve --disableHostCheck true
+CMD ng serve --host "0.0.0.0" --disable-host-check
