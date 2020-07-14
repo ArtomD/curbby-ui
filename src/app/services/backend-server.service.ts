@@ -100,10 +100,42 @@ export class BackendServerService {
     }
   }
 
+  updateOrdersPhone(order: Order) {
+    if (this.live && this.authenticated) {
+      return new Promise((resolve) => {
+        this.http.post(SERVER_URL + UPDATE_ORDER_PATH, { shop: this.shop, order_data: { phone: order.phone, id: order.id }, signature: this.signature }, {
+          observe: 'response',
+          withCredentials: false
+        }).subscribe((result) => {
+          resolve();
+        }, error => {
+        })
+      });
+    } else if (!this.live && this.authenticated) {
+      return mock_order;
+    }
+  }
+
+  updateOrdersStatus(order: Order) {
+    if (this.live && this.authenticated) {
+      return new Promise((resolve) => {
+        this.http.post(SERVER_URL + UPDATE_ORDER_PATH, { shop: this.shop, order_data: { status: order.status, id: order.id }, signature: this.signature }, {
+          observe: 'response',
+          withCredentials: false
+        }).subscribe((result) => {
+          resolve();
+        }, error => {
+        })
+      });
+    } else if (!this.live && this.authenticated) {
+      return mock_order;
+    }
+  }
+
   updateBatchOrders(orders: Order[]) {
     let data = []
     orders.forEach(element => {
-      data.push({ status: element.status, phone: element.phone, id: element.id })
+      data.push({ status: element.status, id: element.id })
     });
     if (this.live && this.authenticated) {
       return this.http.post(SERVER_URL + UPDATE_BATCH_ORDER_PATH, { shop: this.shop, order_data: data, signature: this.signature }, {
