@@ -319,32 +319,33 @@ export class OrderListComponent implements OnInit {
     this.allowUpdate = true;
   }
 
-  statusChanged(order: Order) {
+  onStatusChange(order: Order) {
     if (order.status == 1 && this.server.shop_details_data.autoReadyForPickup) {
       const dialogRef = this.dialog.open(ConfirmPopupComponent, {
         data: { msg: "This change will trigger a message to the customer. Are you sure?", type: 0 },
       });
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          this.onChange(order);
+          this.server.updateOrdersStatus(order);
         } else {
           order.status = this.lastOrderChangedStatus;
         }
       });
     } else {
-      this.onChange(order);
+      this.server.updateOrdersStatus(order);
     }
+    this.allowUpdate = true;
   }
 
   updatePhoneField(element: Order, value: string) {
     //Add cursor move here
   }
 
-  onChange(order: Order) {
+  onPhoneChange(order: Order) {
     this.allowUpdate = true;
     order.phone = order.phone?.replace(/[^0-9]+/g, "");
     if (order.phone.search(phone_regex) == 0) {
-      this.server.updateOrders(order);
+      this.server.updateOrdersPhone(order);
       order.invalidPhone = false;
     } else {
       order.invalidPhone = true;
@@ -517,7 +518,8 @@ export class OrderListComponent implements OnInit {
   }
 
   clearLocation() {
-    this.locationListFC.setValue(this.locationList);
+
+    this.locationListFC.setValue([...this.locationList]);
     this.runFilter();
   }
 
