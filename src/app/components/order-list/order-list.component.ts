@@ -518,7 +518,8 @@ export class OrderListComponent implements OnInit {
   }
 
   clearLocation() {
-    this.locationListFC.setValue(this.locationList);
+
+    this.locationListFC.setValue([...this.locationList]);
     this.runFilter();
   }
 
